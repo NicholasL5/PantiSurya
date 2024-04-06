@@ -1,0 +1,42 @@
+.main{
+    margin-right: 1rem;
+}
+
+.table-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.5rem;
+    
+}
+
+.d-flex{
+    width: 50%;
+}
+
+.button-group{
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.main .content{
+    border-radius: 10px;
+    background-color: #ffffff; /* Set your white background color */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    /* overflow-x: scroll; */
+}
+
+
+@media (max-width:758px) {
+    html{
+        font-size: 62.5%;
+    }
+}
+
+@media (max-width:450px) {
+    html{
+        font-size: 55%;
+    }
+}
+
