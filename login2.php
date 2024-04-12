@@ -1,28 +1,19 @@
 <?php
     session_start();
-    require "connection.php";
+    require "utils.php";
 
     if(isset($_POST['login']) && trim($_POST['username']) != "" && trim($_POST['password']) != ""){
         
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-
-        $error_val = [];
-        $cek_username = "SELECT password, role FROM `akun` WHERE username = ? ";
-        $cek_username = $pdo->prepare($cek_username);
-        $cek_username->execute([ $username ]);
-        $fetch_data = $cek_username->fetch(PDO::FETCH_OBJ);
+        $db = new myDB();
+        $res = $db->getPasswordandRole($username);
         
-        
-        
-        if ($cek_username->rowCount() == 0)
-            $error_val['username'] = 'Username tidak tersedia.';
+        $fetch_data = $res->fetch(PDO::FETCH_OBJ);
+        $error_val = $db->checkPasswordError($password, $res, $fetch_data);
 
-        if ($password == '' || ($cek_username->rowCount() > 0 && !password_verify($password, $fetch_data->password)))
-            $error_val['password'] = 'Kata sandi yang diketik salah.';
-
-        if (count($error_val) == 0) {
+        if (count($error_val) == 0) {   
            
             $md5_sess = md5(time().$password);
             
@@ -31,10 +22,13 @@
             $_SESSION['role'] = $fetch_data->role;
 
             header('location: index.php');
+
+        }else{
+            $erruser = $error_val["username"];
+            $errpass = $error_val["password"];
+            echo "<script>alert($erruser);</script>";
         }
 
-        // $c = $error_val['username'];
-        // echo "<script>alert($c)</script>";
 
         
     }

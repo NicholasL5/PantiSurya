@@ -1,0 +1,72 @@
+<?php
+    // require "connection.php";
+    
+
+    class myDB{
+        private $host = "localhost";
+        private $username = "root";
+        private $password = "";
+        private $database = "pantisurya";
+        private $db;
+
+        function __construct(){
+            if ($this->db == null){
+                try {
+                    $this->db = new PDO("mysql:host=$this->host;dbname=$this->database", $this->username, $this->password);
+                    // set the PDO error mode to exception
+                    $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    // echo "Connected successfully";
+                } catch(PDOException $e) {
+                    echo "Connection failed: " . $e->getMessage();
+                }
+            }
+            
+        }
+
+
+        function getAllPenduduk(){
+            $query = "SELECT * FROM siswa";
+            $res = $this->db->prepare($query);
+            $res->execute();
+            return $res;
+        }
+
+        function getPasswordandRole($username){
+            $query = "SELECT password, role FROM `akun` WHERE username = ? ";
+            $res = $this->db->prepare($query);
+            $res->execute([ $username ]);
+            return $res;
+        }
+
+        function checkPasswordError($password, $res, $fetch_data){
+            $error_val = [];
+
+            if ($res->rowCount() == 0)
+                $error_val['username'] = 'Username tidak tersedia.';
+
+            if ($password == '' || ($res->rowCount() > 0 && !password_verify($password, $fetch_data->password)))
+                $error_val['password'] = 'Kata sandi yang diketik salah.';
+
+            return $error_val;
+        }
+
+        function search($expr){
+            if ($expr == ""){
+                return $this->getAllPenduduk();
+            }else{
+                $query = "SELECT * FROM siswa WHERE nama LIKE ?";
+                $res = $this->db->prepare($query);
+                $res->execute(["%".$expr."%"]);
+                return $res;
+            }
+        }
+
+        function delbyId($id){
+            $query = "DELETE FROM siswa WHERE id=?";
+            $res = $this->db->prepare($query);
+            $res->execute([$_POST['delid']]);
+        }
+
+    }
+
+?>

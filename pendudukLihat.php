@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="layout/indexstyle.css">
     <link rel="stylesheet" href="layout/stylelihat.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <title>Document</title>
+    <title>Panti Surya | Lihat Penduduk</title>
 </head>
 <body>
     <div class="app">

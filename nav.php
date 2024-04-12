@@ -1,7 +1,7 @@
 <div class="holder flex-col">
     <div class="content flex-col">
         <div class="logo">
-            <h2>Panti Surya</h2>
+            <h2 style="color: white;">Panti Surya</h2>
         </div>
 
         <nav class="nav">

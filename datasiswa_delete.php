@@ -1,10 +1,9 @@
 <?php
     session_start();
 
-    require "connection.php";
+    require "utils.php";
 
-    $query = "DELETE FROM siswa WHERE id=?";
-    $res = $pdo->prepare($query);
-    $res->execute([$_POST['delid']]);
+    $db = new myDB();
+    $db->delbyId([$_POST['delid']]);
     echo "success";
 ?>

@@ -1,0 +1,16 @@
+.main h2{
+    text-align: center;
+}
+
+section{
+    padding: 3rem;
+}
+
+input{
+    max-width: 60rem;
+}
+
+.main{
+    padding-bottom: 4rem;
+    overflow-y: scroll;
+}

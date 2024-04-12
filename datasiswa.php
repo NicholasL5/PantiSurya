@@ -6,15 +6,13 @@
     }
 
 
-    require 'connection.php';
+    // require 'utils.php';
 
-    $query = "SELECT * FROM siswa";
-    $res = $pdo->query($query);
+    // $query = "SELECT * FROM siswa";
+    // $res = $pdo->query($query);
 
-    // if($res->num_rows > 0){
-
-    // }
-
+    // $db = new myDB();
+    // $res = $db->getAllPenduduk();
 
 ?>
 
@@ -59,9 +57,9 @@
                 })
             }
 
-            $("#adduser").on("click", function(){
-                alert("add");
-            })
+            // $("#adduser").on("click", function(){
+            //     alert("add");
+            // })
 
             function delete_user(){
                 $(".del").on('click', function(){
@@ -108,7 +106,8 @@
                     </form>
 
                     <div class="button-group">
-                        <button type="button" class="btn btn-outline-primary" id="adduser">Add User</button>
+                        <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser">Add User</button>
+                        <a href="pendudukTambah.php" class="btn btn-outline-primary" type="button" id="tambahpenduduk">Tambah Penduduk</a>
                     </div>
                     
                 </div>
@@ -117,13 +116,14 @@
                     <table class="table wfull table-hover">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">No.</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Alamat</th>
                             
                             <th scope="col">Email Wali</th>
                             <th scope="col">No Telp Wali</th>
                             <th scope="col">Pengobatan Terakhir</th>
+                            <th scope="col" colspan="2">Action</th>
                             
                             </tr>
                         </thead>
@@ -132,6 +132,50 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="ModalAddUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Penduduk Panti</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="adduser-nama" class="col-form-label">Nama:</label>
+                        <input type="text" class="form-control" id="adduser-nama">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="adduser-nama" class="col-form-label">Nama:</label>
+                        <input type="text" class="form-control" id="adduser-nama">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="adduser-nama" class="col-form-label">Nama:</label>
+                        <input type="text" class="form-control" id="adduser-nama">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="adduser-nama" class="col-form-label">Nama:</label>
+                        <input type="text" class="form-control" id="adduser-nama">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="adduser-nama" class="col-form-label">Nama:</label>
+                        <input type="text" class="form-control" id="adduser-nama">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button> -->
+                    <button type="button" class="btn btn-primary" style="width: 7rem;">Simpan</button>
+                </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>

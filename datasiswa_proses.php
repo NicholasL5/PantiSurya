@@ -1,22 +1,10 @@
 <?php
     session_start();
 
-    require 'connection.php';
+    require 'utils.php';
 
-    $flag = false;
-    if($_POST['search'] == ""){
-        $query = "SELECT * FROM siswa";
-        $flag = true;
-    }else{
-        $query = "SELECT * FROM siswa WHERE nama LIKE ?";
-        // echo $query;
-    }
-    $res = $pdo->prepare($query);
-
-    if (!$flag)
-        $res->execute(["%".$_POST['search']."%"]);
-    else
-        $res->execute();
+    $db = new myDB();
+    $res = $db->search($_POST['search']);
 
     $counter = 0;
     if($res->rowCount() > 0){
@@ -34,7 +22,7 @@
             ';
             if($_SESSION['role'] == 0){
                 echo '
-                <td><button type="button" class="btn btn-outline-primary" id="edituser"><a href="lihatpenduduk.php?id='.$row["id"].'&username='.$row["nama"].'">Edit</a></button></td> 
+                <td><button type="button" class="btn btn-outline-primary" id="edituser"><a href="pendudukLihat.php?id='.$row["id"].'&username='.$row["nama"].'">Edit</a></button></td> 
                 <td><button type="button" class="btn btn-outline-danger del" data-rowid='.$row["id"].' style="margin:0px;z-index: index 10;">Delete</button></td>
                 ';
             }else{
