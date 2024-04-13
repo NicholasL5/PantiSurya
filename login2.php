@@ -8,7 +8,7 @@
         $password = $_POST['password'];
 
         $db = new myDB();
-        $res = $db->getPasswordandRole($username);
+        $res = $db->getAccount($username);
         
         $fetch_data = $res->fetch(PDO::FETCH_OBJ);
         $error_val = $db->checkPasswordError($password, $res, $fetch_data);
@@ -20,13 +20,16 @@
             setcookie('user_login', $md5_sess, time() + (86400 * 2), '/');
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $fetch_data->role;
+            $_SESSION['last_access'] = $fetch_data->last_access;
+
+            $db->updateLastAccess($username);
 
             header('location: index.php');
 
         }else{
-            $erruser = $error_val["username"];
+            // $erruser = $error_val["username"];
             $errpass = $error_val["password"];
-            echo "<script>alert($erruser);</script>";
+            echo "<script>alert($errpass);</script>";
         }
 
 

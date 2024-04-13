@@ -12,5 +12,5 @@ input{
 
 .main{
     padding-bottom: 4rem;
-    overflow-y: scroll;
+    overflow-y: auto;
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2024 at 07:14 AM
+-- Generation Time: Apr 13, 2024 at 05:43 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -41,15 +41,15 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id`, `username`, `password`, `date`, `last_access`, `role`) VALUES
-(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', NULL, 0);
+(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-04-12', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `siswa`
+-- Table structure for table `penduduk`
 --
 
-CREATE TABLE `siswa` (
+CREATE TABLE `penduduk` (
   `id` int(11) NOT NULL,
   `nama` varchar(250) NOT NULL,
   `alamat` varchar(100) NOT NULL,
@@ -59,10 +59,10 @@ CREATE TABLE `siswa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `siswa`
+-- Dumping data for table `penduduk`
 --
 
-INSERT INTO `siswa` (`id`, `nama`, `alamat`, `pengobatan_terakhir`, `email`, `notelp`) VALUES
+INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `pengobatan_terakhir`, `email`, `notelp`) VALUES
 (4, 'Emily Williams', '101 Pine Street', '2024-03-14', 'emily.williams@example.com', '7894561230'),
 (5, 'Christopher Brown', '234 Maple Street', '2024-02-25', 'christopher.brown@example.com', '9870123456'),
 (7, 'David Garcia', '890 Cedar Street', '2024-02-29', 'david.garcia@example.com', '3218904567'),
@@ -89,6 +89,23 @@ INSERT INTO `siswa` (`id`, `nama`, `alamat`, `pengobatan_terakhir`, `email`, `no
 (28, 'Brian Cook', '2121 Blackberry Street', '2024-03-18', 'brian.cook@example.com', '7890123456'),
 (29, 'Rebecca Murphy', '2222 Cranberry Street', '2024-03-11', 'rebecca.murphy@example.com', '6789012345');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rekam_medis`
+--
+
+CREATE TABLE `rekam_medis` (
+  `penduduk_id` int(11) NOT NULL,
+  `pengobatan_id` int(11) NOT NULL,
+  `deskripsi` varchar(300) NOT NULL,
+  `jenis` varchar(100) NOT NULL,
+  `obat` varchar(100) NOT NULL,
+  `dosis` int(11) NOT NULL,
+  `tanggal_berobat` date NOT NULL,
+  `sudah_bayar` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -100,10 +117,17 @@ ALTER TABLE `akun`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `siswa`
+-- Indexes for table `penduduk`
 --
-ALTER TABLE `siswa`
+ALTER TABLE `penduduk`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rekam_medis`
+--
+ALTER TABLE `rekam_medis`
+  ADD PRIMARY KEY (`pengobatan_id`),
+  ADD KEY `penduduk_id` (`penduduk_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -113,13 +137,29 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `siswa`
+-- AUTO_INCREMENT for table `penduduk`
 --
-ALTER TABLE `siswa`
+ALTER TABLE `penduduk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `rekam_medis`
+--
+ALTER TABLE `rekam_medis`
+  MODIFY `pengobatan_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `rekam_medis`
+--
+ALTER TABLE `rekam_medis`
+  ADD CONSTRAINT `rekam_medis_ibfk_1` FOREIGN KEY (`penduduk_id`) REFERENCES `penduduk` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

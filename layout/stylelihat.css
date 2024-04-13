@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .profile img{
@@ -10,15 +10,29 @@
     max-height: 150px;
 }
 
-.profile .description{
-    
-}
-
 .main .description .content{
     
     border-radius: 10px;
     background-color: #ffffff; /* Set your white background color */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-    
+    overflow-x: auto;
 
+}
+
+.description{
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.lr-9{
+    padding-left: 9rem;
+    padding-right: 9rem;
+}
+
+
+
+.profile-info{
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
 }

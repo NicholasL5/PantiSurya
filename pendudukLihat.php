@@ -31,12 +31,20 @@
             <?php include 'nav.php'?>
             
             <div class="main">
-                <div class="profile">
+                <div class="profile lr-9">
                     <img src="images/noimg-removebg-preview.png" alt="no-image">
-                    <h2><?php echo $username; ?></h2>
+                    <div class="profile-info">
+                        <h2><?php echo $username; ?></h2>
+
+                        <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser" style="width: 100%;">
+                            Tambah Pengobatan
+                        </button>
+                        
+                    </div>
+                    
                 </div>
 
-                <div class="description" style="padding: 150px;">
+                <div class="description lr-9">
                     <h5>Alamat</h5>
                     <p>Jl. abc</p>
 

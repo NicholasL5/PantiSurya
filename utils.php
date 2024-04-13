@@ -25,14 +25,14 @@
 
 
         function getAllPenduduk(){
-            $query = "SELECT * FROM siswa";
+            $query = "SELECT * FROM penduduk";
             $res = $this->db->prepare($query);
             $res->execute();
             return $res;
         }
 
-        function getPasswordandRole($username){
-            $query = "SELECT password, role FROM `akun` WHERE username = ? ";
+        function getAccount($username){
+            $query = "SELECT * FROM `akun` WHERE username = ? ";
             $res = $this->db->prepare($query);
             $res->execute([ $username ]);
             return $res;
@@ -54,7 +54,7 @@
             if ($expr == ""){
                 return $this->getAllPenduduk();
             }else{
-                $query = "SELECT * FROM siswa WHERE nama LIKE ?";
+                $query = "SELECT * FROM penduduk WHERE nama LIKE ?";
                 $res = $this->db->prepare($query);
                 $res->execute(["%".$expr."%"]);
                 return $res;
@@ -62,9 +62,22 @@
         }
 
         function delbyId($id){
-            $query = "DELETE FROM siswa WHERE id=?";
+            $query = "DELETE FROM penduduk WHERE id=?";
             $res = $this->db->prepare($query);
             $res->execute([$_POST['delid']]);
+        }
+
+        function getLastLogin($username){
+            $query = "SELECT date FROM `akun` WHERE username = ? ";
+            $res = $this->db->prepare($query);
+            $res->execute([ $username ]);
+            return $res;
+        } 
+        
+        function updateLastAccess($username){
+            $query = "UPDATE `akun` SET last_access=? WHERE username=?";
+            $res = $this->db->prepare($query);
+            $res->execute([ date("Y-m-d"), $username ]);
         }
 
     }

@@ -25,7 +25,7 @@
             
             <div class="main">
                 <h2>Hello, <?php echo $_SESSION["username"]?>👋</h2>
-
+                <p style="font-style: italic;">Last Login: <?php echo $_SESSION["last_access"]?></p>
                 
             </div>
         </div>
