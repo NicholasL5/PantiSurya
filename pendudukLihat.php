@@ -1,5 +1,8 @@
 <?php
     session_start();
+
+    require "utils.php";
+
     if(!isset($_COOKIE['user_login']) && !isset($_POST['username'])){
         header("location:login2.php");
     }
@@ -9,6 +12,11 @@
         // echo "masuk";
         $id = $_GET["id"];
         $username = $_GET["username"];
+
+        $db = new myDB();
+        $res = $db->getPenduduk($id);
+        $fetch_data = $res->fetch(PDO::FETCH_OBJ);
+
     }
 
 ?>
@@ -26,6 +34,8 @@
     <title>Panti Surya | Lihat Penduduk</title>
 </head>
 <body>
+    <script src="js/penduduk_lihat.js"></script>
+
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php'?>
@@ -36,7 +46,7 @@
                     <div class="profile-info">
                         <h2><?php echo $username; ?></h2>
 
-                        <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser" style="width: 100%;">
+                        <button type="button" class="btn btn-outline-primary" id="addPengobatan" data-bs-toggle="modal" data-bs-target="#ModalTambahPengobatan" style="width: 100%;">
                             Tambah Pengobatan
                         </button>
                         
@@ -46,13 +56,13 @@
 
                 <div class="description lr-9">
                     <h5>Alamat</h5>
-                    <p>Jl. abc</p>
+                    <p><?php echo $fetch_data->alamat; ?></p>
 
                     <h5>Email wali</h5>
-                    <p>asdfajsdlfk@gmail.com</p>
+                    <p><?php echo $fetch_data->email; ?></p>
 
                     <h5>No telp wali</h5>
-                    <p>09991239990</p>
+                    <p><?php echo $fetch_data->notelp; ?></p>
                     
 
                     <h5>Pengobatan</h5>
@@ -79,7 +89,7 @@
                             <td>1</td>
                             <td>17 juli </td>
                             <td>
-                                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" checked>
+                                <input type="checkbox" class="btn-check check-bayar" id="btncheck1" autocomplete="off">
                                 <label class="btn btn-outline-primary" for="btncheck1">Sudah</label>
                             </td>
                             </tr>
@@ -91,7 +101,7 @@
                             <td>5</td>
                             <td>1 agustus </td>
                             <td>
-                                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" checked>
+                                <input type="checkbox" class="btn-check check-bayar" id="btncheck2" autocomplete="off">
                                 <label class="btn btn-outline-primary" for="btncheck2">Sudah</label>
                             </td>
                             </tr>
@@ -103,7 +113,7 @@
                             <td>1</td>
                             <td>17 oktober </td>
                             <td>
-                                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                                <input type="checkbox" class="btn-check check-bayar" id="btncheck3" autocomplete="off">
                                 <label class="btn btn-outline-primary" for="btncheck3">Sudah</label>
                             </td>
                             </tr>
@@ -113,6 +123,57 @@
                 </div>
                 
                 
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="modal fade" id="ModalTambahPengobatan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalTambahPengobatan">Tambah Pengobatan</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="penduduk_proses.php">
+                    <div class="mb-3">
+                        <label for="desc" class="col-form-label">Deskripsi:</label>
+                        <input type="text" class="form-control" id="desc">
+                    </div>
+                    <div class="mb-3">
+                        <label for="jenis_obat" class="col-form-label">Jenis:</label>
+                        <input type="text" class="form-control" id="jenis_obat">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nama_obat" class="col-form-label">Nama Obat:</label>
+                        <input type="text" class="form-control" id="nama_obat">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dosis" class="col-form-label">Dosis:</label>
+                        <input type="text" class="form-control" id="dosis">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tanggal_obat" class="col-form-label">Tanggal:</label>
+                        <input type="date" class="form-control" id="tanggal_obat">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="checkbox" id="sudahBayarModal" autocomplete="off">
+                        <label for="sudahBayarModal">Sudah Bayar</label>
+                    </div>
+                    
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="modal_simpan">Simpan Pengobatan</button>
+            </div>
             </div>
         </div>
     </div>

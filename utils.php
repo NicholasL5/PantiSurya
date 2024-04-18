@@ -56,6 +56,13 @@
             return $res;
         }
 
+        function getPenduduk($id){
+            $query = "SELECT * FROM `penduduk` WHERE id = ? ";
+            $res = $this->db->prepare($query);
+            $res->execute([ $id ]);
+            return $res;
+        }
+
         function checkPasswordError($password, $res, $fetch_data){
             $error_val = [];
 

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require "connection.php";
+    require "utils.php";
     
     if(isset($_POST['register']) ){
         echo "<script>window.alert('same');</script>";
