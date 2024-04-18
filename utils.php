@@ -23,11 +23,29 @@
             
         }
 
+        public function prepare($query) {
+            return $this->db->prepare($query);
+        }
 
         function getAllPenduduk(){
             $query = "SELECT * FROM penduduk";
             $res = $this->db->prepare($query);
             $res->execute();
+            return $res;
+        }
+
+        function getAllBerita(){
+            $query = "SELECT * FROM news";
+            $res = $this->db->prepare($query);
+            $res->execute();
+            return $res;
+        }
+
+        
+        function getBeritaById($id){
+            $query = "SELECT * FROM news WHERE id = ?";
+            $res = $this->db->prepare($query);
+            $res->execute([ $id ]);
             return $res;
         }
 
@@ -61,8 +79,25 @@
             }
         }
 
+        function searchBerita($expr){
+            if($expr == ""){
+                return $this->getAllBerita();
+            } else{
+                $query = "SELECT * FROM news WHERE title LIKE ?";
+                $res = $this->db->prepare($query);
+                $res->execute(["%".$expr."%"]);
+                return $res;
+            }
+        }
+
         function delbyId($id){
             $query = "DELETE FROM penduduk WHERE id=?";
+            $res = $this->db->prepare($query);
+            $res->execute([$_POST['delid']]);
+        }
+
+        function delbyIdBerita($id){
+            $query = "DELETE FROM news WHERE id=?";
             $res = $this->db->prepare($query);
             $res->execute([$_POST['delid']]);
         }
@@ -78,6 +113,18 @@
             $query = "UPDATE `akun` SET last_access=? WHERE username=?";
             $res = $this->db->prepare($query);
             $res->execute([ date("Y-m-d"), $username ]);
+        }
+
+        function insertNews($title, $description, $date) {
+            $query = "INSERT INTO news (title, description, date) VALUES (?, ?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$title, $description, $date]);
+        }
+
+        function editNews($title, $description, $date, $id) {
+            $query = "UPDATE news SET title = ?, description = ?, date = ? WHERE id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$title, $description, $date, $id]);
         }
 
     }
