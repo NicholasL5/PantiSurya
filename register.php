@@ -1,17 +1,19 @@
 <?php
     session_start();
     require "utils.php";
+
+    $db = new myDB();
     
     if(isset($_POST['register']) ){
         echo "<script>window.alert('same');</script>";
         $username = $_POST['username'];
         $password = $_POST['password'];
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $db->addUser($username, $hashed_password, 0);
+        // $sql = "INSERT INTO akun (username, password, role) VALUES (?, ?, ?)";
 
-        $sql = "INSERT INTO akun (username, password, role) VALUES (?, ?, ?)";
-
-        $sql = $pdo->prepare($sql);
-        $sql->execute([ $username, $hashed_password, 0 ]);
+        // $sql = $pdo->prepare($sql);
+        // $sql->execute([ $username, $hashed_password, 0 ]);
 
     }
 

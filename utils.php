@@ -122,6 +122,12 @@
             $res->execute([ date("Y-m-d"), $username ]);
         }
 
+        function addUser($username, $password, $role){
+            $query = "INSERT INTO akun (username, password, role) VALUES (?, ?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$username, $password, $role]);
+        }
+
         function insertNews($title, $description, $date) {
             $query = "INSERT INTO news (title, description, date) VALUES (?, ?, ?)";
             $stmt = $this->db->prepare($query);
