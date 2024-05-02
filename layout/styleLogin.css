@@ -2,18 +2,29 @@
     --blue: #3282F6;
     --darkblue: #16417C;
     --gray:#808080;
+    --green: #3ECF8E;
+    --gradient: linear-gradient(135deg,var(--blue), var(--green), var(--blue));
 }
 
 *{
     box-sizing: border-box;
-    /* padding: 0;
-    margin: 0; */
     border: 0;
     outline: 0;
 }
 
+@keyframes bg-animation {
+    0% {
+        background-position: left; /* Initial position */
+    }
+    100% {
+        background-position: right; /* Final position */
+    }
+}
+
 body{
-    background: linear-gradient(to right, #e2e2e2, var(--blue));
+    background-image: var(--gradient);
+    background-size: 400%;
+    animation: bg-animation 20s infinite alternate;
 }
 
 .fullh{
