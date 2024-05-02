@@ -5,6 +5,17 @@
     flex-direction: row;
 }
 
+
+.main{
+    position: relative;
+}
+
+.main .back{
+    position: absolute;
+    top: 20;
+    left: 0;
+}
+
 .profile img{
     max-width: 150px;
     max-height: 150px;

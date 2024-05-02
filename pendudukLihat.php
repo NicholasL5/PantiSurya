@@ -41,6 +41,7 @@
             <?php include 'nav.php'?>
             
             <div class="main">
+                <img src="svg/arrow-left.svg" class="back" alt="" onclick="history.back()">
                 <div class="profile lr-9">
                     <img src="images/noimg-removebg-preview.png" alt="no-image">
                     <div class="profile-info">
@@ -80,7 +81,7 @@
                             <th scope="col">Sudah bayar</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="rekammedis">
                             <tr>
                             <th scope="row">1</th>
                             <td>obat1 </td>
