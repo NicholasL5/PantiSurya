@@ -9,7 +9,7 @@ $(document).ready(function(){
 
     function showdata(search_value = ""){
         $.ajax({
-            url:"datasiswa_proses.php",
+            url:"pendudukdata_proses.php",
             type:"POST",
             data:{
                 search: search_value
@@ -33,7 +33,7 @@ $(document).ready(function(){
             if(!conf) return;
 
             $.ajax({
-                url:"datasiswa_delete.php",
+                url:"pendudukdata_delete.php",
                 type:"POST",
                 data:{
                     delid: delbutton.data("rowid")
