@@ -140,6 +140,18 @@
             $stmt->execute([$title, $description, $date, $id]);
         }
 
+        function insertPenduduk($nama, $alamat, $pengobatan, $email, $noTelpon) {
+            $query = "INSERT INTO penduduk (nama, alamat, pengobatan_terakhir, email, notelp) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$nama, $alamat, $pengobatan, $email, $noTelpon]);
+        }
+
+        function editPenduduk($alamat, $email, $noTelpon, $id) {
+            $query = "UPDATE penduduk SET alamat = ?, email = ?, notelp = ? WHERE id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$alamat, $email, $noTelpon, $id]);
+        }
+
     }
 
 ?>

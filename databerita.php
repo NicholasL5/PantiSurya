@@ -14,6 +14,21 @@
     // $db = new myDB();
     // $res = $db->getAllPenduduk();
 
+    include "utils.php";
+    $db = new myDB();
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if (isset($_POST['simpan'])){
+            echo "tes";
+            $title = $_POST['judul-berita'];
+            $description = $_POST['desc-berita'];
+            $date = $_POST['tanggal-berita'];
+            $db->insertNews($title, $description, $date);
+            echo "<script>alert('Data behasil disimpan')</script>";
+            header("Location: databerita.php");
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +65,7 @@
                     </form>
 
                     <div class="button-group">
-                        <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser">Add User</button>
+                        <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser">Add Berita</button>
                         <a href="beritaTambah.php" class="btn btn-outline-primary" type="button" id="tambahberita">Tambah Berita</a>
                     </div>
                     
@@ -81,40 +96,41 @@
             <div class="modal fade" id="ModalAddUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
+                <form action="" method="post">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Penduduk Panti</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Berita</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="adduser-nama" class="col-form-label">Nama:</label>
+                        <label for="adduser-nama" class="col-form-label">Judul:</label>
+                        <input type="text" class="form-control" id="judul-berita" name="judul-berita">
+                    </div>
+
+                    <!-- <div class="mb-3">
+                        <label for="adduser-nama" class="col-form-label">Deskripsi:</label>
                         <input type="text" class="form-control" id="adduser-nama">
                     </div>
 
                     <div class="mb-3">
-                        <label for="adduser-nama" class="col-form-label">Nama:</label>
+                        <label for="adduser-nama" class="col-form-label">Tanggal:</label>
                         <input type="text" class="form-control" id="adduser-nama">
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Deskripsi:</label>
+                        <textarea class="form-control" id="desc-berita" rows="3" name="desc-berita"></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="adduser-nama" class="col-form-label">Nama:</label>
-                        <input type="text" class="form-control" id="adduser-nama">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="adduser-nama" class="col-form-label">Nama:</label>
-                        <input type="text" class="form-control" id="adduser-nama">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="adduser-nama" class="col-form-label">Nama:</label>
-                        <input type="text" class="form-control" id="adduser-nama">
+                        <label for="recipient-name" class="col-form-label">Tanggal:</label>
+                        <input type="date" class="form-control" id="tanggal-berita" name="tanggal-berita">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button> -->
-                    <button type="button" class="btn btn-primary" style="width: 7rem;">Simpan</button>
+                    <button class="btn btn-primary" style="width: 7rem;" type="submit" name="simpan">Simpan</button>
                 </div>
+                </form>
                 </div>
             </div>
             </div>

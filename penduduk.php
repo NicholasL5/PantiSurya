@@ -13,7 +13,21 @@
 
     // $db = new myDB();
     // $res = $db->getAllPenduduk();
+    include "utils.php";
+    $db = new myDB();
 
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if (isset($_POST['simpan'])){
+            $nama = $_POST['nama_penduduk'];
+            $alamat = $_POST['alamat_penduduk'];
+            $email = $_POST['email_wali'];
+            $noTelpon = $_POST['noTelpon'];
+            $pengobatan= $_POST['tanggal_pengobatan'];
+            $db->insertPenduduk($nama, $alamat, $pengobatan, $email, $noTelpon);
+            echo "<script>alert('Data behasil disimpan')</script>";
+            header("Location: penduduk.php");
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -84,6 +98,7 @@
             <div class="modal fade" id="ModalAddUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
+                <form action="" method="post">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Penduduk Panti</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -91,33 +106,39 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="adduser-nama" class="col-form-label">Nama:</label>
-                        <input type="text" class="form-control" id="adduser-nama">
+                        <input type="text" class="form-control" id="nama_penduduk" name="nama_penduduk">
                     </div>
 
                     <div class="mb-3">
-                        <label for="adduser-nama" class="col-form-label">Nama:</label>
-                        <input type="text" class="form-control" id="adduser-nama">
+                        <label for="adduser-nama" class="col-form-label">Alamat:</label>
+                        <input type="text" class="form-control" id="alamat_penduduk" name="alamat_penduduk">
                     </div>
 
                     <div class="mb-3">
-                        <label for="adduser-nama" class="col-form-label">Nama:</label>
-                        <input type="text" class="form-control" id="adduser-nama">
+                        <label for="adduser-nama" class="col-form-label">Email Wali:</label>
+                        <input type="text" class="form-control" id="email_wali" name="email_wali">
                     </div>
 
                     <div class="mb-3">
-                        <label for="adduser-nama" class="col-form-label">Nama:</label>
-                        <input type="text" class="form-control" id="adduser-nama">
+                        <label for="adduser-nama" class="col-form-label">No Telp Wali:</label>
+                        <input type="text" class="form-control" id="noTelpon" name="noTelpon">
                     </div>
 
-                    <div class="mb-3">
-                        <label for="adduser-nama" class="col-form-label">Nama:</label>
+                    <!-- <div class="mb-3">
+                        <label for="adduser-nama" class="col-form-label">Pengobatan Terakhir:</label>
                         <input type="text" class="form-control" id="adduser-nama">
+                    </div> -->
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Pengobatan Terakhir:</label>
+                        <input type="date" class="form-control" id="tanggal_pengobatan" name="tanggal_pengobatan">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button> -->
-                    <button type="button" class="btn btn-primary" style="width: 7rem;">Simpan</button>
+                    <button type="submit" name="simpan" class="btn btn-primary" style="width: 7rem;">Simpan</button>
                 </div>
+                </form> 
                 </div>
             </div>
             </div>

@@ -19,6 +19,16 @@
 
     }
 
+    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if (isset($_POST['edit'])){
+            $alamat = $_POST['alamat'];
+            $email = $_POST['email'];
+            $noTelpon = $_POST['noTelpon'];
+            $db->editPenduduk($alamat, $email, $noTelpon, $id);
+            header("Location: penduduk.php");
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +75,27 @@
                     <h5>No telp wali</h5>
                     <p><?php echo $fetch_data->notelp; ?></p>
                     
+                    <form action="" method="post">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Alamat:</label>
+                        <input type="text" class="form-control" id="alamat" name="alamat" value="<?php echo $fetch_data->alamat; ?>">
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Email Wali:</label>
+                        <input type="text" class="form-control" id="email" name="email" value="<?php echo $fetch_data->email; ?>">
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">No telp wali:</label>
+                        <input type="text" class="form-control" id="noTelpon" name="noTelpon" value="<?php echo $fetch_data->notelp; ?>">
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="penduduk.php" class="btn btn-outline-primary" type="button" id="back">Back</a> 
+                        <button class="btn btn-primary me-md-2" type="submit" name="edit">Edit</button>             
+                    </div>
+                    </form>
 
                     <h5>Pengobatan</h5>
                     <div class="content">
