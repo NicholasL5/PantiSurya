@@ -9,17 +9,12 @@ require "utils.php";
 
 $db = new myDB();
 
-// Fetch total number of residents
 $stmt_residents = $db->prepare("SELECT COUNT(*) AS total_residents FROM penduduk");
 $stmt_residents->execute();
 $total_residents = $stmt_residents->fetch(PDO::FETCH_ASSOC)['total_residents'];
-
-// Fetch total number of unpaid medicines
 $stmt_unpaid = $db->prepare("SELECT COUNT(*) AS total_unpaid FROM rekam_medis WHERE sudah_bayar = 0");
 $stmt_unpaid->execute();
 $total_unpaid = $stmt_unpaid->fetch(PDO::FETCH_ASSOC)['total_unpaid'];
-
-// Fetch all residents
 $stmt_all_residents = $db->prepare("SELECT * FROM penduduk");
 $stmt_all_residents->execute();
 $residents = $stmt_all_residents->fetchAll(PDO::FETCH_ASSOC);
@@ -47,12 +42,12 @@ if(isset($_POST['search'])) {
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <title>Overview</title>
     <style>
-        /* Add your custom styles here */
+      
         .search-bar {
             margin-bottom: 20px;
         }
         .search-input {
-            width: 70%; /* Adjust the width as needed */
+            width: 70%; 
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
@@ -92,7 +87,6 @@ if(isset($_POST['search'])) {
                 <p>Hello, <?php echo isset($_SESSION["username"]) ? $_SESSION["username"] : 'N/A'; ?>👋</p>
                 <p style="font-style: italic;">Last Login: <?php echo isset($_SESSION["last_access"]) ? $_SESSION["last_access"] : 'N/A'; ?></p>
                 
-                <!-- Display total number of residents and unpaid medicines -->
                 <div class="overview-info">
                     <p>Total Residents: <?php echo isset($total_residents) ? $total_residents : 'N/A'; ?></p>
                     <p>Total Unpaid Medications: <?php echo isset($total_unpaid) ? $total_unpaid : 'N/A'; ?></p>
@@ -105,7 +99,6 @@ if(isset($_POST['search'])) {
                     </form>
                 </div>
 
-                <!-- Display all residents in a table -->
                 <div class="residents-table">
                     <h3>All Residents</h3>
                     <table class="resident-table">

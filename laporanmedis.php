@@ -8,21 +8,19 @@ require "utils.php";
 
 $db = new myDB();
 
-// Check if the penduduk ID is provided in the URL
 if(isset($_GET['id'])) {
     $penduduk_id = $_GET['id'];
 
-    // Fetch all medical records for the given penduduk ID
+    
     $stmt_records = $db->prepare("SELECT * FROM rekam_medis WHERE penduduk_id = :penduduk_id");
     $stmt_records->execute(['penduduk_id' => $penduduk_id]);
     $records = $stmt_records->fetchAll(PDO::FETCH_ASSOC);
 
-    // Fetch the penduduk details for displaying
     $stmt_penduduk = $db->prepare("SELECT * FROM penduduk WHERE id = :penduduk_id");
     $stmt_penduduk->execute(['penduduk_id' => $penduduk_id]);
     $penduduk = $stmt_penduduk->fetch(PDO::FETCH_ASSOC);
 } else {
-    // Redirect to index.php if penduduk ID is not provided
+    
     header("location:index.php");
     exit;
 }
@@ -75,8 +73,6 @@ if(isset($_GET['id'])) {
                         </tbody>
                     </table>
                 </div>
-                
-                <!-- Back button to go back to index.php -->
                 <a href="index.php" class="btn btn-primary">Back to Overview</a>
             </div>
         </div>
