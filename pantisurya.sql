@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2024 at 05:43 AM
+-- Generation Time: May 08, 2024 at 05:56 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -41,7 +41,32 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id`, `username`, `password`, `date`, `last_access`, `role`) VALUES
-(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-04-12', 0);
+(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-05-08', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE `news` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `description` varchar(2000) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `news`
+--
+
+INSERT INTO `news` (`id`, `title`, `description`, `date`) VALUES
+(1, 'Ibadah Paskah 2023', 'Kegiatan Ibadah Paskah yang dilaksanakan tanggal 31 Maret 2024 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Paskah.', '2023-10-10'),
+(2, 'Ibadah Natal 2023', 'Kegiatan Ibadah Natal yang dilaksanakan tanggal 25 Desember 2023 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Natal.', '2023-12-25'),
+(4, 'abc', 'abc', '2024-04-17'),
+(7, 'aaabbb', 'aaabbb', '2024-04-18'),
+(9, 'nnn', 'nnn', '2024-05-02'),
+(10, 'lll', 'lll', '2024-05-02');
 
 -- --------------------------------------------------------
 
@@ -66,7 +91,6 @@ INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `pengobatan_terakhir`, `email`, 
 (4, 'Emily Williams', '101 Pine Street', '2024-03-14', 'emily.williams@example.com', '7894561230'),
 (5, 'Christopher Brown', '234 Maple Street', '2024-02-25', 'christopher.brown@example.com', '9870123456'),
 (7, 'David Garcia', '890 Cedar Street', '2024-02-29', 'david.garcia@example.com', '3218904567'),
-(8, 'Amanda Martinez', '111 Cherry Street', '2024-03-24', 'amanda.martinez@example.com', '8906541237'),
 (9, 'James Rodriguez', '222 Walnut Street', '2024-03-06', 'james.rodriguez@example.com', '4567890123'),
 (10, 'Sarah Lee', '333 Pineapple Street', '2024-03-22', 'sarah.lee@example.com', '6543210987'),
 (11, 'Daniel Lopez', '444 Grape Street', '2024-03-08', 'daniel.lopez@example.com', '3210987654'),
@@ -105,6 +129,14 @@ CREATE TABLE `rekam_medis` (
   `tanggal_berobat` date NOT NULL,
   `sudah_bayar` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rekam_medis`
+--
+
+INSERT INTO `rekam_medis` (`penduduk_id`, `pengobatan_id`, `deskripsi`, `jenis`, `obat`, `dosis`, `tanggal_berobat`, `sudah_bayar`) VALUES
+(4, 1, 'obat1', 'pengobatan', 'panadol', 1, '2024-04-17', 0),
+(4, 2, 'obat2', 'pengobatan', 'neozep', 2, '2023-09-16', 0);
 
 --
 -- Indexes for dumped tables
@@ -149,7 +181,7 @@ ALTER TABLE `penduduk`
 -- AUTO_INCREMENT for table `rekam_medis`
 --
 ALTER TABLE `rekam_medis`
-  MODIFY `pengobatan_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pengobatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
