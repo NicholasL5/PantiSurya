@@ -140,10 +140,10 @@
             $stmt->execute([$title, $description, $date, $id]);
         }
 
-        function insertPenduduk($nama, $alamat, $pengobatan, $email, $noTelpon) {
-            $query = "INSERT INTO penduduk (nama, alamat, pengobatan_terakhir, email, notelp) VALUES (?, ?, ?, ?, ?)";
+        function insertPenduduk($nama, $alamat, $pengobatan, $email, $noTelpon, $profilePictureDirectory) {
+            $query = "INSERT INTO penduduk (nama, alamat, pengobatan_terakhir, email, notelp, profile_picture) VALUES (?, ?, ?, ?, ?, ?)";
             $stmt = $this->db->prepare($query);
-            $stmt->execute([$nama, $alamat, $pengobatan, $email, $noTelpon]);
+            $stmt->execute([$nama, $alamat, $pengobatan, $email, $noTelpon, $profilePictureDirectory]);
         }
 
         function editPenduduk($alamat, $email, $noTelpon, $id) {
@@ -152,6 +152,31 @@
             $stmt->execute([$alamat, $email, $noTelpon, $id]);
         }
 
+        function insertGambar($profilePictureDirectory){
+            $query = "INSERT INTO images (path_picture, input_date) VALUES (?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$profilePictureDirectory, date("Y-m-d")]);
+        }
+
+        function getGambar(){
+            $query = "SELECT path_picture FROM images";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        // function insertGambarPenduduk($profilePictureDirectory){
+        //     $query = "INSERT INTO penduduk (profile_picture) VALUES (?)";
+        //     $stmt = $this->db->prepare($query);
+        //     $stmt->execute([$profilePictureDirectory]);
+        // }
+
+        function getGambarById($id){
+            $query = "SELECT profile_picture FROM penduduk WHERE id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
     }
 
 ?>

@@ -17,6 +17,8 @@
         $res = $db->getPenduduk($id);
         $fetch_data = $res->fetch(PDO::FETCH_OBJ);
 
+        $image = $db->getGambarById($id);
+        // var_dump($image);
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -42,6 +44,15 @@
     <link rel="stylesheet" href="layout/stylelihat.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <title>Panti Surya | Lihat Penduduk</title>
+    <style>
+        .profile-picture {
+            border-radius: 50%;
+            width: 200px; /* Adjust the size as needed */
+            height: 200px; /* Adjust the size as needed */
+            object-fit: cover; /* Maintain aspect ratio */
+            object-position: center; /* Center the image */
+        }
+    </style>
 </head>
 <body>
     <script src="js/penduduk_lihat.js"></script>
@@ -53,7 +64,7 @@
             <div class="main">
                 <img src="svg/arrow-left.svg" class="back" alt="" onclick="history.back()">
                 <div class="profile lr-9">
-                    <img src="images/noimg-removebg-preview.png" alt="no-image">
+                    <img src="<?= htmlspecialchars($image['profile_picture']); ?>" alt="no-image" class="profile-picture">
                     <div class="profile-info">
                         <h2><?php echo $username; ?></h2>
 

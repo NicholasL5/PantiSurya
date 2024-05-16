@@ -5,15 +5,10 @@
         header("location:login2.php");
     }
 
-
-    // require 'utils.php';
-
-    // $query = "SELECT * FROM siswa";
-    // $res = $pdo->query($query);
-
-    // $db = new myDB();
-    // $res = $db->getAllPenduduk();
     include "utils.php";
+    include "utils/resize_image.php";
+    define('UPLOAD_DIR','asset/pp/');
+
     $db = new myDB();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -23,9 +18,28 @@
             $email = $_POST['email_wali'];
             $noTelpon = $_POST['noTelpon'];
             $pengobatan= $_POST['tanggal_pengobatan'];
-            $db->insertPenduduk($nama, $alamat, $pengobatan, $email, $noTelpon);
+            // header("Location: penduduk.php");
+            $image = file_get_contents($_FILES["imageChooser"]["tmp_name"]);
+
+            // Make file with name uniqid().jpg
+            $file_name = uniqid().'.jpg';
+            // $foto = 'poster/'.$file_name;
+            $file = UPLOAD_DIR.$file_name;
+            $success = file_put_contents($file, $image);
+            // echo var_dump($success);
+
+            //Resize and Compress Image
+            $img = resize_image($file, 160, 160, TRUE);
+            imagejpeg($img, $file, 90);
+            // echo "test";
+
+            $profilePictureDirectory = $file;
+            
+            // $db->insertGambarPenduduk($profilePictureDirectory);
+            $db->insertPenduduk($nama, $alamat, $pengobatan, $email, $noTelpon, $profilePictureDirectory);
             echo "<script>alert('Data behasil disimpan')</script>";
-            header("Location: penduduk.php");
+            // Move to login page
+            header("location: penduduk.php");
         }
     }
 ?>
@@ -44,6 +58,15 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <title>Panti Surya | Daftar Penduduk</title>
+    <style>
+        #display-image {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
 </head>
 <body>
     <script src="js/datapenduduk.js"></script>
@@ -98,12 +121,22 @@
             <div class="modal fade" id="ModalAddUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Penduduk Panti</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                <label for="imageInput" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                <path
+                    d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                </svg> Profile Picture</label>
+                <input class="form-control mb-3" type="file" id="image-input" accept="image/jpeg, image/jpg, image/png"
+                    name="imageChooser">
+                <div id="display-image"></div>
+
                     <div class="mb-3">
                         <label for="adduser-nama" class="col-form-label">Nama:</label>
                         <input type="text" class="form-control" id="nama_penduduk" name="nama_penduduk">
@@ -149,7 +182,20 @@
 
 
     <script>
+        
+          // untuk image upload yang sekarang
+  const image_input = document.querySelector("#image-input");
+  image_input.addEventListener("change", function() {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      const uploaded_image = reader.result;
+      document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
+    });
+    reader.readAsDataURL(this.files[0]);
+  });
+   
         feather.replace();
     </script>
+    
 </body>
 </html>
