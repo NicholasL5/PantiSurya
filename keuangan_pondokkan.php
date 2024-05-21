@@ -72,7 +72,7 @@ if(isset($_POST['search'])) {
                             <tr>
                                 <td><?php echo $resident['nama']; ?></td>
                                 <td><?php echo $resident['keuangan_pondokkan']; ?></td>
-                                <td><button onclick="window.location.href='laporankeuangan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
+                                <td><button onclick="window.location.href='laporanPondokkan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
                                 <td><a href="edit_balance_pondokkan.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td>
                             </tr>
                             <?php endforeach; ?>

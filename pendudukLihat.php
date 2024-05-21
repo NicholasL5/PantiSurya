@@ -47,10 +47,16 @@
     <style>
         .profile-picture {
             border-radius: 50%;
-            width: 200px; /* Adjust the size as needed */
-            height: 200px; /* Adjust the size as needed */
-            object-fit: cover; /* Maintain aspect ratio */
-            object-position: center; /* Center the image */
+            width: 200px; 
+            height: 200px; 
+            object-fit: cover; 
+            object-position: center; 
+        }
+        .fallback-picture {
+            display: none;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px; 
         }
     </style>
 </head>
@@ -64,7 +70,8 @@
             <div class="main">
                 <img src="svg/arrow-left.svg" class="back" alt="" onclick="history.back()">
                 <div class="profile lr-9">
-                    <img src="<?= htmlspecialchars($image['profile_picture']); ?>" alt="no-image" class="profile-picture">
+                <img src="<?= htmlspecialchars($image['profile_picture']); ?>" alt="Profile Picture" class="profile-picture" onerror="showFallback(this)">
+                <img src="svg/abstract-user-flat-3.svg" alt="Fallback SVG" class="fallback-picture">
                     <div class="profile-info">
                         <h2><?php echo $username; ?></h2>
 
@@ -224,6 +231,10 @@
 
 
     <script>
+        function showFallback(img) {
+        img.style.display = 'none';
+        img.nextElementSibling.style.display = 'block';
+    }
         feather.replace()
     </script>
 </body>

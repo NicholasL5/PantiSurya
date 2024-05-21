@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2024 at 05:34 AM
+-- Generation Time: May 21, 2024 at 01:10 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -41,8 +41,30 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id`, `username`, `password`, `date`, `last_access`, `role`) VALUES
-(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-05-16', 0),
+(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-05-21', 0),
 (6, 'nice', '$2y$10$pcubK.aIK/YrnJKRjQlQDuJKMulGy26nbWUwOmjqKY7ATvXHzO4l6', '2024-05-08', '2024-05-14', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_pondokkan`
+--
+
+CREATE TABLE `data_pondokkan` (
+  `id` int(11) NOT NULL,
+  `penduduk_id` int(11) NOT NULL,
+  `image_path` varchar(100) NOT NULL,
+  `input_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `data_pondokkan`
+--
+
+INSERT INTO `data_pondokkan` (`id`, `penduduk_id`, `image_path`, `input_date`) VALUES
+(3, 4, 'keuangan/pondokkan/664b3efea1544.jpg', '2024-05-20'),
+(4, 4, 'keuangan/pondokkan/664b423c51c6f.jpg', '2024-05-20'),
+(5, 4, 'keuangan/pondokkan/664c7b7564a4d.jpg', '2024-05-21');
 
 -- --------------------------------------------------------
 
@@ -64,7 +86,8 @@ INSERT INTO `images` (`id`, `path_picture`, `input_date`) VALUES
 (1, '../asset/pp/6645f34ad6bd1.jpg', '2024-05-16'),
 (2, '../asset/pp/6645f4f95d949.jpg', '2024-05-16'),
 (3, '../asset/pp/6645f66113c5f.jpg', '2024-05-16'),
-(4, '../asset/pp/664609474f254.jpg', '2024-05-16');
+(4, '../asset/pp/664609474f254.jpg', '2024-05-16'),
+(5, '../asset/pp/664b1e928abf9.jpg', '2024-05-20');
 
 -- --------------------------------------------------------
 
@@ -116,7 +139,7 @@ CREATE TABLE `penduduk` (
 --
 
 INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `pengobatan_terakhir`, `email`, `notelp`, `keuangan_pondokkan`, `keuangan_tabungan`, `keuangan_obat`, `keuangan_total`, `profile_picture`) VALUES
-(4, 'Emily Williams', '101 Pine Street', '2024-03-14', 'emily.williams@example.com', '7894561230', 232536, 1, 21312, 0, ''),
+(4, 'Emily Williams', '101 Pine Street', '2024-03-14', 'emily.williams@example.com', '7894561230', 232537, 1, 21312, 0, ''),
 (5, 'Christopher Brown', '234 Maple Street', '2024-02-25', 'christopher.brown@example.com', '9870123456', 121, 15, 5, 0, ''),
 (7, 'David Garcia', '890 Cedar Street', '2024-02-29', 'david.garcia@example.com', '3218904567', 20, 0, 0, 0, ''),
 (9, 'James Rodriguez', '222 Walnut Street', '2024-03-06', 'james.rodriguez@example.com', '4567890123', 0, 0, 0, 0, ''),
@@ -193,6 +216,12 @@ ALTER TABLE `akun`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `data_pondokkan`
+--
+ALTER TABLE `data_pondokkan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `images`
 --
 ALTER TABLE `images`
@@ -229,10 +258,16 @@ ALTER TABLE `akun`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `data_pondokkan`
+--
+ALTER TABLE `data_pondokkan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `penduduk`

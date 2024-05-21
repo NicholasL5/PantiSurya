@@ -41,6 +41,12 @@
             return $res;
         }
 
+        function getAllPondokkan(){
+            $query = "SELECT * FROM data_pondokkan";
+            $res = $this->db->prepare($query);
+            $res->execute();
+            return $res;
+        }
         
         function getBeritaById($id){
             $query = "SELECT * FROM news WHERE id = ?";
@@ -91,6 +97,18 @@
                 return $this->getAllBerita();
             } else{
                 $query = "SELECT * FROM news WHERE title LIKE ?";
+                $res = $this->db->prepare($query);
+                $res->execute(["%".$expr."%"]);
+                return $res;
+            }
+        }
+
+        function searchPondokkan($expr){
+            if($expr == ""){
+                return $this->getAllPondokkan();
+            } 
+            else{
+                $query = "SELECT * FROM data_pondokkan WHERE title LIKE ?";
                 $res = $this->db->prepare($query);
                 $res->execute(["%".$expr."%"]);
                 return $res;
@@ -158,6 +176,12 @@
             $stmt->execute([$profilePictureDirectory, date("Y-m-d")]);
         }
 
+        function insertGambarPondokkan($pendudukId,$profilePictureDirectory){
+            $query = "INSERT INTO data_pondokkan (penduduk_id, image_path, input_date) VALUES (?, ?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$pendudukId , $profilePictureDirectory, date("Y-m-d")]);
+        }
+
         function getGambar(){
             $query = "SELECT path_picture FROM images";
             $stmt = $this->db->prepare($query);
@@ -176,6 +200,20 @@
             $stmt = $this->db->prepare($query);
             $stmt->execute([$id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        function getPathPondokkan($id){
+            $query = "SELECT image_path FROM data_pondokkan WHERE id = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        function getPendudukPondokkan($id){
+            $query = "SELECT * FROM `penduduk` WHERE id = ? ";
+            $res = $this->db->prepare($query);
+            $res->execute([ $id ]);
+            return $res;
         }
     }
 
