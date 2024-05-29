@@ -157,11 +157,6 @@
                         <input type="text" class="form-control" id="noTelpon" name="noTelpon">
                     </div>
 
-                    <!-- <div class="mb-3">
-                        <label for="adduser-nama" class="col-form-label">Pengobatan Terakhir:</label>
-                        <input type="text" class="form-control" id="adduser-nama">
-                    </div> -->
-
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">Pengobatan Terakhir:</label>
                         <input type="date" class="form-control" id="tanggal_pengobatan" name="tanggal_pengobatan">
@@ -182,17 +177,16 @@
 
 
     <script>
-        
-          // untuk image upload yang sekarang
-  const image_input = document.querySelector("#image-input");
-  image_input.addEventListener("change", function() {
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      const uploaded_image = reader.result;
-      document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
-    });
-    reader.readAsDataURL(this.files[0]);
-  });
+        // untuk image upload yang sekarang
+        const image_input = document.querySelector("#image-input");
+        image_input.addEventListener("change", function() {
+            const reader = new FileReader();
+            reader.addEventListener("load", () => {
+            const uploaded_image = reader.result;
+            document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
+            });
+            reader.readAsDataURL(this.files[0]);
+        });
    
         feather.replace();
     </script>

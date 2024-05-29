@@ -10,12 +10,6 @@ require "utils.php";
 
 $db = new myDB();
 
-$stmt_residents = $db->prepare("SELECT COUNT(*) AS total_residents FROM penduduk");
-$stmt_residents->execute();
-$total_residents = $stmt_residents->fetch(PDO::FETCH_ASSOC)['total_residents'];
-$stmt_unpaid = $db->prepare("SELECT COUNT(*) AS total_unpaid FROM rekam_medis WHERE sudah_bayar = 0");
-$stmt_unpaid->execute();
-$total_unpaid = $stmt_unpaid->fetch(PDO::FETCH_ASSOC)['total_unpaid'];
 $stmt_all_residents = $db->prepare("SELECT * FROM penduduk");
 $stmt_all_residents->execute();
 $residents = $stmt_all_residents->fetchAll(PDO::FETCH_ASSOC);
@@ -46,9 +40,7 @@ if(isset($_POST['search'])) {
             
             <div class="main">
                 <h2>KEUANGAN TABUNGAN</h2>
-                <p>Hello, <?php echo isset($_SESSION["username"]) ? $_SESSION["username"] : 'N/A'; ?>👋</p>
-                <p style="font-style: italic;">Last Login: <?php echo isset($_SESSION["last_access"]) ? $_SESSION["last_access"] : 'N/A'; ?></p>
-
+                
                 <div class="search-bar">
                     <form method="POST" class="d-flex">
                         <input type="text" name="search" placeholder="Search by name" class="form-control me-2">
@@ -64,7 +56,6 @@ if(isset($_POST['search'])) {
                                 <th>Name</th>
                                 <th>Keuangan Tabungan</th>
                                 <th>View Laporan Keuangan</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,9 +63,8 @@ if(isset($_POST['search'])) {
                             <tr>
                                 <td><?php echo $resident['nama']; ?></td>
                                 <td><?php echo $resident['keuangan_tabungan']; ?></td>
-                                <td><button onclick="window.location.href='laporankeuangan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
-                                <td><a href="edit_balance_tabungan.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td>
-                            </tr>
+                                <td><button onclick="window.location.href='laporanTabungan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
+                                
                             <?php endforeach; ?>
                         </tbody>
                     </table>

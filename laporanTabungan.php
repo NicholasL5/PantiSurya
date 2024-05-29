@@ -10,10 +10,11 @@
     $db = new myDB();
 
     $residentId = $_GET['id'];
+    $res = $db->getPenduduk($residentId);
+    $resident = $res->fetch(PDO::FETCH_ASSOC);
 
-    $stmt_resident = $db->prepare("SELECT * FROM penduduk WHERE id = :residentId");
-    $stmt_resident->execute(['residentId' => $residentId]);
-    $resident = $stmt_resident->fetch(PDO::FETCH_ASSOC);
+    $uang = $db->getJumlahTabungan($residentId);
+
 
 
 ?>
@@ -46,8 +47,9 @@
             <div class="main" style="text-align: center;">
                 <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
                 
+                <h4>Jumlah Tabungan Sekarang: <?php echo $uang['keuangan_tabungan']; ?></h4>
                 <div class="btn-flex-left">
-                    <a href="edit_balance_pondokkan.php?id=<?php echo $residentId ?>">
+                    <a href="edit_balance_tabungan.php?id=<?php echo $residentId ?>">
                         <button type="submit" name="EditPondokkan" class="btn btn-primary bg-blue" style="width: 5rem;">
                             Tambah
                         </button>
@@ -63,8 +65,6 @@
                             <th scope="col">Tanggal Input Kwitansi</th>
                             <th scope="col">Path File</th>
                             <th scope="col">Download File</th>
-                            <!-- <th scope="col">Tanggal</th>
-                            <th scope="col" colspan="2">Action</th> -->
                             
                             </tr>
                         </thead>
@@ -76,6 +76,8 @@
             </div>
 
 
+
+            
         </div>
     </div>
 

@@ -50,8 +50,6 @@
     <script src="js/databerita.js"></script>
 
 
-
-
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php'?>

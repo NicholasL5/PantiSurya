@@ -1,7 +1,6 @@
 <?php
 // require "connection.php";
 
-
 class myDB
 {
     private $host = "localhost";
@@ -30,6 +29,10 @@ class myDB
         return $this->db->prepare($query);
     }
 
+    /**
+     * function untuk return semua penduduk
+     * @return $res untuk hasil query semua penduduk
+     */
     function getAllPenduduk()
     {
         $query = "SELECT * FROM penduduk";
@@ -38,6 +41,10 @@ class myDB
         return $res;
     }
 
+    /**
+     * function untuk return semua berita
+     * @return $res untuk hasil query semua berita
+     */
     function getAllBerita()
     {
         $query = "SELECT * FROM news";
@@ -91,6 +98,12 @@ class myDB
         return $error_val;
     }
 
+    /**
+     * Search berdasarkan nama orang.
+     * 
+     * @param $expr untuk nama orang.
+     * @return $res untuk hasil execute dari tabel penduduk. 
+    */
     function search($expr)
     {
         if ($expr == "") {
@@ -103,6 +116,11 @@ class myDB
         }
     }
 
+    /**
+     * Sama seperti search. Tapi dari tabel berita
+     * @param $expr untuk title berita
+     * @return $res untuk hasil execute dari tabel berita
+     */
     function searchBerita($expr)
     {
         if ($expr == "") {
@@ -115,6 +133,11 @@ class myDB
         }
     }
 
+    /**
+     * Sama seperti search. Tapi dari tabel pondokan
+     * @param $expr untuk title berita
+     * @return $res untuk hasil execute dari tabel data_pondokan
+     */
     function searchPondokkan($expr)
     {
         if ($expr == "") {
@@ -127,6 +150,11 @@ class myDB
         }
     }
 
+    /**
+     * Delete berdasarakan ID penduduk.
+     * @param $id untuk id penduduk
+     * @return $res untuk hasil execute dari tabel berita
+     */
     function delbyId($id)
     {
         $query = "DELETE FROM penduduk WHERE id=?";
@@ -315,6 +343,42 @@ class myDB
                 }
             }
         }
+    }
+
+
+    
+
+    function addDataTabungan($jumlah, $tipe, $id_penduduk){
+        $uangNow = $this->getJumlahTabungan($id_penduduk)['keuangan_tabungan'];
+        $uangNow += $jumlah;
+
+
+        $query = "INSERT INTO tabungan (id_penduduk, tipe_transaksi, jumlah, tanggal_transaksi, saldo) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id_penduduk, $tipe, $jumlah, date("Y-m-d"), $uangNow]);
+    }
+
+
+    function getJumlahTabungan($id){
+        $query = "SELECT keuangan_tabungan FROM penduduk WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function getSaldoTerakhir($id){
+        $query = "SELECT saldo FROM tabungan WHERE id_penduduk = ? ORDER BY tanggal_transaksi DESC, id DESC LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function updateTabunganPenduduk($id){
+        $jumlah = $this->getSaldoTerakhir($id)['saldo'];
+
+        $query = "UPDATE penduduk SET keuangan_tabungan = ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$jumlah, $id]);
     }
 
 
