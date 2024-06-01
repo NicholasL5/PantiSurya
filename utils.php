@@ -249,7 +249,6 @@ class myDB
     function insertGambarPondokkan($id, $profilePictureDirectory)
     {
         $query = "UPDATE data_pondokkan SET status = 1, image_path = ?, input_date = ? WHERE id = ?";
-        // $query = "UPDATE data_pondokkan (penduduk_id, image_path, input_date) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
     }
