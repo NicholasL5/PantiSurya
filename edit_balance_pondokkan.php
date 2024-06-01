@@ -28,21 +28,22 @@ if (!$resident) {
 
 $alertMessage = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset($_POST['removeBalance'])) {
-    $addBalance = isset($_POST['addBalance']) ? intval($_POST['addBalance']) : 0;
-    $removeBalance = isset($_POST['removeBalance']) ? intval($_POST['removeBalance']) : 0;
+// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset($_POST['removeBalance'])) {
+//     $addBalance = isset($_POST['addBalance']) ? intval($_POST['addBalance']) : 0;
+//     $removeBalance = isset($_POST['removeBalance']) ? intval($_POST['removeBalance']) : 0;
 
-    $newBalance = $resident['keuangan_pondokkan'] + $addBalance - $removeBalance;
-    $stmt_update_balance = $db->prepare("UPDATE penduduk SET keuangan_pondokkan = :newBalance WHERE id = :residentId");
-    $stmt_update_balance->execute(['newBalance' => $newBalance, 'residentId' => $residentId]);
+//     $newBalance = $resident['keuangan_pondokkan'] + $addBalance - $removeBalance;
+//     $stmt_update_balance = $db->prepare("UPDATE penduduk SET keuangan_pondokkan = :newBalance WHERE id = :residentId");
+//     $stmt_update_balance->execute(['newBalance' => $newBalance, 'residentId' => $residentId]);
 
-    $alertMessage = "Changes saved successfully!";
-}
+//     $alertMessage = "Changes saved successfully!";
+// }
 
 include "utils/resize_image.php";
 define('UPLOAD_DIR','keuangan/pondokkan/');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $tagihanId = $_POST['tagihan'];
     // Upload profile picture ke directory lalu get directory name
     // Get the tmp file from server as image
     $image = file_get_contents($_FILES["imageChooser"]["tmp_name"]);
@@ -63,11 +64,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $profilePictureDirectory = $file;
     
 
-    $db->insertGambarPondokkan($residentId, $profilePictureDirectory);
+    $db->insertGambarPondokkan($tagihanId, $profilePictureDirectory);
+     // Retrieve the sum of tagihan amounts where status is 0
+     $stmt_tagihan = $db->prepare("SELECT SUM(tagihan) AS total_tagihan FROM data_pondokkan WHERE status = 0");
+     $stmt_tagihan->execute();
+     $totalTagihan = $stmt_tagihan->fetch(PDO::FETCH_ASSOC)['total_tagihan'];
+ 
+     // Update the balance in the database
+     $stmt_update_balance = $db->prepare("UPDATE penduduk SET keuangan_pondokkan = :totalTagihan WHERE id = :residentId");
+     $stmt_update_balance->execute(['totalTagihan' => $totalTagihan, 'residentId' => $residentId]);
+ 
     header("location: keuangan_pondokkan.php");
 
     // echo "Tes";
 }
+$res = $db->searchPondokkanUnpaid("");
+
+// Initialize options string
+$options = '';
+$defaultTagihanId = isset($_GET['tagihanId']) ? $_GET['tagihanId'] : null; // Define a default tagihan ID
+
+if ($res->rowCount() > 0) {
+    $isFirstOption = true; // Variable to track the first option
+    while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
+        // Check if there's a default tagihan ID and if the current tagihan ID matches it
+        $selected = ($defaultTagihanId !== null && $row['id'] == $defaultTagihanId) ? 'selected' : '';
+        // Append the option with the selected attribute if it matches the default tagihan ID
+        $options .= '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['tagihan'] . '</option>';
+        $isFirstOption = false; // Set to false after the first iteration
+    }
+} else {
+    // No data found message
+    $options = '<option>No data found</option>';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -104,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="column" style="margin-left:20px">
                 <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
                 <form id="balanceForm" method="POST" enctype="multipart/form-data">
-                    <div>
+                    <!-- <div>
                         <label for="addBalance">Add Balance:</label>
                         <input type="number" id="addBalance" name="addBalance" placeholder="Enter amount to add"
                             class="form-control" min="0" step="1">
@@ -113,12 +143,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label for="removeBalance">Remove Balance:</label>
                         <input type="number" id="removeBalance" name="removeBalance"
                             placeholder="Enter amount to remove" class="form-control" min="0" step="1">
-                    </div>
+                    </div> -->
+
+                    <h4>Select Tagihan</h4>
+                    <select class="form-select" name="tagihan" aria-label="Default select example" style="margin-bottom:10px">
+                        <option selected>Open this select menu</option>
+                        <?php echo $options; ?>
+                    </select>
 
                     <div class="mb-3">
                         <label for="imageInput" class="form-label">
 
-                            </svg> Upload Kwitansi</label>
+                            </svg> <h5>Upload Kwitansi</h5></label>
                         <input class="form-control mb-3" type="file" id="image-input"
                             accept="image/jpeg, image/jpg, image/png" name="imageChooser">
                         <div id="display-image"></div>

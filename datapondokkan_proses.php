@@ -11,8 +11,9 @@ if($res->rowCount() > 0){
         echo '
         <tr>
         <th scope="row">'.$counter.'</th>
+        <td style="width: 15%;">'.$row["tagihan"].'</td>
         <td style="width: 25%;">'.$row["input_date"].'</td>
-        <td style="width: 40%;">'.$row["image_path"].'</td>';
+        <td style="width: 15%;">'.$row["tagihan_date"].'</td>';
         if($_SESSION['role'] == 0){
             $filePath = $row["image_path"];
             $penduduk = $db->getPendudukPondokkan($row["penduduk_id"]);

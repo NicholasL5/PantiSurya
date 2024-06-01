@@ -35,6 +35,7 @@
 </head>
 <body>
     <script src="js/dataLaporanPondokkan.js"></script>
+    <script src="js/dataLaporanPondokkanUnpaid.js"></script>
 
 
 
@@ -47,24 +48,47 @@
                 <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
                 
                 <div class="btn-flex-left">
-                    <a href="edit_balance_pondokkan.php?id=<?php echo $residentId ?>">
-                        <button type="submit" name="EditPondokkan" class="btn btn-primary bg-blue" style="width: 5rem;">
-                            Tambah
+                    <a href="add_tagihan_pondokkan.php?id=<?php echo $residentId ?>">
+                        <button type="submit" name="TambahPondokkan" class="btn btn-primary bg-blue">
+                            Buat Tagihan Pondokkan
                         </button>
                     </a>
-                    
+                    <a href="edit_balance_pondokkan.php?id=<?php echo $residentId ?>">
+                        <button type="submit" name="EditPondokkan" class="btn btn-primary bg-blue" style="margin-left:15px">
+                            Upload Bukti Pembayaran
+                        </button>
+                    </a>
                 </div>
                 <div class="content">
-                    
+                    <h3>Pondokkan belum dibayar</h3>
                     <table class="table wfull table-hover">
                         <thead>         
                             <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Tanggal Input Kwitansi</th>
-                            <th scope="col">Path File</th>
-                            <th scope="col">Download File</th>
+                            <th scope="col">Jumlah Tagihan</th>
+                            <th scope="col">Tagihan Bulan</th>
+                            <th scope="col">Upload Bukti Pembayaran</th>
                             <!-- <th scope="col">Tanggal</th>
                             <th scope="col" colspan="2">Action</th> -->
+                            
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider" id="list_pondokkan_unpaid">
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content" style="margin-top:20px">
+                    <h3>Pondokkan sudah dibayar</h3>
+                    <table class="table wfull table-hover">
+                        <thead>         
+                            <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Jumlah Tagihan</th>
+                            <th scope="col">Tanggal Input Kwitansi</th>
+                            <th scope="col">Tagihan Bulan</th>
+                            <th scope="col">Download File</th>
                             
                             </tr>
                         </thead>
@@ -97,5 +121,28 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to get query parameters from the URL
+    function getQueryParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Get the 'id' parameter from the URL
+    const id = getQueryParameter('id');
+    console.log("ID from URL:", id); // Log the ID when the page loads
+
+    document.body.addEventListener("click", function(event) {
+        if (event.target.classList.contains("upload-btn")) {
+            var tagihanId = event.target.getAttribute("data-id");
+            console.log(tagihanId)
+            // window.location.href = "edit_balance_pondokkan.php?id=" + id;
+            window.location.href = "edit_balance_pondokkan.php?id=" + id + "&tagihanId=" + tagihanId;
+        }
+    });
+});
+</script>
+
 
 </html>

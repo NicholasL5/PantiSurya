@@ -55,7 +55,15 @@ class myDB
 
     function getAllPondokkan()
     {
-        $query = "SELECT * FROM data_pondokkan";
+        $query = "SELECT * FROM data_pondokkan WHERE status = 1";
+        $res = $this->db->prepare($query);
+        $res->execute();
+        return $res;
+    }
+
+    function getAllPondokkanUnpaid()
+    {
+        $query = "SELECT * FROM data_pondokkan WHERE status = 0";
         $res = $this->db->prepare($query);
         $res->execute();
         return $res;
@@ -155,6 +163,18 @@ class myDB
      * @param $id untuk id penduduk
      * @return $res untuk hasil execute dari tabel berita
      */
+
+     function searchPondokkanUnpaid($expr)
+    {
+        if ($expr == "") {
+            return $this->getAllPondokkanUnpaid();
+        } else {
+            $query = "SELECT * FROM data_pondokkan WHERE title LIKE ?";
+            $res = $this->db->prepare($query);
+            $res->execute(["%" . $expr . "%"]);
+            return $res;
+        }
+    }
     function delbyId($id)
     {
         $query = "DELETE FROM penduduk WHERE id=?";
@@ -226,13 +246,26 @@ class myDB
         $stmt->execute([$profilePictureDirectory, date("Y-m-d")]);
     }
 
-    function insertGambarPondokkan($pendudukId, $profilePictureDirectory)
+    function insertGambarPondokkan($id, $profilePictureDirectory)
     {
-        $query = "INSERT INTO data_pondokkan (penduduk_id, image_path, input_date) VALUES (?, ?, ?)";
+        $query = "UPDATE data_pondokkan SET status = 1, image_path = ?, input_date = ? WHERE id = ?";
+        // $query = "UPDATE data_pondokkan (penduduk_id, image_path, input_date) VALUES (?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$pendudukId, $profilePictureDirectory, date("Y-m-d")]);
+        $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
+    }
+    
+    function tambahPondokkan($penduduk_id, $tagihan, $tagihan_date){
+        $query = "INSERT INTO data_pondokkan (penduduk_id, tagihan, status, tagihan_date) VALUES (?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$penduduk_id, $tagihan, 0, $tagihan_date]);
     }
 
+    function updatePondokkan($tagihan, $penduduk_id){
+        $query = "UPDATE penduduk SET keuangan_pondokkan = ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$tagihan, $penduduk_id]);
+    }
+    
     function getGambar()
     {
         $query = "SELECT path_picture FROM images";
