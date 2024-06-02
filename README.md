@@ -13,3 +13,8 @@ List revisi:
 7. Tabungan (perlu nyambungin tabungan sama path)
 8. Obat: blm jelas
 9. Nyimpen nama variabelnya doang di pathnya
+
+UPDATE SQL
+
+ALTER TABLE penduduk
+CHANGE pengobatan_terakhir tanggal_masuk DATE;
