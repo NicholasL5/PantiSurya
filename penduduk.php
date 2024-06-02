@@ -101,7 +101,7 @@
                             
                             <th scope="col">Email Wali</th>
                             <th scope="col">No Telp Wali</th>
-                            <th scope="col">Pengobatan Terakhir</th>
+                            <th scope="col">Tanggal Masuk</th>
                             <th scope="col" colspan="2">Action</th>
                             
                             </tr>

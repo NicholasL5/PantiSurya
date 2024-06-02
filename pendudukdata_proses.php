@@ -18,7 +18,7 @@
             
             <td>'.$row["email"].'</td>
             <td>'.$row["notelp"].'</td>
-            <td>'.$row["pengobatan_terakhir"].'</td>
+            <td>'.$row["tanggal_masuk"].'</td>
             ';
             if($_SESSION['role'] == 0){
                 echo '
