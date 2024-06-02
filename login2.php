@@ -18,6 +18,7 @@
             $md5_sess = md5(time().$password);
             
             setcookie('user_login', $md5_sess, time() + (86400 * 2), '/');
+            $_SESSION['user_login'] = $md5_sess;
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $fetch_data->role;
             $_SESSION['last_access'] = $fetch_data->last_access;

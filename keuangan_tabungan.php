@@ -6,22 +6,6 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
     exit();
 }
 
-require "utils.php";
-
-$db = new myDB();
-
-$stmt_all_residents = $db->prepare("SELECT * FROM penduduk");
-$stmt_all_residents->execute();
-$residents = $stmt_all_residents->fetchAll(PDO::FETCH_ASSOC);
-
-// Search
-$search_results = null;
-if(isset($_POST['search'])) {
-    $search_name = $_POST['search'];
-    $stmt_search = $db->prepare("SELECT * FROM penduduk WHERE nama LIKE :name");
-    $stmt_search->execute(['name' => '%' . $search_name . '%']);
-    $residents = $stmt_search->fetchAll(PDO::FETCH_ASSOC);
-}
 ?>
 
 <!DOCTYPE html>
@@ -29,11 +13,14 @@ if(isset($_POST['search'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <?php include "layout/stylejquerynbs5.php" ?>
     <link rel="stylesheet" href="layout/indexstyle.css">
     <title>Keuangan Tabungan</title>
 </head>
 <body>
+    <script src="js/dataTabungan.js"></script>
+
+
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php'?>
@@ -43,7 +30,7 @@ if(isset($_POST['search'])) {
                 
                 <div class="search-bar">
                     <form method="POST" class="d-flex">
-                        <input type="text" name="search" placeholder="Search by name" class="form-control me-2">
+                        <input type="text" name="search" placeholder="Search by name" id="search_by_name" class="form-control me-2">
                         <button type="submit" class="btn btn-primary">Search</button>
                     </form>
                 </div>
@@ -58,14 +45,8 @@ if(isset($_POST['search'])) {
                                 <th>View Laporan Keuangan</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php foreach($residents as $resident): ?>
-                            <tr>
-                                <td><?php echo $resident['nama']; ?></td>
-                                <td><?php echo $resident['keuangan_tabungan']; ?></td>
-                                <td><button onclick="window.location.href='laporanTabungan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
-                                
-                            <?php endforeach; ?>
+                        <tbody id="list_tabungan">
+                            
                         </tbody>
                     </table>
                 </div>

@@ -10,16 +10,19 @@ $(document).ready(function(){
     
 })
 
+
 function showdata(search_value = ""){
+
     $.ajax({
-        url:"keuangan_pondokkan_proses.php",
+        url:"keuangan_tabungan_proses.php",
         type:"POST",
         data:{
             search: search_value
         },
         success:function(result){
-            $("#tabelPondokanBody").html(result);
-            view_laporan()
+            $("#list_tabungan").html(result);
+
+            view_laporan();
         }
     })
 }
@@ -27,6 +30,6 @@ function showdata(search_value = ""){
 function view_laporan(){
     $(".view").on("click", function() {
         var rowid = $(this).data("rowid");
-        window.location.href = "laporanPondokkan.php?id=" + rowid;
+        window.location.href = "laporanTabungan.php?id=" + rowid;
     })
 }

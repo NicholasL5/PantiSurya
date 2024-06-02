@@ -22,9 +22,6 @@ $(document).ready(function(){
         })
     }
 
-    // $("#adduser").on("click", function(){
-    //     alert("add");
-    // })
 
     function delete_user(){
         $(".del").on('click', function(){

@@ -1,9 +1,6 @@
 $(document).ready(function(){
     show_pengobatan();
-
-
-
-
+    
     function show_pengobatan(){
         $.ajax({
             url:'penduduk_pengobatan_proses.php',
