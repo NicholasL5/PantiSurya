@@ -16,15 +16,11 @@
             <td style="width: 25%";>'.$row["title"].'</td>
             <td style="width: 40%";>'.$row["description"].'</td>    
             <td style="width: 15%";>'.$row["date"].'</td>
+            <td><button type="button" class="btn btn-outline-primary" id="edituser"><a href="editBerita.php?id='.$row["id"].'&title='.$row["title"].'">Edit</a></button></td> 
+            <td><button type="button" class="btn btn-outline-danger del" data-rowid='.$row["id"].' style="margin:0px;z-index: index 10;">Delete</button></td>
+            </tr>
             ';
-            if($_SESSION['role'] == 0){
-                echo '
-                <td><button type="button" class="btn btn-outline-primary" id="edituser"><a href="editBerita.php?id='.$row["id"].'&title='.$row["title"].'">Edit</a></button></td> 
-                <td><button type="button" class="btn btn-outline-danger del" data-rowid='.$row["id"].' style="margin:0px;z-index: index 10;">Delete</button></td>
-                ';
-            }else{
-                echo '</tr>';
-            }
+    
             $counter += 1;
         }
     }else{

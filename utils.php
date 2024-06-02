@@ -53,6 +53,10 @@ class myDB
         return $res;
     }
 
+    /**
+     * function untuk return semua data_pondokan
+     * @return $res untuk hasil query semua status yang paid
+     */
     function getAllPondokkan()
     {
         $query = "SELECT * FROM data_pondokkan WHERE status = 1";
@@ -61,6 +65,10 @@ class myDB
         return $res;
     }
 
+    /**
+     * function untuk return semua data_pondokan
+     * @return $res untuk hasil query semua status yang unpaid
+     */
     function getAllPondokkanUnpaid()
     {
         $query = "SELECT * FROM data_pondokkan WHERE status = 0";
