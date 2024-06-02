@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2024 at 03:36 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Jun 02, 2024 at 05:14 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,7 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id`, `username`, `password`, `date`, `last_access`, `role`) VALUES
-(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-05-29', 0),
+(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-06-02', 0),
 (6, 'nice', '$2y$10$pcubK.aIK/YrnJKRjQlQDuJKMulGy26nbWUwOmjqKY7ATvXHzO4l6', '2024-05-08', '2024-05-14', 0),
 (7, 'asik', '$2y$10$OY62rBeR96KFJQmJuFvUj.njVk/.kTHzyO8HUZUjxnlzTrbmdYFRO', '2024-05-22', '2024-05-22', 0);
 
@@ -128,7 +128,7 @@ CREATE TABLE `penduduk` (
   `id` int(11) NOT NULL,
   `nama` varchar(250) NOT NULL,
   `alamat` varchar(100) NOT NULL,
-  `pengobatan_terakhir` date DEFAULT NULL,
+  `tanggal_masuk` date DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
   `notelp` varchar(15) NOT NULL,
   `keuangan_pondokkan` int(11) NOT NULL,
@@ -146,8 +146,8 @@ CREATE TABLE `penduduk` (
 -- Dumping data for table `penduduk`
 --
 
-INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `pengobatan_terakhir`, `email`, `notelp`, `keuangan_pondokkan`, `keuangan_tabungan`, `keuangan_obat`, `keuangan_total`, `profile_picture`, `KTP`, `KK`, `BPJS`, `keuangan_deposit`) VALUES
-(4, 'Emily Williams', '111 Pine Street', '2024-03-14', 'emily.williams@example.com', '7894561230', 150000, 1110000, 21312, 0, '', 0x696d616765732f426173655f436f6c6f725f426c61636b5f43502e706e67, '', '', 0),
+INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `tanggal_masuk`, `email`, `notelp`, `keuangan_pondokkan`, `keuangan_tabungan`, `keuangan_obat`, `keuangan_total`, `profile_picture`, `KTP`, `KK`, `BPJS`, `keuangan_deposit`) VALUES
+(4, 'Emily Williams', '111 Pine Street', '2024-03-14', 'emily.williams@example.com', '7894561230', 150000, 1109000, 21312, 0, '', 0x696d616765732f426173655f436f6c6f725f426c61636b5f43502e706e67, '', '', 0),
 (5, 'Christopher Brown', '234 Maple Street', '2024-02-25', 'christopher.brown@example.com', '9870123456', 121, 2000000, 5, 0, '', '', '', '', 0),
 (7, 'David Garcia', '890 Cedar Street', '2024-02-29', 'david.garcia@example.com', '3218904567', 20, 0, 0, 0, '', 0x696d616765732f6d617872657364656661756c742e6a7067, 0x696d616765732f53637265656e73686f7420323032342d30352d3133203231353935332e706e67, 0x696d616765732f53637265656e73686f7420323032342d30352d3032203133343633382e706e67, 0),
 (9, 'James Rodriguez', '222 Walnut Street', '2024-03-06', 'james.rodriguez@example.com', '4567890123', 0, 0, 0, 0, '', '', '', '', 0),
@@ -222,7 +222,8 @@ INSERT INTO `tabungan` (`id`, `id_penduduk`, `tipe_transaksi`, `jumlah`, `tangga
 (2, 5, 'debit', 2000000, '2024-05-29', 2000000),
 (3, 4, 'kredi', -11000, '2024-05-29', 189000),
 (4, 4, 'kredi', -90000, '2024-05-29', 110000),
-(5, 4, 'debit', 1000000, '2024-05-29', 1110000);
+(5, 4, 'debit', 1000000, '2024-05-29', 1110000),
+(6, 4, 'kredi', -1000, '2024-06-02', 1109000);
 
 -- --------------------------------------------------------
 
@@ -326,7 +327,7 @@ ALTER TABLE `rekam_medis`
 -- AUTO_INCREMENT for table `tabungan`
 --
 ALTER TABLE `tabungan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `wali`
