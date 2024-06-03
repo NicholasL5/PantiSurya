@@ -26,7 +26,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
             <?php include 'nav.php'?>
             
             <div class="main">
-                <h2>KEUANGAN TABUNGAN</h2>
+                <h1>KEUANGAN TABUNGAN</h1>
                 
                 <div class="search-bar">
                     <form method="POST" class="d-flex">

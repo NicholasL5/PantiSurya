@@ -81,7 +81,7 @@ if(isset($_POST['search'])) {
         }
 
         .card{
-            border: 2px bla;
+            border-radius: 15px;
         }
 
         

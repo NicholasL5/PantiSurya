@@ -25,7 +25,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
             <?php include 'nav.php'?>
             
             <div class="main">
-                <h2>KEUANGAN PONDOKKAN</h2>
+                <h1>KEUANGAN PONDOKKAN</h1>
                 <div class="search-bar">
                     <form method="POST" class="d-flex">
                         <input type="text" name="search" placeholder="Search by name" id="search_by_name" class="form-control me-2">
@@ -49,7 +49,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
                         </tbody>
                     </table>
                 </div>
-                
+
                 <?php include 'footer.php'?>
             </div>
         </div>
