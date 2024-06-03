@@ -50,6 +50,8 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
                         </tbody>
                     </table>
                 </div>
+
+                <?php include 'footer.php'?>
             </div>
         </div>
     </div>

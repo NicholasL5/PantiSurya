@@ -54,6 +54,18 @@ class myDB
     }
 
     /**
+     * function untuk return count dari tabel penduduk
+     * @return $total_residents untuk hasil query count as total_residents (int)
+     */
+    function getCountPenduduk(){
+        $query = "SELECT COUNT(*) AS total_residents FROM penduduk";
+        $res = $this->db->prepare($query);
+        $res->execute();
+        $total_residents = $res->fetch(PDO::FETCH_ASSOC)['total_residents'];
+        return $total_residents;
+    }
+
+    /**
      * function untuk return semua data_pondokan
      * @return $res untuk hasil query semua status yang paid
      */

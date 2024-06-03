@@ -6,4 +6,5 @@
     $db = new myDB();
     $db->delbyIdBerita([$_POST['delid']]);
     echo "success";
+    
 ?>

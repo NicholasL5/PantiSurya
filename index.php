@@ -9,9 +9,9 @@ require "utils.php";
 
 $db = new myDB();
 
-$stmt_residents = $db->prepare("SELECT COUNT(*) AS total_residents FROM penduduk");
-$stmt_residents->execute();
-$total_residents = $stmt_residents->fetch(PDO::FETCH_ASSOC)['total_residents'];
+$total_residents = $db->getCountPenduduk();
+
+
 $stmt_unpaid = $db->prepare("SELECT COUNT(*) AS total_unpaid FROM rekam_medis WHERE sudah_bayar = 0");
 $stmt_unpaid->execute();
 $total_unpaid = $stmt_unpaid->fetch(PDO::FETCH_ASSOC)['total_unpaid'];
@@ -75,6 +75,16 @@ if(isset($_POST['search'])) {
         .resident-table th {
             background-color: #f2f2f2;
         }
+
+        .overview-info{
+           margin-bottom: 2rem;
+        }
+
+        .card{
+            border: 2px bla;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -82,14 +92,69 @@ if(isset($_POST['search'])) {
         <div class="dashboard">
             <?php include 'nav.php'?>
             
+            
+
+            
             <div class="main">
-                <h2>Overview</h2>
+                <h1>Overview</h1>
                 <p>Hello, <?php echo isset($_SESSION["username"]) ? $_SESSION["username"] : 'N/A'; ?>👋</p>
                 <p style="font-style: italic;">Last Login: <?php echo isset($_SESSION["last_access"]) ? $_SESSION["last_access"] : 'N/A'; ?></p>
                 
-                <div class="overview-info">
-                    <p>Total Residents: <?php echo isset($total_residents) ? $total_residents : 'N/A'; ?></p>
-                    <p>Total Unpaid Medications: <?php echo isset($total_unpaid) ? $total_unpaid : 'N/A'; ?></p>
+                <div class="overview-info row justify-content-between">
+                    <div class="col">
+                        <div class="card text-bg-primary">
+                            <div class="row g-0">
+                                <!-- <div class="col-sm-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                                class="feather feather-user">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle></svg>
+
+                                </div> -->
+                                <div class="col">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Jumlah penduduk</h5>
+                                        <p class="card-text"><?php echo $total_residents ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card text-bg-danger">
+                            <div class="row g-0">
+                                <!-- <div class="col-sm-4">
+                                    <img src="images/person.jpg" class="img-fluid rounded-start" alt="...">
+                                </div> -->
+                                <div class="col">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pondokkan belum bayar</h5>
+                                        <p class="card-text"><?php echo $total_unpaid ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card text-bg-success">
+                            <div class="row g-0">
+                                <!-- <div class="col-sm-4">
+                                    <img src="images/person.jpg" class="img-fluid rounded-start" alt="...">
+                                </div> -->
+                                <div class="col">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pondokkan sudah bayar</h5>
+                                        <p class="card-text">24</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
                 </div>
 
                 <div class="search-bar">
@@ -118,8 +183,12 @@ if(isset($_POST['search'])) {
                         </tbody>
                     </table>
                 </div>
+                
+                <?php include 'footer.php'?>
             </div>
+  
         </div>
+        
     </div>
 
     <script>
