@@ -210,7 +210,8 @@ CREATE TABLE `tabungan` (
   `tipe_transaksi` varchar(5) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `tanggal_transaksi` date NOT NULL,
-  `saldo` int(11) NOT NULL
+  `saldo` int(11) NOT NULL,
+  `deskripsi` varchar(200) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
