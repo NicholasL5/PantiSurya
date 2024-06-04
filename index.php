@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_login']) && !isset($_POST['username'])) {
 require "utils.php";
 
 $db = new myDB();
-
+$total_residents = 0;
 $total_residents = $db->getCountPenduduk();
 
 

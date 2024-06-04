@@ -98,6 +98,7 @@
     html{
         font-size: 62.5%;
     }
+    /* TODO: add responsive kalau sempat */
 }
 
 @media (max-width:450px) {
