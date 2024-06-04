@@ -4,7 +4,7 @@ require 'utils.php';
 
 $db = new myDB();
 $id = $_POST['id'];
-$res = $db->searchPondokkan($_POST['search'], $id);
+$res = $db->searchObat($_POST['search'], $id);
 
 $counter = 1;
 if($res->rowCount() > 0){
@@ -12,15 +12,19 @@ if($res->rowCount() > 0){
         echo '
         <tr>
         <th scope="row">'.$counter.'</th>
-        <td style="width: 15%;">'.$row["tagihan"].'</td>
-        <td style="width: 25%;">'.$row["input_date"].'</td>
-        <td style="width: 15%;">'.$row["tagihan_date"].'</td>';
+        <td style="width: 15%;">'.$row["deskripsi"].'</td>
+        <td style="width: 15%;">'.$row["jenis"].'</td>
+        <td style="width: 15%;">'.$row["obat"].'</td>  
+        <td style="width: 15%;">'.$row["tagihan"].'</td>  
+        <td style="width: 15%;">'.$row["tanggal_berobat"].'</td>  
+        <td style="width: 15%;">'.$row["input_date"].'</td>  
+        ';
         if($_SESSION['role'] == 0){
             $filePath = $row["image_path"];
             $penduduk = $db->getPendudukPondokkan($row["penduduk_id"]);
             $penduduk = $penduduk->fetch(PDO::FETCH_ASSOC);
             $penduduk = $penduduk['nama'];
-            $fileName = "Laporan_Pondokkan_" . $penduduk . "_" . $row['input_date'];
+            $fileName = "Laporan_Obat_" . $penduduk . "_" . $row['input_date'];
             echo '<td><button type="button" class="btn btn-outline-primary download-btn" data-file-path="' . htmlspecialchars($filePath) . '" data-file-name="' . htmlspecialchars($fileName) . '">Download</button></td>';
         } else {
             echo '</tr>';

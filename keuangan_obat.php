@@ -64,16 +64,16 @@ if(isset($_POST['search'])) {
                                 <th>Name</th>
                                 <th>Keuangan obat</th>
                                 <th>View Laporan Keuangan</th>
-                                <th>Actions</th>
+                                <!-- <th>Actions</th> -->
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach($residents as $resident): ?>
                             <tr>
                                 <td><?php echo $resident['nama']; ?></td>
-                                <td><?php echo $resident['keuangan_obat']; ?></td>
-                                <td><button onclick="window.location.href='laporankeuangan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
-                                <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td>
+                                <td><?php echo $db->formatRupiah($resident['keuangan_obat']); ?></td>
+                                <td><button onclick="window.location.href='laporanobat.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
+                                <!-- <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td> -->
                             </tr>
                             <?php endforeach; ?>
                         </tbody>

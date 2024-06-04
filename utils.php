@@ -69,9 +69,9 @@ class myDB
      * function untuk return semua data_pondokan
      * @return $res untuk hasil query semua status yang paid
      */
-    function getAllPondokkan()
+    function getAllPondokkan($id)
     {
-        $query = "SELECT * FROM data_pondokkan WHERE status = 1";
+        $query = "SELECT * FROM data_pondokkan WHERE status = 1 and penduduk_id = $id";
         $res = $this->db->prepare($query);
         $res->execute();
         return $res;
@@ -81,9 +81,25 @@ class myDB
      * function untuk return semua data_pondokan
      * @return $res untuk hasil query semua status yang unpaid
      */
-    function getAllPondokkanUnpaid()
+    function getAllPondokkanUnpaid($id)
     {
-        $query = "SELECT * FROM data_pondokkan WHERE status = 0";
+        $query = "SELECT * FROM data_pondokkan WHERE status = 0 and penduduk_id = $id";
+        $res = $this->db->prepare($query);
+        $res->execute();
+        return $res;
+    }
+
+    function getAllObat($id)
+    {
+        $query = "SELECT * FROM rekam_medis WHERE sudah_bayar = 1 and penduduk_id = $id";
+        $res = $this->db->prepare($query);
+        $res->execute();
+        return $res;
+    }
+
+    function getAllObatUnpaid($id)
+    {
+        $query = "SELECT * FROM rekam_medis WHERE sudah_bayar = 0 and penduduk_id = $id";
         $res = $this->db->prepare($query);
         $res->execute();
         return $res;
@@ -166,10 +182,10 @@ class myDB
      * @param $expr untuk title berita
      * @return $res untuk hasil execute dari tabel data_pondokan
      */
-    function searchPondokkan($expr)
+    function searchPondokkan($expr, $id)
     {
         if ($expr == "") {
-            return $this->getAllPondokkan();
+            return $this->getAllPondokkan($id);
         } else {
             $query = "SELECT * FROM data_pondokkan WHERE title LIKE ?";
             $res = $this->db->prepare($query);
@@ -184,10 +200,10 @@ class myDB
      * @return $res untuk hasil execute dari tabel berita
      */
 
-     function searchPondokkanUnpaid($expr)
+     function searchPondokkanUnpaid($expr, $id)
     {
         if ($expr == "") {
-            return $this->getAllPondokkanUnpaid();
+            return $this->getAllPondokkanUnpaid($id);
         } else {
             $query = "SELECT * FROM data_pondokkan WHERE title LIKE ?";
             $res = $this->db->prepare($query);
@@ -195,6 +211,33 @@ class myDB
             return $res;
         }
     }
+
+    function searchObat($expr, $id)
+    {
+        if ($expr == "") {
+            return $this->getAllObat($id);
+        } 
+        // else {
+        //     $query = "SELECT * FROM rekam_medis WHERE title LIKE ?";
+        //     $res = $this->db->prepare($query);
+        //     $res->execute(["%" . $expr . "%"]);
+        //     return $res;
+        // }
+    }
+
+     function searchObatUnpaid($expr, $id)
+    {
+        if ($expr == "") {
+            return $this->getAllObatUnpaid($id);
+        } 
+        // else {
+        //     $query = "SELECT * FROM rekam_medis WHERE title LIKE ?";
+        //     $res = $this->db->prepare($query);
+        //     $res->execute(["%" . $expr . "%"]);
+        //     return $res;
+        // }
+    }
+
     function delbyId($id)
     {
         $query = "DELETE FROM penduduk WHERE id=?";
@@ -272,6 +315,13 @@ class myDB
         $stmt = $this->db->prepare($query);
         $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
     }
+
+    function insertGambarObat($id, $profilePictureDirectory)
+    {
+        $query = "UPDATE rekam_medis SET sudah_bayar = 1, image_path = ?, input_date = ? WHERE pengobatan_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
+    }
     
     function tambahPondokkan($penduduk_id, $tagihan, $tagihan_date){
         $query = "INSERT INTO data_pondokkan (penduduk_id, tagihan, status, tagihan_date) VALUES (?, ?, ?, ?)";
@@ -280,9 +330,25 @@ class myDB
     }
 
     function updatePondokkan($tagihan, $penduduk_id){
-        $query = "UPDATE penduduk SET keuangan_pondokkan = ? WHERE id = ?";
+        $query = "UPDATE penduduk SET keuangan_pondokkan = keuangan_pondokkan + ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$tagihan, $penduduk_id]);
+    }
+
+    function tambahObat($penduduk_id,  $deskripsi_obat, $jenis_obat, $obat, $dosis, $tagihan, $tanggal_berobat){
+        $query = "INSERT INTO rekam_medis (penduduk_id, deskripsi, jenis, obat, dosis, tagihan, tanggal_berobat, sudah_bayar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$penduduk_id,  $deskripsi_obat, $jenis_obat, $obat, $dosis, $tagihan, $tanggal_berobat, 0]);
+    }
+
+    function updateObat($tagihan, $penduduk_id){
+        $query = "UPDATE penduduk SET keuangan_obat = keuangan_obat + ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$tagihan, $penduduk_id]);
+    }
+
+    function formatRupiah($number) {
+        return 'Rp ' . number_format($number, 0, ',', '.');
     }
     
     function getGambar()

@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $db->insertGambarPondokkan($tagihanId, $profilePictureDirectory);
      // Retrieve the sum of tagihan amounts where status is 0
-     $stmt_tagihan = $db->prepare("SELECT SUM(tagihan) AS total_tagihan FROM data_pondokkan WHERE status = 0");
+     $stmt_tagihan = $db->prepare("SELECT SUM(tagihan) AS total_tagihan FROM data_pondokkan WHERE status = 0 and penduduk_id = $residentId");
      $stmt_tagihan->execute();
      $totalTagihan = $stmt_tagihan->fetch(PDO::FETCH_ASSOC)['total_tagihan'];
  
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // echo "Tes";
 }
-$res = $db->searchPondokkanUnpaid("");
+$res = $db->searchPondokkanUnpaid("", $_GET['id']);
 
 // Initialize options string
 $options = '';
@@ -134,17 +134,6 @@ if ($res->rowCount() > 0) {
             <div class="column" style="margin-left:20px">
                 <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
                 <form id="balanceForm" method="POST" enctype="multipart/form-data">
-                    <!-- <div>
-                        <label for="addBalance">Add Balance:</label>
-                        <input type="number" id="addBalance" name="addBalance" placeholder="Enter amount to add"
-                            class="form-control" min="0" step="1">
-                    </div>
-                    <div>
-                        <label for="removeBalance">Remove Balance:</label>
-                        <input type="number" id="removeBalance" name="removeBalance"
-                            placeholder="Enter amount to remove" class="form-control" min="0" step="1">
-                    </div> -->
-
                     <h4>Select Tagihan</h4>
                     <select class="form-select" name="tagihan" aria-label="Default select example" style="margin-bottom:10px">
                         <option selected>Open this select menu</option>

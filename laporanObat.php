@@ -33,65 +33,68 @@
     <title>Panti Surya | Daftar Penduduk</title>
 </head>
 <body>
-    <script src="js/dataLaporanPondokkan.js"></script>
-    <script src="js/dataLaporanPondokkanUnpaid.js"></script>
-
-
-
+    <script src="js/dataLaporanObat.js"></script>
+    <script src="js/dataLaporanObatUnpaid.js"></script>
 
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
-                <h1>Laporan Pondokkan - <?php echo $resident['nama']; ?></h1>
+                <h1>Laporan Obat - <?php echo $resident['nama']; ?></h1>
                 
                 <div class="btn-flex-left">
-                    <a href="add_tagihan_pondokkan.php?id=<?php echo $residentId ?>">
-                        <button type="submit" name="TambahPondokkan" class="btn btn-primary bg-blue">
-                            Buat Tagihan Pondokkan
+                    <a href="add_tagihan_obat.php?id=<?php echo $residentId ?>">
+                        <button type="submit" name="TambahObat" class="btn btn-primary bg-blue">
+                            Buat Tagihan Obat
                         </button>
                     </a>
-                    <a href="edit_balance_pondokkan.php?id=<?php echo $residentId ?>">
+                    <!-- <a href="edit_balance_pondokkan.php?id=<?php echo $residentId ?>">
                         <button type="submit" name="EditPondokkan" class="btn btn-primary bg-blue" style="margin-left:15px">
                             Upload Bukti Pembayaran
                         </button>
-                    </a>
+                    </a> -->
                 </div>
                 <div class="content">
-                    <h3>Pondokkan belum dibayar</h3>
+                    <h3>Tagihan Obat belum dibayar</h3>
                     <table class="table wfull table-hover">
                         <thead>         
                             <tr>
                             <th scope="col">No.</th>
+                            <th scope="col">Deskripsi</th>
+                            <th scope="col">Jenis</th>
+                            <th scope="col">Obat</th>
                             <th scope="col">Jumlah Tagihan</th>
-                            <th scope="col">Tagihan Bulan</th>
+                            <th scope="col">Tanggal Berobat</th>
                             <th scope="col">Upload Bukti Pembayaran</th>
                             <!-- <th scope="col">Tanggal</th>
                             <th scope="col" colspan="2">Action</th> -->
                             
                             </tr>
                         </thead>
-                        <tbody class="table-group-divider" id="list_pondokkan_unpaid">
+                        <tbody class="table-group-divider" id="list_obat_unpaid">
                             
                         </tbody>
                     </table>
                 </div>
 
                 <div class="content" style="margin-top:20px">
-                    <h3>Pondokkan sudah dibayar</h3>
+                    <h3>Tagihan Obat sudah dibayar</h3>
                     <table class="table wfull table-hover">
                         <thead>         
                             <tr>
                             <th scope="col">No.</th>
+                            <th scope="col">Deskripsi</th>
+                            <th scope="col">Jenis</th>
+                            <th scope="col">Obat</th>
                             <th scope="col">Jumlah Tagihan</th>
+                            <th scope="col">Tanggal berobat</th>
                             <th scope="col">Tanggal Input Kwitansi</th>
-                            <th scope="col">Tagihan Bulan</th>
                             <th scope="col">Download File</th>
                             
                             </tr>
                         </thead>
-                        <tbody class="table-group-divider" id="list_pondokkan">
+                        <tbody class="table-group-divider" id="list_obat">
                             
                         </tbody>
                     </table>
@@ -137,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var tagihanId = event.target.getAttribute("data-id");
             console.log(tagihanId)
             // window.location.href = "edit_balance_pondokkan.php?id=" + id;
-            window.location.href = "edit_balance_pondokkan.php?id=" + id + "&tagihanId=" + tagihanId;
+            window.location.href = "edit_balance_obat.php?id=" + id + "&tagihanId=" + tagihanId;
         }
     });
 });
