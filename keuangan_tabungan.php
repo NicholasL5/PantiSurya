@@ -36,7 +36,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
                 </div>
 
                 <div class="residents-table">
-                    <h3>All Residents</h3>
+                    <h3 style="padding: 1rem;">Daftar Penduduk</h3>
                     <table class="table table-striped">
                         <thead>
                             <tr>

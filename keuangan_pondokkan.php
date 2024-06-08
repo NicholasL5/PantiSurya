@@ -34,7 +34,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
                 </div>
 
                 <div class="residents-table">
-                    <h3>Daftar Penduduk</h3>
+                    <h3 style="padding-top: 1rem;">Daftar Penduduk</h3>
                     <table class="table table-striped" id="tabelPondokan">
                         <thead>
                             <tr>
