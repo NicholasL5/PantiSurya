@@ -12,9 +12,8 @@
             echo 
             '
             <tr>
-            <th scope="row">'.$counter.'</th>
             <td>'.$row["nama"].'</td>
-            <td>'.$row["keuangan_tabungan"].'</td>
+            <td>'.$db->formatRupiah($row["keuangan_tabungan"]).'</td>
             <td><button type="button" class="btn btn-primary view" data-rowid='.$row["id"].'> View Laporan Keuangan </button></td>
             ';
             $counter += 1;

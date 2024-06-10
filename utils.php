@@ -499,6 +499,13 @@ class myDB
         $stmt->execute([$jumlah, $id]);
     }
 
+    function getListTabungan($id){
+        $query = "SELECT * FROM tabungan WHERE id_penduduk = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt;
+    }
+
 
 
 

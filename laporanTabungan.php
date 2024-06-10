@@ -34,8 +34,14 @@
     <title>Panti Surya | Daftar Penduduk</title>
 </head>
 <body>
-    <script src="js/dataLaporanPondokkan.js"></script>
+    <script src="js/dataLaporanTabungan.js"></script>
 
+    <script>
+        $(document).ready(function(){
+            showdata("<?php echo $_GET["id"] ?>")
+        })
+        
+    </script>
 
 
 
@@ -61,13 +67,13 @@
                         <thead>         
                             <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Tanggal Input Kwitansi</th>
-                            <th scope="col">Path File</th>
-                            <th scope="col">Download File</th>
+                            <th scope="col">Tipe transaksi</th>
+                            <th scope="col">Jumlah</th>
+                            <th scope="col">Tanggal</th>
                             
                             </tr>
                         </thead>
-                        <tbody class="table-group-divider" id="list_pondokkan">
+                        <tbody class="table-group-divider" id="list_tabungan">
                             
                         </tbody>
                     </table>

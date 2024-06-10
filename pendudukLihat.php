@@ -293,63 +293,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </form>
 
                     <h5>Pengobatan</h5>
-                    <div class="content">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">no</th>
-                                    <th scope="col">Deskripsi</th>
-                                    <th scope="col">Jenis</th>
-                                    <th scope="col">Obat</th>
-                                    <th scope="col">Dosis</th>
-
-                                    <th scope="col">Tanggal</th>
-                                    <th scope="col">Sudah bayar</th>
-                                </tr>
-                            </thead>
-                            <tbody id="rekammedis">
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>obat1 </td>
-                                    <td>Pengobatan</td>
-                                    <td>panadol</td>
-                                    <td>1</td>
-                                    <td>17 juli </td>
-                                    <td>
-                                        <input type="checkbox" class="btn-check check-bayar" id="btncheck1"
-                                            autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btncheck1">Sudah</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Berobat </td>
-                                    <td>Ke rumah sakit</td>
-                                    <td>resep dokter</td>
-                                    <td>5</td>
-                                    <td>1 agustus </td>
-                                    <td>
-                                        <input type="checkbox" class="btn-check check-bayar" id="btncheck2"
-                                            autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btncheck2">Sudah</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>obat2 </td>
-                                    <td>Pengobatan</td>
-                                    <td>panadol</td>
-                                    <td>1</td>
-                                    <td>17 oktober </td>
-                                    <td>
-                                        <input type="checkbox" class="btn-check check-bayar" id="btncheck3"
-                                            autocomplete="off">
-                                        <label class="btn btn-outline-primary" for="btncheck3">Sudah</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <a href="laporanobat.php?id=<?php echo $id ?>"><button type="button" class="btn btn-primary view">Lihat Rekam Medis</button></a>
                 </div>
 
 

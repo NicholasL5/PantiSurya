@@ -39,7 +39,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Keuangan Pondokkan</th>
+                                <th>Tagihan Keuangan Pondokkan</th>
                                 <th>Lihat Laporan Keuangan</th>
                                 
                             </tr>

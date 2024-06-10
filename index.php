@@ -169,15 +169,26 @@ if(isset($_POST['search'])) {
                     <table class="resident-table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>View Medical Record</th>
+                                <th scope="col">Name</th>
+                                <th scope="col" colspan="2" style="width: 60%;">Pilih Aksi </th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach($residents as $resident): ?>
                             <tr>
                                 <td><?php echo $resident['nama']; ?></td>
-                                <td><button onclick="window.location.href='laporanmedis.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Medical Record</button></td>
+                                <td>
+                                    <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Pilih Menu
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Lihat pengobatan</a></li>
+                                        <li><a class="dropdown-item" href="#">Lihat tabungan</a></li>
+                                        <li><a class="dropdown-item" href="#">Lihat pondokkan</a></li>
+                                    </ul>
+                                    </div>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>

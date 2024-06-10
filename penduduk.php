@@ -98,9 +98,9 @@
                             <th scope="col">No.</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Alamat</th>
-                            
-                            <th scope="col">Email Wali</th>
                             <th scope="col">No Telp Wali</th>
+                            <th scope="col">Uang Deposit</th>
+                            
                             <th scope="col">Tanggal Masuk</th>
                             <th scope="col" colspan="2">Action</th>
                             

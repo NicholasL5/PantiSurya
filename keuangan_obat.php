@@ -45,10 +45,8 @@ if(isset($_POST['search'])) {
             <?php include 'nav.php'?>
             
             <div class="main">
-                <h2>KEUANGAN OBAT</h2>
-                <p>Hello, <?php echo isset($_SESSION["username"]) ? $_SESSION["username"] : 'N/A'; ?>👋</p>
-                <p style="font-style: italic;">Last Login: <?php echo isset($_SESSION["last_access"]) ? $_SESSION["last_access"] : 'N/A'; ?></p>
-
+                <h1>KEUANGAN OBAT</h1>
+        
                 <div class="search-bar">
                     <form method="POST" class="d-flex">
                         <input type="text" name="search" placeholder="Search by name" class="form-control me-2">
@@ -64,7 +62,7 @@ if(isset($_POST['search'])) {
                                 <th>Name</th>
                                 <th>Keuangan obat</th>
                                 <th>View Laporan Keuangan</th>
-                                <!-- <th>Actions</th> -->
+                               
                             </tr>
                         </thead>
                         <tbody>
