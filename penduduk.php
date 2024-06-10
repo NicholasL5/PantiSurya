@@ -17,7 +17,7 @@
             $alamat = $_POST['alamat_penduduk'];
             $email = $_POST['email_wali'];
             $noTelpon = $_POST['noTelpon'];
-            $pengobatan= $_POST['tanggal_pengobatan'];
+            $tanggal_masuk = $_POST['tanggal_masuk'];
             // header("Location: penduduk.php");
             $image = file_get_contents($_FILES["imageChooser"]["tmp_name"]);
 
@@ -36,7 +36,7 @@
             $profilePictureDirectory = $file;
             
             // $db->insertGambarPenduduk($profilePictureDirectory);
-            $db->insertPenduduk($nama, $alamat, $pengobatan, $email, $noTelpon, $profilePictureDirectory);
+            $db->insertPenduduk($nama, $alamat, $tanggal_masuk, $email, $noTelpon, $profilePictureDirectory);
             echo "<script>alert('Data behasil disimpan')</script>";
             // Move to login page
             header("location: penduduk.php");
@@ -161,8 +161,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Pengobatan Terakhir:</label>
-                            <input type="date" class="form-control" id="tanggal_pengobatan" name="tanggal_pengobatan">
+                            <label for="recipient-name" class="col-form-label">Tanggal Masuk:</label>
+                            <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk">
                         </div>
                     </div>
                     <div class="modal-footer">

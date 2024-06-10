@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $noTelpon = $_POST['noTelpon'];
 
         if (isset($_FILES['KTP'])) {
-            $uploadDirKTP = 'images/'; // Directory to save the uploaded KTP file
+            $uploadDirKTP = 'images/ktp/'; // Directory to save the uploaded KTP file
             $uploadFileKTP = $uploadDirKTP . basename($_FILES['KTP']['name']);
             $imageFileTypeKTP = strtolower(pathinfo($uploadFileKTP, PATHINFO_EXTENSION));
             $uploadOkKTP = 1;
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if (isset($_FILES['KK'])) {
-            $uploadDirKK = 'images/'; // Directory to save the uploaded KK file
+            $uploadDirKK = 'images/kk/'; // Directory to save the uploaded KK file
             $uploadFileKK = $uploadDirKK . basename($_FILES['KK']['name']);
             $imageFileTypeKK = strtolower(pathinfo($uploadFileKK, PATHINFO_EXTENSION));
             $uploadOkKK = 1;
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if (isset($_FILES['BPJS'])) {
-            $uploadDirBPJS = 'images/'; // Directory to save the uploaded BPJS file
+            $uploadDirBPJS = 'images/bpjs/'; // Directory to save the uploaded BPJS file
             $uploadFileBPJS = $uploadDirBPJS . basename($_FILES['BPJS']['name']);
             $imageFileTypeBPJS = strtolower(pathinfo($uploadFileBPJS, PATHINFO_EXTENSION));
             $uploadOkBPJS = 1;
@@ -218,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt = $db->prepare("SELECT KTP FROM penduduk WHERE id = ?");
                     $stmt->execute([$id]);
 
-                    // Fetch the image data (assuming the image is stored in a column named 'image_column')
+                    // Fetch the image data 
                     $imageKTP = $stmt->fetchColumn();
 
                     // Output the image data
@@ -230,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt = $db->prepare("SELECT KK FROM penduduk WHERE id = ?");
                     $stmt->execute([$id]);
 
-                    // Fetch the image data (assuming the image is stored in a column named 'image_column')
+                    // Fetch the image data 
                     $imageKK = $stmt->fetchColumn();
 
                     // Output the image data
@@ -242,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt = $db->prepare("SELECT BPJS FROM penduduk WHERE id = ?");
                     $stmt->execute([$id]);
 
-                    // Fetch the image data (assuming the image is stored in a column named 'image_column')
+                    // Fetch the image data 
                     $imageBPJS = $stmt->fetchColumn();
 
                     // Output the image data

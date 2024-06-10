@@ -288,11 +288,11 @@ class myDB
         $stmt->execute([$title, $description, $date, $id]);
     }
 
-    function insertPenduduk($nama, $alamat, $pengobatan, $email, $noTelpon, $profilePictureDirectory)
+    function insertPenduduk($nama, $alamat, $tanggal_masuk, $email, $noTelpon, $profilePictureDirectory)
     {
-        $query = "INSERT INTO penduduk (nama, alamat, pengobatan_terakhir, email, notelp, profile_picture) VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO penduduk (nama, alamat, tanggal_masuk, email, notelp, profile_picture) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$nama, $alamat, $pengobatan, $email, $noTelpon, $profilePictureDirectory]);
+        $stmt->execute([$nama, $alamat, $tanggal_masuk, $email, $noTelpon, $profilePictureDirectory]);
     }
 
     function editPenduduk($alamat, $email, $noTelpon, $id)
