@@ -14,7 +14,12 @@
             <td>'.$row["tipe_transaksi"].'</td>
             <td>'.$row["jumlah"].'</td>
             <td>'.$row["tanggal_transaksi"].'</td>
-            </tr>';
+            ';
+            if($_SESSION['role'] == 0){
+                echo '<td><button type="button" class="btn btn-outline-primary upload-btn" data-id="'.$row['id'].'" data-tagihan-id="'.$row['id'].'">Upload</button></td>';
+            } else {
+                echo '</tr>';
+            }
             $counter += 1;
         }
     } else {

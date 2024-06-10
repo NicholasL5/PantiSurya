@@ -8,6 +8,8 @@
 
     $db = new myDB();
 
+    include "utils/resize_image.php";
+    define('UPLOAD_DIR','berita/');
     // Fetch all news data from the database
     $news = $db->getAllBerita();
 
@@ -23,7 +25,25 @@
             $title = $_POST['judul-berita'];
             $description = $_POST['desc-berita'];
             $date = $_POST['tanggal-berita'];
-            $db->editNews($title, $description, $date, $id);
+            // Get the tmp file from server as image
+            $image = file_get_contents($_FILES["imageChooser"]["tmp_name"]);
+
+            // Make file with name uniqid().jpg
+            $file_name = uniqid().'.jpg';
+            // $foto = 'poster/'.$file_name;
+            $file = UPLOAD_DIR.$file_name;
+            $success = file_put_contents($file, $image);
+            // echo var_dump($success);
+
+            //Resize and Compress Image
+            list($width, $height, $type) = getimagesize($file);
+            $img = resize_image($file, $width, $height, TRUE);
+            imagejpeg($img, $file, 90);
+            // echo "test";
+
+            $profilePictureDirectory = $file;
+
+            $db->editNews($title, $description, $date, $id, $profilePictureDirectory);
             // echo "tes";
             // echo $title;
             // echo $description;
@@ -49,6 +69,20 @@
     <link rel="stylesheet" href="layout/stylelihat.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <title>Panti Surya | Lihat Penduduk</title>
+    <style>
+        #display-image {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            background-position: center;
+            background-size: cover;
+            <?php 
+            $row = $newsItem->fetch(PDO::FETCH_ASSOC);
+            if (isset($row['image_path'])): ?>
+            background-image: url('<?php echo htmlspecialchars($row['image_path']); ?>');
+            <?php endif; ?>
+        }
+    </style>
 </head>
 <body>
     <div class="app">
@@ -67,9 +101,15 @@
                 </div>
 
                 <div class="description lr-9">
+                <h5>Foto Berita</h5>
+                    <p><?php
+                    $row = $newsItem->fetch(PDO::FETCH_ASSOC);
+                    // echo $row['image_path']; 
+                    echo '<img src="' . htmlspecialchars($row['image_path']) . '" alt="Foto Berita" style="width: 300px; height: 300px;">';
+                ?></p>
+
                     <h5>Title</h5>
                     <p><?php
-        $row = $newsItem->fetch(PDO::FETCH_ASSOC);
         echo $row['title']; 
     ?></p>
 
@@ -84,7 +124,18 @@
     ?></p>
                 
                     <h4>Edit Berita</h4>
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
+
+                <div class="mb-3">
+                        <label for="imageInput" class="form-label">
+
+                            </svg>Tambahkan foto berita</label>
+                        <input class="form-control mb-3" type="file" id="image-input"
+                            accept="image/jpeg, image/jpg, image/png" name="imageChooser">
+                        <div id="display-image"></div>
+                        <!-- <small id="imageHelp" class="form-text text-muted">Upload bukti transfer (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small> -->
+                    </div>
+
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">Judul Berita:</label>
                     <input type="text" class="form-control" id="judul-berita" name="judul-berita" value="<?php echo htmlspecialchars($row['title']); ?>">
@@ -116,6 +167,18 @@
 
     <script>
         feather.replace()
+
+        
+        const image_input = document.querySelector("#image-input");
+        image_input.addEventListener("change", function() {
+            const reader = new FileReader();
+            reader.addEventListener("load", () => {
+            const uploaded_image = reader.result;
+            document.querySelector("#display-image").style.backgroundImage = `url(${uploaded_image})`;
+            });
+            reader.readAsDataURL(this.files[0]);
+        });
+
     </script>
 </body>
 </html>

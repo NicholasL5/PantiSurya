@@ -12,9 +12,9 @@ if($res->rowCount() > 0){
         echo '
         <tr>
         <th scope="row">'.$counter.'</th>
-        <td style="width: 20%;">'.$row["deskripsi"].'</td>
-        <td style="width: 20%;">'.$row["jenis"].'</td>
-        <td style="width: 20%;">'.$row["obat"].'</td>  
+        <td style="width: 10%;">'.$row["deskripsi"].'</td>
+        <td style="width: 10%;">'.$row["jenis"].'</td>
+        <td style="width: 10%;">'.$row["obat"].'</td>  
         <td style="width: 20%;">'.$row["tagihan"].'</td> 
         <td style="width: 20%;">'.$row["tanggal_berobat"].'</td>  
         ';

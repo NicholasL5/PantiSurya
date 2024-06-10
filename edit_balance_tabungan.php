@@ -27,51 +27,56 @@ if (!$resident) {
 
 $alertMessage = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset($_POST['transaksi'])) {
+// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset($_POST['transaksi'])) {
     
-    if ($_POST['transaksi'] == 0){
-        $mul = 1;
-        $type = "debit";
-    }else{
-        $mul = -1;
-        $type = "kredit";
-    }
+//     if ($_POST['transaksi'] == 0){
+//         $mul = 1;
+//         $type = "debit";
+//     }else{
+//         $mul = -1;
+//         $type = "kredit";
+//     }
 
-    $jumlah = intval($_POST['addBalance']) * $mul;
-    $db->addDataTabungan($jumlah, $type, $residentId);
-    $db->updateTabunganPenduduk($residentId);
-    header("location: keuangan_tabungan.php");
-}
+//     $jumlah = intval($_POST['addBalance']) * $mul;
+//     $db->addDataTabungan($jumlah, $type, $residentId);
+//     $db->updateTabunganPenduduk($residentId);
+//     header("location: keuangan_tabungan.php");
+// }
 
-// include "utils/resize_image.php";
-// define('UPLOAD_DIR','keuangan/pondokkan/');
+include "utils/resize_image.php";
+define('UPLOAD_DIR','keuangan/tabungan/');
+$tagihanId = $_GET["tagihanId"];
+$id = $_GET["id"];
+// echo $id;
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     // Upload profile picture ke directory lalu get directory name
-//     // Get the tmp file from server as image
-//     $image = file_get_contents($_FILES["imageChooser"]["tmp_name"]);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // $id = $_GET["tagihanId"];
+    // echo $id;
+    // Upload profile picture ke directory lalu get directory name
+    // Get the tmp file from server as image
+    $image = file_get_contents($_FILES["imageChooser"]["tmp_name"]);
 
-//     // Make file with name uniqid().jpg
-//     $file_name = uniqid().'.jpg';
-//     // $foto = 'poster/'.$file_name;
-//     $file = UPLOAD_DIR.$file_name;
-//     $success = file_put_contents($file, $image);
-//     // echo var_dump($success);
+    // Make file with name uniqid().jpg
+    $file_name = uniqid().'.jpg';
+    // $foto = 'poster/'.$file_name;
+    $file = UPLOAD_DIR.$file_name;
+    $success = file_put_contents($file, $image);
+    // echo var_dump($success);
 
-//     //Resize and Compress Image
-//     list($width, $height, $type) = getimagesize($file);
-//     $img = resize_image($file, $width, $height, TRUE);
-//     imagejpeg($img, $file, 90);
-//     // echo "test";
+    //Resize and Compress Image
+    list($width, $height, $type) = getimagesize($file);
+    $img = resize_image($file, $width, $height, TRUE);
+    imagejpeg($img, $file, 90);
+    // echo "test";
 
-//     $profilePictureDirectory = $file;
+    $profilePictureDirectory = $file;
     
 
-//     $db->insertGambarPondokkan($residentId, $profilePictureDirectory);
-//     header("location: keuangan_pondokkan.php");
+    $db->insertGambarTabungan($tagihanId, $profilePictureDirectory);
+    header("location: laporanTabungan.php?id=$id");
 
 //     // echo "Tes";
-// }
+}
 ?>
 
 <!DOCTYPE html>
@@ -103,9 +108,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
             <?php include 'nav.php' ?>
             <div class="column" style="margin-left:20px; padding-bottom: 2rem;">
                 <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
-                <h4>Jumlah Tabungan Sekarang: Rp.<?php echo $uang['keuangan_tabungan']; ?></h4>
+                <h4>Jumlah Tabungan Sekarang: Rp.<?php echo $db->formatRupiah($uang['keuangan_tabungan']); ?></h4>
                 <form id="balanceForm" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="addBalance">Masukkan Jumlah:</label>
                         <input type="number" id="addBalance" name="addBalance" placeholder="Enter amount to add"
                             class="form-control" min="0" step="1000">
@@ -133,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
                         <label for="addDesc">Masukkan Deskripsi:</label>
                         <textarea class="form-control" id="textareaTabungan" rows="5" name="addDesc" placeholder="Enter your text here..."></textarea>
                         
-                    </div>
+                    </div> -->
 
                     <div class="mb-3">
                         <label for="imageInput" class="form-label">

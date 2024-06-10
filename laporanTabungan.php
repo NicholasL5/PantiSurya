@@ -52,9 +52,9 @@
             <div class="main" style="text-align: center;">
                 <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
                 
-                <h4>Jumlah Tabungan Sekarang: <?php echo $uang['keuangan_tabungan']; ?></h4>
+                <h4>Jumlah Tabungan Sekarang: <?php echo $db->formatRupiah($uang['keuangan_tabungan']); ?></h4>
                 <div class="btn-flex-left">
-                    <a href="edit_balance_tabungan.php?id=<?php echo $residentId ?>">
+                    <a href="tambah_balance_tabungan.php?id=<?php echo $residentId ?>">
                         <button type="submit" name="EditPondokkan" class="btn btn-primary bg-blue" style="width: 5rem;">
                             Tambah
                         </button>
@@ -80,6 +80,7 @@
                             <th scope="col">Tipe transaksi</th>
                             <th scope="col">Jumlah</th>
                             <th scope="col">Tanggal</th>
+                            <th scope="col">Upload Bukti Kwitansi</th>
                             
                             </tr>
                         </thead>
@@ -110,6 +111,29 @@ document.addEventListener("DOMContentLoaded", function() {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+        }
+    });
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to get query parameters from the URL
+    function getQueryParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Get the 'id' parameter from the URL
+    const id = getQueryParameter('id');
+    console.log("ID from URL:", id); // Log the ID when the page loads
+
+    document.body.addEventListener("click", function(event) {
+        if (event.target.classList.contains("upload-btn")) {
+            var tagihanId = event.target.getAttribute("data-id");
+            console.log(tagihanId)
+            // window.location.href = "edit_balance_pondokkan.php?id=" + id;
+            window.location.href = "edit_balance_tabungan.php?id=" + id + "&tagihanId=" + tagihanId;
         }
     });
 });

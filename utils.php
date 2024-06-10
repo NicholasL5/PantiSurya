@@ -274,18 +274,18 @@ class myDB
         $stmt->execute([$username, $password, $role]);
     }
 
-    function insertNews($title, $description, $date)
+    function insertNews($title, $description, $date, $path)
     {
-        $query = "INSERT INTO news (title, description, date) VALUES (?, ?, ?)";
+        $query = "INSERT INTO news (title, description, date, image_path) VALUES (?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$title, $description, $date]);
+        $stmt->execute([$title, $description, $date, $path]);
     }
 
-    function editNews($title, $description, $date, $id)
+    function editNews($title, $description, $date, $id, $path)
     {
-        $query = "UPDATE news SET title = ?, description = ?, date = ? WHERE id = ?";
+        $query = "UPDATE news SET title = ?, description = ?, date = ?, image_path = ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$title, $description, $date, $id]);
+        $stmt->execute([$title, $description, $date, $path, $id]);
     }
 
     function insertPenduduk($nama, $alamat, $tanggal_masuk, $email, $noTelpon, $profilePictureDirectory)
@@ -321,6 +321,13 @@ class myDB
         $query = "UPDATE rekam_medis SET sudah_bayar = 1, image_path = ?, input_date = ? WHERE pengobatan_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
+    }
+
+    function insertGambarTabungan($id, $profilePictureDirectory)
+    {
+        $query = "UPDATE tabungan SET image_path = ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$profilePictureDirectory, $id]);
     }
     
     function tambahPondokkan($penduduk_id, $tagihan, $tagihan_date){
