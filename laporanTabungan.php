@@ -61,9 +61,19 @@
                     </a>
                     
                 </div>
-                <div class="content">
-                    
-                    <table class="table wfull table-hover">
+                <div class="content" style="align-items: flex-start;">
+                    <div class="dropdown" style="align-items: left; display: flex;">
+                        <button style="border: 1px solid gray;margin-left: 0.4rem;" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Lihat Semua Transaksi
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Semua</a></li>
+                            <li><a class="dropdown-item" href="#">Bulan ini</a></li>
+                            <li><a class="dropdown-item" href="#">Tahun ini</a></li>
+                        </ul>
+                    </div>
+                    <table class="table wfull table-hover resident-table">
+
                         <thead>         
                             <tr>
                             <th scope="col">No.</th>

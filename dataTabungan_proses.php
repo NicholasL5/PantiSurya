@@ -10,7 +10,7 @@
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             echo '
             <tr>
-            <th scope="row">'.$counter.'</th>
+            <td>'.$counter.'</td>
             <td>'.$row["tipe_transaksi"].'</td>
             <td>'.$row["jumlah"].'</td>
             <td>'.$row["tanggal_transaksi"].'</td>
