@@ -9,7 +9,7 @@
     $db = new myDB();
 
     include "utils/resize_image.php";
-    define('UPLOAD_DIR','berita/');
+    define('UPLOAD_DIR','../Front-PantiSurya/images/berita/');
     // Fetch all news data from the database
     $news = $db->getAllBerita();
 
@@ -103,7 +103,6 @@
                 <div class="description lr-9">
                 <h5>Foto Berita</h5>
                     <p><?php
-                    $row = $newsItem->fetch(PDO::FETCH_ASSOC);
                     // echo $row['image_path']; 
                     echo '<img src="' . htmlspecialchars($row['image_path']) . '" alt="Foto Berita" style="width: 300px; height: 300px;">';
                 ?></p>

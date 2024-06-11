@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2024 at 07:42 AM
+-- Generation Time: Jun 11, 2024 at 10:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id`, `username`, `password`, `date`, `last_access`, `role`) VALUES
-(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-06-10', 0),
+(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-06-11', 0),
 (6, 'nice', '$2y$10$pcubK.aIK/YrnJKRjQlQDuJKMulGy26nbWUwOmjqKY7ATvXHzO4l6', '2024-05-08', '2024-05-14', 0),
 (7, 'asik', '$2y$10$OY62rBeR96KFJQmJuFvUj.njVk/.kTHzyO8HUZUjxnlzTrbmdYFRO', '2024-05-22', '2024-05-22', 0);
 
@@ -103,7 +103,7 @@ CREATE TABLE `news` (
   `title` varchar(50) NOT NULL,
   `description` varchar(2000) NOT NULL,
   `date` date NOT NULL,
-  `image_path` varchar(50) DEFAULT NULL
+  `image_path` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -111,14 +111,11 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`id`, `title`, `description`, `date`, `image_path`) VALUES
-(1, 'Ibadah Paskah 2023', 'Kegiatan Ibadah Paskah yang dilaksanakan tanggal 31 Maret 2024 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Paskah.', '2023-10-10', NULL),
-(2, 'Ibadah Natal 2023', 'Kegiatan Ibadah Natal yang dilaksanakan tanggal 25 Desember 2023 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Natal.', '2023-12-25', NULL),
-(4, 'abc', 'abc', '2024-04-17', NULL),
-(7, 'aaabbb', 'aaabbb', '2024-04-18', NULL),
-(9, 'nnn', 'nnn', '2024-05-02', NULL),
-(10, 'lll', 'lll', '2024-05-02', NULL),
-(0, 'waw2', 'waw2\r\n\r\n\r\n', '2024-06-10', 'berita/6666bf56b1ff0.jpg'),
-(0, 'waw2', 'waw2\r\n\r\n\r\n', '2024-06-10', 'berita/6666bf56b1ff0.jpg');
+(1, 'Ibadah Paskah 2023', 'Kegiatan Ibadah Paskah yang dilaksanakan tanggal 31 Maret 2024 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Paskah.', '2023-10-10', '../Front-PantiSurya/images/berita/6668040272ccd.jpg'),
+(2, 'Ibadah Natal 2023', 'Kegiatan Ibadah Natal yang dilaksanakan tanggal 25 Desember 2023 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Natal.', '2023-12-25', '../Front-PantiSurya/images/berita/6668040a618f1.jpg'),
+(3, 'aaaa', 'aaaa', '2024-06-11', '../Front-PantiSurya/images/berita/6668039e8e8d7.jpg'),
+(4, 'safa', 'safa', '2024-06-11', '../Front-PantiSurya/images/berita/666804885cad9.jpg'),
+(7, 'bb', 'bb', '2024-06-11', '../Front-PantiSurya/images/berita/666804b8aef05.jpg');
 
 -- --------------------------------------------------------
 
@@ -277,6 +274,12 @@ ALTER TABLE `images`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `news`
+--
+ALTER TABLE `news`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `penduduk`
 --
 ALTER TABLE `penduduk`
@@ -324,6 +327,12 @@ ALTER TABLE `data_pondokkan`
 --
 ALTER TABLE `images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `penduduk`
