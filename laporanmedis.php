@@ -44,36 +44,38 @@ if(isset($_GET['id'])) {
             <?php include 'nav.php'?>
             
             <div class="main">
-                <h2>Medical Records of <?php echo $penduduk['nama']; ?></h2>
-                <div class="records-table">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Record ID</th>
-                                <th>Description</th>
-                                <th>Type</th>
-                                <th>Medicine</th>
-                                <th>Dosage</th>
-                                <th>Date of Treatment</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($records as $record): ?>
-                            <tr>
-                                <td><?php echo $record['pengobatan_id']; ?></td>
-                                <td><?php echo $record['deskripsi']; ?></td>
-                                <td><?php echo $record['jenis']; ?></td>
-                                <td><?php echo $record['obat']; ?></td>
-                                <td><?php echo $record['dosis']; ?></td>
-                                <td><?php echo $record['tanggal_berobat']; ?></td>
-                                <td><?php echo $record['sudah_bayar'] == 0 ? 'Unpaid' : 'Paid'; ?></td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                <div class="pad">
+                    <h2>Medical Records of <?php echo $penduduk['nama']; ?></h2>
+                    <div class="records-table">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Record ID</th>
+                                    <th>Description</th>
+                                    <th>Type</th>
+                                    <th>Medicine</th>
+                                    <th>Dosage</th>
+                                    <th>Date of Treatment</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($records as $record): ?>
+                                <tr>
+                                    <td><?php echo $record['pengobatan_id']; ?></td>
+                                    <td><?php echo $record['deskripsi']; ?></td>
+                                    <td><?php echo $record['jenis']; ?></td>
+                                    <td><?php echo $record['obat']; ?></td>
+                                    <td><?php echo $record['dosis']; ?></td>
+                                    <td><?php echo $record['tanggal_berobat']; ?></td>
+                                    <td><?php echo $record['sudah_bayar'] == 0 ? 'Unpaid' : 'Paid'; ?></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="index.php" class="btn btn-primary">Back to Overview</a>
                 </div>
-                <a href="index.php" class="btn btn-primary">Back to Overview</a>
             </div>
         </div>
     </div>

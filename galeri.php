@@ -27,6 +27,7 @@
                 <form action="api/addPicture.php" method="post" enctype="multipart/form-data">
                     <!-- untuk sekarang image uploadnya gini -->
                     <div class="mb-3">
+                        <h1>Galeri</h1>
                         <label for="imageInput" class="form-label">
                             </svg> Upload Galeri Foto</label>
                         <input class="form-control mb-3" type="file" id="image-input" accept="image/jpeg, image/jpg, image/png"

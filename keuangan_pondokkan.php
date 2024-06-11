@@ -25,32 +25,36 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
             <?php include 'nav.php'?>
             
             <div class="main">
-                <h1>KEUANGAN PONDOKKAN</h1>
-                <div class="search-bar">
-                    <form method="POST" class="d-flex">
-                        <input type="text" name="search" placeholder="Search by name" id="search_by_name" class="form-control me-2">
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </form>
-                </div>
+                <div class="pad">
 
-                <div class="residents-table">
-                    <h3 style="padding-top: 1rem;">Daftar Penduduk</h3>
-                    <table class="table table-striped" id="tabelPondokan">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Tagihan Keuangan Pondokkan</th>
-                                <th>Lihat Laporan Keuangan</th>
+                
+                    <h1>KEUANGAN PONDOKKAN</h1>
+                    <div class="search-bar">
+                        <form method="POST" class="d-flex">
+                            <input type="text" name="search" placeholder="Search by name" id="search_by_name" class="form-control me-2">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
+
+                    <div class="residents-table">
+                        <h3 style="padding-top: 1rem;">Daftar Penduduk</h3>
+                        <table class="table table-striped" id="tabelPondokan">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Tagihan Keuangan Pondokkan</th>
+                                    <th>Lihat Laporan Keuangan</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody id="tabelPondokanBody">
                                 
-                            </tr>
-                        </thead>
-                        <tbody id="tabelPondokanBody">
-                            
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <?php include 'footer.php'?>
+                    <?php include 'footer.php'?>
+                </div>
             </div>
         </div>
     </div>

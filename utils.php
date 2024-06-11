@@ -1,6 +1,8 @@
 <?php
 // require "connection.php";
-
+$uploadDirKTP = 'images/ktp/';
+$uploadDirKK = 'images/kk/'; 
+$uploadDirBPJS = 'images/bpjs/'; 
 class myDB
 {
     private $host = "localhost";

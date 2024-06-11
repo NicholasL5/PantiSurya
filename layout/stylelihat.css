@@ -2,7 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
+    width: 25%;
+}
+
+.profile p{
+    align-self: flex-start;
 }
 
 
@@ -31,13 +36,12 @@
 }
 
 .description{
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    flex: 1;
 }
 
 .lr-9{
-    padding-left: 9rem;
-    padding-right: 9rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 
@@ -46,4 +50,8 @@
     display: flex;
     flex-direction: column;
     padding-left: 1rem;
+}
+
+.view{
+    margin-top: 1rem;
 }

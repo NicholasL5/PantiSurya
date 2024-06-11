@@ -90,74 +90,77 @@
             <?php include 'nav.php'?>
             
             <div class="main">
-                <div class="profile lr-9">
-                    <!-- <img src="images/noimg-removebg-preview.png" alt="no-image"> -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                    <div class="profile-info">
-                        <h2><?php echo $title; ?></h2>
+                <div class="pad">
+                    <div class="profile lr-9">
+                        <!-- <img src="images/noimg-removebg-preview.png" alt="no-image"> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        <div class="profile-info">
+                            <h2><?php echo $title; ?></h2>
+                            
+                        </div>
                         
                     </div>
+
+                    <div class="description lr-9">
+                    <h5>Foto Berita</h5>
+                        <p><?php
+                        // $row = $newsItem->fetch(PDO::FETCH_ASSOC);
+                        // echo $row['image_path']; 
+                        echo '<img src="' . htmlspecialchars($row['image_path']) . '" alt="Foto Berita" style="width: 300px; height: 300px;">';
+                    ?></p>
+
+                        <h5>Title</h5>
+                        <p><?php
+                            echo $row['title']; 
+                        ?></p>
+
+                            <h5>Description</h5>
+                            <p><?php
+                            echo $row['description']; 
+                        ?></p>
+
+                            <h5>Date</h5>
+                            <p><?php
+                            echo $row['date']; 
+                        ?></p>
                     
-                </div>
+                        <h4>Edit Berita</h4>
+                    <form action="" method="post" enctype="multipart/form-data">
 
-                <div class="description lr-9">
-                <h5>Foto Berita</h5>
-                    <p><?php
-                    // echo $row['image_path']; 
-                    echo '<img src="' . htmlspecialchars($row['image_path']) . '" alt="Foto Berita" style="width: 300px; height: 300px;">';
-                ?></p>
+                    <div class="mb-3">
+                            <label for="imageInput" class="form-label">
 
-                    <h5>Title</h5>
-                    <p><?php
-        echo $row['title']; 
-    ?></p>
+                                </svg>Tambahkan foto berita</label>
+                            <input class="form-control mb-3" type="file" id="image-input"
+                                accept="image/jpeg, image/jpg, image/png" name="imageChooser">
+                            <div id="display-image"></div>
+                            <!-- <small id="imageHelp" class="form-text text-muted">Upload bukti transfer (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small> -->
+                        </div>
 
-                    <h5>Description</h5>
-                    <p><?php
-        echo $row['description']; 
-    ?></p>
-
-                    <h5>Date</h5>
-                    <p><?php
-        echo $row['date']; 
-    ?></p>
-                
-                    <h4>Edit Berita</h4>
-                <form action="" method="post" enctype="multipart/form-data">
-
-                <div class="mb-3">
-                        <label for="imageInput" class="form-label">
-
-                            </svg>Tambahkan foto berita</label>
-                        <input class="form-control mb-3" type="file" id="image-input"
-                            accept="image/jpeg, image/jpg, image/png" name="imageChooser">
-                        <div id="display-image"></div>
-                        <!-- <small id="imageHelp" class="form-text text-muted">Upload bukti transfer (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small> -->
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Judul Berita:</label>
+                        <input type="text" class="form-control" id="judul-berita" name="judul-berita" value="<?php echo htmlspecialchars($row['title']); ?>">
                     </div>
 
-                <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Judul Berita:</label>
-                    <input type="text" class="form-control" id="judul-berita" name="judul-berita" value="<?php echo htmlspecialchars($row['title']); ?>">
-                </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Deskripsi:</label>
+                        <textarea class="form-control" id="desc-berita" rows="3" name="desc-berita"><?php echo htmlspecialchars($row['description']); ?></textarea>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Deskripsi:</label>
-                    <textarea class="form-control" id="desc-berita" rows="3" name="desc-berita"><?php echo htmlspecialchars($row['description']); ?></textarea>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Tanggal:</label>
+                        <input type="date" class="form-control" id="tanggal-berita" name="tanggal-berita" value="<?php echo htmlspecialchars($row['date']); ?>">
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="dataBerita.php" class="btn btn-outline-primary" type="button" id="back">Back</a> 
+                        <button class="btn btn-primary me-md-2" type="submit" name="edit">Edit</button>             
+                    </div>
+                    </form>
+                    </div>
+                    
+                    
                 </div>
-
-                <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Tanggal:</label>
-                    <input type="date" class="form-control" id="tanggal-berita" name="tanggal-berita" value="<?php echo htmlspecialchars($row['date']); ?>">
-                </div>
-                
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a href="dataBerita.php" class="btn btn-outline-primary" type="button" id="back">Back</a> 
-                    <button class="btn btn-primary me-md-2" type="submit" name="edit">Edit</button>             
-                </div>
-                </form>
-                </div>
-                
-                
             </div>
         </div>
     </div>

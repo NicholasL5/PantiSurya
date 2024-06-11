@@ -77,103 +77,104 @@
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
-                <h1>Data Penduduk</h1>
-                
-                <div class="table-nav wfull">
-                    <form class="d-flex" role="search" action="penduduk.php" method="POST">
-                        <input class="form-control me-2" type="search" placeholder="Cari Penduduk" id="search_input" aria-label="Search" style="border: 1px solid rgb(0,0,0,0.5);">
-                    </form>
+                <div class="pad">
+                    <h1>Data Penduduk</h1>
+                    
+                    <div class="table-nav wfull">
+                        <form class="d-flex" role="search" action="penduduk.php" method="POST">
+                            <input class="form-control me-2" type="search" placeholder="Cari Penduduk" id="search_input" aria-label="Search" style="border: 1px solid rgb(0,0,0,0.5);">
+                        </form>
 
-                    <div class="button-group">
-                        <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser">Add User</button>
-                        <a href="pendudukTambah.php" class="btn btn-outline-primary" type="button" id="tambahpenduduk">Tambah Penduduk</a>
+                        <div class="button-group">
+                            <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser">Add User</button>
+                            <a href="pendudukTambah.php" class="btn btn-outline-primary" type="button" id="tambahpenduduk">Tambah Penduduk</a>
+                        </div>
+                        
                     </div>
+
+                    <div class="content">
+                        <table class="table wfull table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Alamat</th>
+                                <th scope="col">No Telp Wali</th>
+                                <th scope="col">Uang Deposit</th>
+                                
+                                <th scope="col">Tanggal Masuk</th>
+                                <th scope="col" colspan="2">Action</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider" id="list_siswa">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php include 'footer.php'?>
                     
                 </div>
 
-                <div class="content">
-                    <table class="table wfull table-hover">
-                        <thead>
-                            <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Alamat</th>
-                            <th scope="col">No Telp Wali</th>
-                            <th scope="col">Uang Deposit</th>
-                            
-                            <th scope="col">Tanggal Masuk</th>
-                            <th scope="col" colspan="2">Action</th>
-                            
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider" id="list_siswa">
-                            
-                        </tbody>
-                    </table>
-                </div>
-                <?php include 'footer.php'?>
                 
-            </div>
 
-            
-
-            
+                
 
 
-            <!-- Modal -->
-            <div class="modal fade" id="ModalAddUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <form action="" method="post" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Penduduk Panti</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    <label for="imageInput" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                    fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
-                    <path
-                        d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                    </svg> Profile Picture</label>
-                    <input class="form-control mb-3" type="file" id="image-input" accept="image/jpeg, image/jpg, image/png"
-                        name="imageChooser">
-                    <div id="display-image"></div>
-
-                        <div class="mb-3">
-                            <label for="adduser-nama" class="col-form-label">Nama:</label>
-                            <input type="text" class="form-control" id="nama_penduduk" name="nama_penduduk">
+                <!-- Modal -->
+                <div class="modal fade" id="ModalAddUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <form action="" method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Penduduk Panti</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                        <div class="modal-body">
+                        <label for="imageInput" class="form-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                        <path
+                            d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                        </svg> Profile Picture</label>
+                        <input class="form-control mb-3" type="file" id="image-input" accept="image/jpeg, image/jpg, image/png"
+                            name="imageChooser">
+                        <div id="display-image"></div>
 
-                        <div class="mb-3">
-                            <label for="adduser-nama" class="col-form-label">Alamat:</label>
-                            <input type="text" class="form-control" id="alamat_penduduk" name="alamat_penduduk">
-                        </div>
+                            <div class="mb-3">
+                                <label for="adduser-nama" class="col-form-label">Nama:</label>
+                                <input type="text" class="form-control" id="nama_penduduk" name="nama_penduduk">
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="adduser-nama" class="col-form-label">Email Wali:</label>
-                            <input type="text" class="form-control" id="email_wali" name="email_wali">
-                        </div>
+                            <div class="mb-3">
+                                <label for="adduser-nama" class="col-form-label">Alamat:</label>
+                                <input type="text" class="form-control" id="alamat_penduduk" name="alamat_penduduk">
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="adduser-nama" class="col-form-label">No Telp Wali:</label>
-                            <input type="text" class="form-control" id="noTelpon" name="noTelpon">
-                        </div>
+                            <div class="mb-3">
+                                <label for="adduser-nama" class="col-form-label">Email Wali:</label>
+                                <input type="text" class="form-control" id="email_wali" name="email_wali">
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Tanggal Masuk:</label>
-                            <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk">
+                            <div class="mb-3">
+                                <label for="adduser-nama" class="col-form-label">No Telp Wali:</label>
+                                <input type="text" class="form-control" id="noTelpon" name="noTelpon">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Tanggal Masuk:</label>
+                                <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk">
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button> -->
-                        <button type="submit" name="simpan" class="btn btn-primary" style="width: 7rem;">Simpan</button>
-                    </div>
-                    </form> 
+                        <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button> -->
+                            <button type="submit" name="simpan" class="btn btn-primary" style="width: 7rem;">Simpan</button>
+                        </div>
+                        </form> 
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     

@@ -96,108 +96,118 @@ if(isset($_POST['search'])) {
 
             
             <div class="main">
-                <h1>Overview</h1>
-                <p>Hello, <?php echo isset($_SESSION["username"]) ? $_SESSION["username"] : 'N/A'; ?>👋</p>
-                <p style="font-style: italic;">Last Login: <?php echo isset($_SESSION["last_access"]) ? $_SESSION["last_access"] : 'N/A'; ?></p>
-                
-                <div class="overview-info row justify-content-between">
-                    <div class="col">
-                        <div class="card text-bg-primary">
-                            <div class="row g-0">
-                                <!-- <div class="col-sm-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-                                class="feather feather-user">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle></svg>
+                <div class="pad">
 
-                                </div> -->
-                                <div class="col">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Jumlah penduduk</h5>
-                                        <p class="card-text"><?php echo $total_residents ?></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card text-bg-danger">
-                            <div class="row g-0">
-                                <!-- <div class="col-sm-4">
-                                    <img src="images/person.jpg" class="img-fluid rounded-start" alt="...">
-                                </div> -->
-                                <div class="col">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Pondokkan belum bayar</h5>
-                                        <p class="card-text"><?php echo $total_unpaid ?></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card text-bg-success">
-                            <div class="row g-0">
-                                <!-- <div class="col-sm-4">
-                                    <img src="images/person.jpg" class="img-fluid rounded-start" alt="...">
-                                </div> -->
-                                <div class="col">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Pondokkan sudah bayar</h5>
-                                        <p class="card-text">24</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <h1>Overview</h1>
+                    <p>Hello, <?php echo isset($_SESSION["username"]) ? $_SESSION["username"] : 'N/A'; ?>👋</p>
+                    <p style="font-style: italic;">Last Login: <?php echo isset($_SESSION["last_access"]) ? $_SESSION["last_access"] : 'N/A'; ?></p>
                     
-                </div>
+                    <div class="overview-info row justify-content-between">
+                        <div class="col">
+                            <div class="card text-bg-primary">
+                                <div class="row g-0">
+                                    <!-- <div class="col-sm-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                                    class="feather feather-user">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle></svg>
 
-                <div class="search-bar">
-                    <form method="POST">
-                        <input type="text" name="search" placeholder="Search by name" class="search-input">
-                        <button type="submit" class="search-button">Search</button>
-                    </form>
-                </div>
-
-                <div class="residents-table">
-                    <h3>All Residents</h3>
-                    <table class="resident-table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col" colspan="2" style="width: 60%;">Pilih Aksi </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($residents as $resident): ?>
-                            <tr>
-                                <td><?php echo $resident['nama']; ?></td>
-                                <td>
-                                    <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Pilih Menu
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Lihat pengobatan</a></li>
-                                        <li><a class="dropdown-item" href="#">Lihat tabungan</a></li>
-                                        <li><a class="dropdown-item" href="#">Lihat pondokkan</a></li>
-                                    </ul>
+                                    </div> -->
+                                    <div class="col">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Jumlah penduduk</h5>
+                                            <p class="card-text"><?php echo $total_residents ?></p>
+                                        </div>
                                     </div>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card text-bg-danger">
+                                <div class="row g-0">
+                                    <!-- <div class="col-sm-4">
+                                        <img src="images/person.jpg" class="img-fluid rounded-start" alt="...">
+                                    </div> -->
+                                    <div class="col">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Pondokkan belum bayar</h5>
+                                            <p class="card-text"><?php echo $total_unpaid ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card text-bg-success">
+                                <div class="row g-0">
+                                    <!-- <div class="col-sm-4">
+                                        <img src="images/person.jpg" class="img-fluid rounded-start" alt="...">
+                                    </div> -->
+                                    <div class="col">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Pondokkan sudah bayar</h5>
+                                            <p class="card-text">24</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="search-bar">
+                        <form method="POST">
+                            <input type="text" name="search" placeholder="Search by name" class="search-input">
+                            <button type="submit" class="search-button">Search</button>
+                        </form>
+                    </div>
+
+                    <div class="residents-table">
+                        <h3>All Residents</h3>
+                        <table class="resident-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col" colspan="2" style="width: 60%;">Pilih Aksi </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                foreach($residents as $resident){
+                                    echo
+                                    '
+                                    <tr>
+                                    <td>'. $resident["nama"] .'</td>
+                                    <td>
+                                        <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Pilih Menu
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="laporanobat.php?id='.$resident["id"].'">Lihat pengobatan</a></li>
+                                            <li><a class="dropdown-item" href="laporanTabungan.php?id='.$resident["id"].'">Lihat tabungan</a></li>
+                                            <li><a class="dropdown-item" href="laporanPondokkan.php?id='.$resident["id"].'">Lihat pondokkan</a></li>
+                                        </ul>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                    ';
+                                }
+                                    
+                                ?>
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <?php include 'footer.php'?>
                 </div>
-                
-                <?php include 'footer.php'?>
             </div>
-  
         </div>
         
     </div>

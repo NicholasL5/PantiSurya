@@ -84,41 +84,42 @@
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
-                <h1>Data Berita</h1>
-                
-                <div class="table-nav wfull">
-                    <form class="d-flex" role="search" action="databerita.php" method="POST">
-                        <input class="form-control me-2" type="search" placeholder="Cari Berita" id="search_input" aria-label="Search" style="border: 1px solid rgb(0,0,0,0.5);">
-                    </form>
-
-                    <div class="button-group">
-                        <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser">Add Berita</button>
-                        <a href="beritaTambah.php" class="btn btn-outline-primary" type="button" id="tambahberita">Tambah Berita</a>
-                    </div>
+                <div class="pad">
+                    <h1>Data Berita</h1>
                     
+                    <div class="table-nav wfull">
+                        <form class="d-flex" role="search" action="databerita.php" method="POST">
+                            <input class="form-control me-2" type="search" placeholder="Cari Berita" id="search_input" aria-label="Search" style="border: 1px solid rgb(0,0,0,0.5);">
+                        </form>
+
+                        <div class="button-group">
+                            <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser">Add Berita</button>
+                            <a href="beritaTambah.php" class="btn btn-outline-primary" type="button" id="tambahberita">Tambah Berita</a>
+                        </div>
+                        
+                    </div>
+
+                    <div class="content">
+                        <table class="table wfull table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Judul</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col" colspan="2">Action</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider" id="list_berita">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <?php include 'footer.php'?>
                 </div>
-
-                <div class="content">
-                    <table class="table wfull table-hover">
-                        <thead>
-                            <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Judul</th>
-                            <th scope="col">Deskripsi</th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col" colspan="2">Action</th>
-                            
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider" id="list_berita">
-                            
-                        </tbody>
-                    </table>
-                </div>
-
-
-                <?php include 'footer.php'?>
-
             </div>
 
 

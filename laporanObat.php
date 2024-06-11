@@ -41,63 +41,65 @@
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
-                <h1>Laporan Obat - <?php echo $resident['nama']; ?></h1>
-                
-                <div class="btn-flex-left">
-                    <a href="add_tagihan_obat.php?id=<?php echo $residentId ?>">
-                        <button type="submit" name="TambahObat" class="btn btn-primary bg-blue">
-                            Buat Tagihan Obat
-                        </button>
-                    </a>
-                    <!-- <a href="edit_balance_pondokkan.php?id=<?php echo $residentId ?>">
-                        <button type="submit" name="EditPondokkan" class="btn btn-primary bg-blue" style="margin-left:15px">
-                            Upload Bukti Pembayaran
-                        </button>
-                    </a> -->
-                </div>
-                <div class="content">
-                    <h3>Tagihan Obat belum dibayar</h3>
-                    <table class="table wfull table-hover">
-                        <thead>         
-                            <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Deskripsi</th>
-                            <th scope="col">Jenis</th>
-                            <th scope="col">Obat</th>
-                            <th scope="col">Jumlah Tagihan</th>
-                            <th scope="col">Tanggal Berobat</th>
-                            <th scope="col">Upload Bukti Pembayaran</th>
-                            <!-- <th scope="col">Tanggal</th>
-                            <th scope="col" colspan="2">Action</th> -->
-                            
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider" id="list_obat_unpaid">
-                            
-                        </tbody>
-                    </table>
-                </div>
+                <div class="pad">
+                    <h1>Laporan Obat - <?php echo $resident['nama']; ?></h1>
+                    
+                    <div class="btn-flex-left">
+                        <a href="add_tagihan_obat.php?id=<?php echo $residentId ?>">
+                            <button type="submit" name="TambahObat" class="btn btn-primary bg-blue">
+                                Buat Tagihan Obat
+                            </button>
+                        </a>
+                        <!-- <a href="edit_balance_pondokkan.php?id=<?php echo $residentId ?>">
+                            <button type="submit" name="EditPondokkan" class="btn btn-primary bg-blue" style="margin-left:15px">
+                                Upload Bukti Pembayaran
+                            </button>
+                        </a> -->
+                    </div>
+                    <div class="content">
+                        <h3>Tagihan Obat belum dibayar</h3>
+                        <table class="table wfull table-hover">
+                            <thead>         
+                                <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Jenis</th>
+                                <th scope="col">Obat</th>
+                                <th scope="col">Jumlah Tagihan</th>
+                                <th scope="col">Tanggal Berobat</th>
+                                <th scope="col">Upload Bukti Pembayaran</th>
+                                <!-- <th scope="col">Tanggal</th>
+                                <th scope="col" colspan="2">Action</th> -->
+                                
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider" id="list_obat_unpaid">
+                                
+                            </tbody>
+                        </table>
+                    </div>
 
-                <div class="content" style="margin-top:20px">
-                    <h3>Tagihan Obat sudah dibayar</h3>
-                    <table class="table wfull table-hover">
-                        <thead>         
-                            <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Deskripsi</th>
-                            <th scope="col">Jenis</th>
-                            <th scope="col">Obat</th>
-                            <th scope="col">Jumlah Tagihan</th>
-                            <th scope="col">Tanggal berobat</th>
-                            <th scope="col">Tanggal Input Kwitansi</th>
-                            <th scope="col">Download File</th>
-                            
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider" id="list_obat">
-                            
-                        </tbody>
-                    </table>
+                    <div class="content" style="margin-top:20px">
+                        <h3>Tagihan Obat sudah dibayar</h3>
+                        <table class="table wfull table-hover">
+                            <thead>         
+                                <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Jenis</th>
+                                <th scope="col">Obat</th>
+                                <th scope="col">Jumlah Tagihan</th>
+                                <th scope="col">Tanggal berobat</th>
+                                <th scope="col">Tanggal Input Kwitansi</th>
+                                <th scope="col">Download File</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider" id="list_obat">
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
