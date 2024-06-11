@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 04, 2024 at 11:14 AM
+-- Generation Time: Jun 11, 2024 at 07:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id`, `username`, `password`, `date`, `last_access`, `role`) VALUES
-(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-06-04', 0),
+(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-06-10', 0),
 (6, 'nice', '$2y$10$pcubK.aIK/YrnJKRjQlQDuJKMulGy26nbWUwOmjqKY7ATvXHzO4l6', '2024-05-08', '2024-05-14', 0),
 (7, 'asik', '$2y$10$OY62rBeR96KFJQmJuFvUj.njVk/.kTHzyO8HUZUjxnlzTrbmdYFRO', '2024-05-22', '2024-05-22', 0);
 
@@ -69,7 +69,9 @@ INSERT INTO `data_pondokkan` (`id`, `penduduk_id`, `tagihan`, `status`, `image_p
 (28, 4, 150000, 0, NULL, NULL, '2024-06-04'),
 (29, 4, 22000, 1, 'keuangan/pondokkan/665ec54c6f2b8.jpg', '2024-06-04', '2024-06-04'),
 (30, 5, 10000, 1, 'keuangan/pondokkan/665ec562177a8.jpg', '2024-06-04', '2024-06-04'),
-(31, 5, 25000, 0, NULL, NULL, '2024-06-04');
+(31, 5, 25000, 0, NULL, NULL, '2024-06-04'),
+(32, 7, 10000, 0, NULL, NULL, '2024-06-10'),
+(33, 7, 20000, 1, 'keuangan/pondokkan/6666c87ee1574.jpg', '2024-06-10', '2024-06-10');
 
 -- --------------------------------------------------------
 
@@ -88,11 +90,7 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`id`, `path_picture`, `input_date`) VALUES
-(1, '../asset/pp/6645f34ad6bd1.jpg', '2024-05-16'),
-(2, '../asset/pp/6645f4f95d949.jpg', '2024-05-16'),
-(3, '../asset/pp/6645f66113c5f.jpg', '2024-05-16'),
-(4, '../asset/pp/664609474f254.jpg', '2024-05-16'),
-(5, '../asset/pp/664b1e928abf9.jpg', '2024-05-20');
+(9, '../asset/pp/6666d83d58519.jpg', '2024-06-10');
 
 -- --------------------------------------------------------
 
@@ -104,20 +102,23 @@ CREATE TABLE `news` (
   `id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
   `description` varchar(2000) NOT NULL,
-  `date` date NOT NULL
+  `date` date NOT NULL,
+  `image_path` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `news`
 --
 
-INSERT INTO `news` (`id`, `title`, `description`, `date`) VALUES
-(1, 'Ibadah Paskah 2023', 'Kegiatan Ibadah Paskah yang dilaksanakan tanggal 31 Maret 2024 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Paskah.', '2023-10-10'),
-(2, 'Ibadah Natal 2023', 'Kegiatan Ibadah Natal yang dilaksanakan tanggal 25 Desember 2023 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Natal.', '2023-12-25'),
-(4, 'abc', 'abc', '2024-04-17'),
-(7, 'aaabbb', 'aaabbb', '2024-04-18'),
-(9, 'nnn', 'nnn', '2024-05-02'),
-(10, 'lll', 'lll', '2024-05-02');
+INSERT INTO `news` (`id`, `title`, `description`, `date`, `image_path`) VALUES
+(1, 'Ibadah Paskah 2023', 'Kegiatan Ibadah Paskah yang dilaksanakan tanggal 31 Maret 2024 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Paskah.', '2023-10-10', NULL),
+(2, 'Ibadah Natal 2023', 'Kegiatan Ibadah Natal yang dilaksanakan tanggal 25 Desember 2023 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Natal.', '2023-12-25', NULL),
+(4, 'abc', 'abc', '2024-04-17', NULL),
+(7, 'aaabbb', 'aaabbb', '2024-04-18', NULL),
+(9, 'nnn', 'nnn', '2024-05-02', NULL),
+(10, 'lll', 'lll', '2024-05-02', NULL),
+(0, 'waw2', 'waw2\r\n\r\n\r\n', '2024-06-10', 'berita/6666bf56b1ff0.jpg'),
+(0, 'waw2', 'waw2\r\n\r\n\r\n', '2024-06-10', 'berita/6666bf56b1ff0.jpg');
 
 -- --------------------------------------------------------
 
@@ -150,9 +151,9 @@ CREATE TABLE `penduduk` (
 INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `tanggal_masuk`, `email`, `notelp`, `keuangan_pondokkan`, `keuangan_tabungan`, `keuangan_obat`, `keuangan_total`, `profile_picture`, `KTP`, `KK`, `BPJS`, `keuangan_deposit`) VALUES
 (4, 'Emily Williams', '111 Pine Street', '2024-03-14', 'emily.williams@example.com', '7894561230', 150000, 1109000, 0, 0, '', 0x696d616765732f426173655f436f6c6f725f426c61636b5f43502e706e67, '', '', 0),
 (5, 'Christopher Brown', '234 Maple Street', '2024-02-25', 'christopher.brown@example.com', '9870123456', 25000, 2000000, 5, 0, '', '', '', '', 0),
-(7, 'David Garcia', '890 Cedar Street', '2024-02-29', 'david.garcia@example.com', '3218904567', 0, 0, 12000, 0, '', 0x696d616765732f6d617872657364656661756c742e6a7067, 0x696d616765732f53637265656e73686f7420323032342d30352d3133203231353935332e706e67, 0x696d616765732f53637265656e73686f7420323032342d30352d3032203133343633382e706e67, 0),
-(9, 'James Rodriguez', '222 Walnut Street', '2024-03-06', 'james.rodriguez@example.com', '4567890123', 0, 0, 0, 0, '', '', '', '', 0),
-(10, 'Sarah Lee', '333 Pineapple Street', '2024-03-22', 'sarah.lee@example.com', '6543210987', 0, 0, 0, 0, '', '', '', '', 0),
+(7, 'David Garcia', '890 Cedar Street', '2024-02-29', 'david.garcia@example.com', '3218904567', 10000, 0, 12000, 0, '', 0x696d616765732f6d617872657364656661756c742e6a7067, 0x696d616765732f53637265656e73686f7420323032342d30352d3133203231353935332e706e67, 0x696d616765732f53637265656e73686f7420323032342d30352d3032203133343633382e706e67, 0),
+(9, 'James Rodriguez', '222 Walnut Street', '2024-03-06', 'james.rodriguez@example.com', '4567890123', 0, 10000, 0, 0, '', '', '', '', 0),
+(10, 'Sarah Lee', '333 Pineapple Street', '2024-03-22', 'sarah.lee@example.com', '6543210987', 0, 0, 10000, 0, '', '', '', '', 0),
 (11, 'Daniel Lopez', '444 Grape Street', '2024-03-08', 'daniel.lopez@example.com', '3210987654', 0, 0, 0, 0, '', '', '', '', 0),
 (12, 'Megan Harris', '555 Orange Street', '2024-03-08', 'megan.harris@example.com', '8901234567', 0, 0, 0, 0, '', '', '', '', 0),
 (13, 'Ryan Clark', '666 Lemon Street', '2024-03-22', 'ryan.clark@example.com', '4567890123', 0, 0, 0, 0, '', '', '', '', 0),
@@ -172,7 +173,8 @@ INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `tanggal_masuk`, `email`, `notel
 (27, 'Erica Evans', '2020 Blueberry Street', '2024-02-27', 'erica.evans@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0),
 (28, 'Brian Cook', '2121 Blackberry Street', '2024-03-18', 'brian.cook@example.com', '7890123456', 0, 0, 0, 0, '', '', '', '', 0),
 (29, 'Rebecca Murphy', '2222 Cranberry Street', '2024-03-11', 'rebecca.murphy@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0),
-(43, 'nathan', 'wiyung', '2024-05-16', 'nathangg@gmail.com', '081369369', 0, 0, 0, 0, 'asset/pp/66460f957679b.jpg', '', '', '', 0);
+(43, 'nathan', 'wiyung', '2024-05-16', 'nathangg@gmail.com', '081369369', 0, 0, 0, 0, 'asset/pp/66460f957679b.jpg', '', '', '', 0),
+(44, 'Tes', 'tes', NULL, 'tes@gmail.com', '081888', 0, 0, 0, 0, 'asset/pp/6664371319940.jpg', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -203,7 +205,9 @@ INSERT INTO `rekam_medis` (`penduduk_id`, `pengobatan_id`, `deskripsi`, `jenis`,
 (4, 2, 'obat2', 'pengobatan', 'neozep', 2, 0, '2023-09-16', 0, '', NULL),
 (4, 3, 'obat1', 'obat sakit kepala', 'panadol', 1, 10000, '2024-06-04', 1, 'keuangan/obat/665ed8fa3d2a9.jpg', '2024-06-04'),
 (7, 4, 'kunjungan', 'kunjungan rutin', 'paracetamol', 2, 15000, '2024-06-04', 1, 'keuangan/obat/665edab216c87.jpg', '2024-06-04'),
-(7, 5, 'kunjungan', 'kunjungan rutin', 'panadol', 5, 12000, '2024-06-04', 0, NULL, NULL);
+(7, 5, 'kunjungan', 'kunjungan rutin', 'panadol', 5, 12000, '2024-06-04', 0, NULL, NULL),
+(10, 6, '1', '1', '1', 1, 10000, '2024-06-10', 0, NULL, NULL),
+(10, 7, '2', '2', '2', 2, 20000, '2024-06-10', 1, 'keuangan/obat/6666c8aedde77.jpg', '2024-06-10');
 
 -- --------------------------------------------------------
 
@@ -218,20 +222,22 @@ CREATE TABLE `tabungan` (
   `jumlah` int(11) NOT NULL,
   `tanggal_transaksi` date NOT NULL,
   `saldo` int(11) NOT NULL,
-  `deskripsi` varchar(200) NOT NULL
+  `deskripsi` varchar(200) NOT NULL,
+  `image_path` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tabungan`
 --
 
-INSERT INTO `tabungan` (`id`, `id_penduduk`, `tipe_transaksi`, `jumlah`, `tanggal_transaksi`, `saldo`, `deskripsi`) VALUES
-(1, 4, 'debit', 200000, '2024-05-29', 200000, ''),
-(2, 5, 'debit', 2000000, '2024-05-29', 2000000, ''),
-(3, 4, 'kredi', -11000, '2024-05-29', 189000, ''),
-(4, 4, 'kredi', -90000, '2024-05-29', 110000, ''),
-(5, 4, 'debit', 1000000, '2024-05-29', 1110000, ''),
-(6, 4, 'kredi', -1000, '2024-06-02', 1109000, '');
+INSERT INTO `tabungan` (`id`, `id_penduduk`, `tipe_transaksi`, `jumlah`, `tanggal_transaksi`, `saldo`, `deskripsi`, `image_path`) VALUES
+(1, 4, 'debit', 200000, '2024-05-29', 200000, '', 'keuangan/tabungan/6666cab2903a0.jpg'),
+(2, 5, 'debit', 2000000, '2024-05-29', 2000000, '', 'keuangan/tabungan/6666cb8c798c2.jpg'),
+(3, 4, 'kredi', -11000, '2024-05-29', 189000, '', 'keuangan/tabungan/6666caf3084b5.jpg'),
+(4, 4, 'kredi', -90000, '2024-05-29', 110000, '', 'keuangan/tabungan/6666cc04d7558.jpg'),
+(5, 4, 'debit', 1000000, '2024-05-29', 1110000, '', 'keuangan/tabungan/6666cbabbd19a.jpg'),
+(6, 4, 'kredi', -1000, '2024-06-02', 1109000, '', 'keuangan/tabungan/6666cb78d8413.jpg'),
+(7, 9, 'debit', 10000, '2024-06-10', 10000, '', '');
 
 -- --------------------------------------------------------
 
@@ -311,31 +317,31 @@ ALTER TABLE `akun`
 -- AUTO_INCREMENT for table `data_pondokkan`
 --
 ALTER TABLE `data_pondokkan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `penduduk`
 --
 ALTER TABLE `penduduk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `rekam_medis`
 --
 ALTER TABLE `rekam_medis`
-  MODIFY `pengobatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `pengobatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tabungan`
 --
 ALTER TABLE `tabungan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `wali`
