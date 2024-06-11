@@ -77,6 +77,7 @@
             <?php include 'nav.php'?>
             
             <div class="main">
+                <div class="pad">
                 <h2>Tambah Berita</h2>
 
                 <section>
@@ -117,6 +118,7 @@
                 
 
                 </section>
+                </div>
             </div>
         </div>
     </div>

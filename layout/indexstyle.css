@@ -1,6 +1,6 @@
-/* :root{
-
-} */
+:root{
+    --side-nav-width: 280px;
+}
 
 
 *{
@@ -8,6 +8,10 @@
     margin: 0;
     padding: 0;
     
+}
+
+.pad{
+    padding: 1.7rem;
 }
 
 .dashboard{
@@ -24,7 +28,7 @@
 }
 
 .holder{
-    width: 20%;
+    width: var(--side-nav-width);
     height: 100vh;
     box-shadow: 0 10px 18px rgba(0,0,0,1);
     position: fixed;
@@ -70,14 +74,15 @@
 }
 
 .main{
-    width: 80%;
+    /* width: 83%; */
+    flex: 1;
     min-height: 100vh;
-    padding: 1.7rem;
-    padding-bottom: 0;
+    /* padding: 1.7rem; */
+    /* padding-bottom: 0; */
 }
 
 .filler{
-    width: 20%;
+    width: var(--side-nav-width);
 }
 
 .content{

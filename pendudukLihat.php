@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $noTelpon = $_POST['noTelpon'];
 
         if (isset($_FILES['KTP'])) {
-            $uploadDirKTP = 'images/ktp/'; // Directory to save the uploaded KTP file
             $uploadFileKTP = $uploadDirKTP . basename($_FILES['KTP']['name']);
             $imageFileTypeKTP = strtolower(pathinfo($uploadFileKTP, PATHINFO_EXTENSION));
             $uploadOkKTP = 1;
@@ -63,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if (isset($_FILES['KK'])) {
-            $uploadDirKK = 'images/kk/'; // Directory to save the uploaded KK file
+            
             $uploadFileKK = $uploadDirKK . basename($_FILES['KK']['name']);
             $imageFileTypeKK = strtolower(pathinfo($uploadFileKK, PATHINFO_EXTENSION));
             $uploadOkKK = 1;
@@ -98,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if (isset($_FILES['BPJS'])) {
-            $uploadDirBPJS = 'images/bpjs/'; // Directory to save the uploaded BPJS file
+            
             $uploadFileBPJS = $uploadDirBPJS . basename($_FILES['BPJS']['name']);
             $imageFileTypeBPJS = strtolower(pathinfo($uploadFileBPJS, PATHINFO_EXTENSION));
             $uploadOkBPJS = 1;
@@ -131,9 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
         }
-        // $KTP = $_POST['ktp'];
-        // $KK = $_POST['kk'];
-        // $BPJS = $_POST['bpjs'];
+
         $db->editPenduduk($alamat, $email, $noTelpon, $id);
         // $db->editPenduduk($alamat, $email, $noTelpon, $KTP, $KK, $BPJS, $id);
         header("Location: penduduk.php");
@@ -152,6 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <link rel="stylesheet" href="layout/indexstyle.css">
     <link rel="stylesheet" href="layout/stylelihat.css">
+    <link rel="stylesheet" href="layout/styleEdit.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <title>Panti Surya | Lihat Penduduk</title>
     <style>
@@ -185,167 +183,99 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="dashboard">
             <?php include 'nav.php' ?>
 
+            
+
             <div class="main">
-                <img src="svg/arrow-left.svg" class="back" alt="" onclick="history.back()">
-                <div class="profile lr-9">
-                    <img src="<?= htmlspecialchars($image['profile_picture']); ?>" alt="Profile Picture"
-                        class="profile-picture" onerror="showFallback(this)">
-                    <img src="svg/abstract-user-flat-3.svg" alt="Fallback SVG" class="fallback-picture">
-                    <div class="profile-info">
-                        <h2><?php echo $username; ?></h2>
+                
+                <div class="pad">
+                    <h1>Edit Profile</h1>
 
-                        <button type="button" class="btn btn-outline-primary" id="addPengobatan" data-bs-toggle="modal"
-                            data-bs-target="#ModalTambahPengobatan" style="width: 100%;">
-                            Tambah Pengobatan
-                        </button>
 
+                    <div class="profile-edit" style="padding: 2rem;">
+                        <div class="profile">
+                            <p >Foto:</p>
+                            <img src="<?= htmlspecialchars($image['profile_picture']); ?>" alt="Profile Picture"
+                                class="profile-picture" onerror="showFallback(this)">
+                            <img src="svg/abstract-user-flat-3.svg" alt="Fallback SVG" class="fallback-picture">
+                            <button type="button" class="btn btn-primary view">Edit Foto</button>
+
+                        </div>
+
+                        <div class="description lr-9">
+                            <div class="tab-container">
+                                <div class="tab tab-active" data-target="personal">Data diri</div>
+                                <div class="tab" data-target="kartu">Kartu</div>
+                                
+                            </div>
+
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <div class="tab-content tab-content-active" id="personal">
+                                <div class="mb-3">
+                                    <label for="nama" class="col-form-label">Nama:</label>
+                                    <input type="text" class="form-control" id="nama" name="nama"
+                                        value="<?php echo $fetch_data->nama; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="alamat" class="col-form-label">Alamat:</label>
+                                    <input type="text" class="form-control" id="alamat" name="alamat"
+                                        value="<?php echo $fetch_data->alamat; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email" class="col-form-label">Email Wali:</label>
+                                    <input type="text" class="form-control" id="email" name="email"
+                                        value="<?php echo $fetch_data->email; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="noTelpon" class="col-form-label">No telp wali:</label>
+                                    <input type="text" class="form-control" id="noTelpon" name="noTelpon"
+                                        value="<?php echo $fetch_data->notelp; ?>">
+                                </div>
+
+                            </div>
+                            
+                            <div class="tab-content" id="kartu">
+                                <div class="mb-3">
+                                    <label for="ktp">KTP:</label>
+                                    <input type="file" class="form-control" id="ktp" name="KTP">
+                                    <img id="ktp-preview" alt="KTP Preview" class="prev-pic">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="kk">KK:</label>
+                                    <input type="file" class="form-control" id="kk" name="KK">
+                                    <img id="kk-preview" alt="KK Preview" class="prev-pic">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="bpjs">BPJS:</label>
+                                    <input type="file" class="form-control" id="bpjs" name="BPJS">
+                                    <img id="bpjs-preview" alt="BPJS Preview" class="prev-pic">
+                                </div>
+
+                                
+                            </div>
+
+                            <div class="view d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="penduduk.php" class="btn btn-danger" type="button" id="back">Cancel</a>
+                                <button class="btn btn-primary me-md-2" type="submit" name="edit">Save</button>
+                            </div>
+                        </form>
+
+                        
+                        <h5>Pengobatan</h5>
+                        <a href="laporanobat.php?id=<?php echo $id ?>"><button type="button" class="btn btn-primary view">Lihat Rekam Medis</button></a>
+                    </div>
                     </div>
 
                 </div>
-
-                <div class="description lr-9">
-                    <h5>Alamat</h5>
-                    <p><?php echo $fetch_data->alamat; ?></p>
-
-                    <h5>Email wali</h5>
-                    <p><?php echo $fetch_data->email; ?></p>
-
-                    <h5>No telp wali</h5>
-                    <p><?php echo $fetch_data->notelp; ?></p>
-
-                    <h5>KTP</h5>
-                    <?php
-                    $stmt = $db->prepare("SELECT KTP FROM penduduk WHERE id = ?");
-                    $stmt->execute([$id]);
-
-                    // Fetch the image data 
-                    $imageKTP = $stmt->fetchColumn();
-
-                    // Output the image data
-                    echo "<img src='$imageKTP' alt='Image' class='prev-pic'>";
-                    ?>
-
-                    <h5>KK</h5>
-                    <?php
-                    $stmt = $db->prepare("SELECT KK FROM penduduk WHERE id = ?");
-                    $stmt->execute([$id]);
-
-                    // Fetch the image data 
-                    $imageKK = $stmt->fetchColumn();
-
-                    // Output the image data
-                    echo "<img src='$imageKK' alt='Image' class='prev-pic'>";
-                    ?>
-
-                    <h5>BPJS</h5>
-                    <?php
-                    $stmt = $db->prepare("SELECT BPJS FROM penduduk WHERE id = ?");
-                    $stmt->execute([$id]);
-
-                    // Fetch the image data 
-                    $imageBPJS = $stmt->fetchColumn();
-
-                    // Output the image data
-                    echo "<img src='$imageBPJS' alt='Image' class='prev-pic'>";
-                    ?>
-
-                    <form action="" method="post" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="alamat" class="col-form-label">Alamat:</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat"
-                                value="<?php echo $fetch_data->alamat; ?>">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="col-form-label">Email Wali:</label>
-                            <input type="text" class="form-control" id="email" name="email"
-                                value="<?php echo $fetch_data->email; ?>">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="noTelpon" class="col-form-label">No telp wali:</label>
-                            <input type="text" class="form-control" id="noTelpon" name="noTelpon"
-                                value="<?php echo $fetch_data->notelp; ?>">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="ktp">KTP:</label>
-                            <input type="file" class="form-control" id="ktp" name="KTP">
-                            <img id="ktp-preview" alt="KTP Preview" class="prev-pic">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="kk">KK:</label>
-                            <input type="file" class="form-control" id="kk" name="KK">
-                            <img id="kk-preview" alt="KK Preview" class="prev-pic">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="bpjs">BPJS:</label>
-                            <input type="file" class="form-control" id="bpjs" name="BPJS">
-                            <img id="bpjs-preview" alt="BPJS Preview" class="prev-pic">
-                        </div>
-
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="penduduk.php" class="btn btn-outline-primary" type="button" id="back">Back</a>
-                            <button class="btn btn-primary me-md-2" type="submit" name="edit">Edit</button>
-                        </div>
-                    </form>
-
-                    <h5>Pengobatan</h5>
-                    <a href="laporanobat.php?id=<?php echo $id ?>"><button type="button" class="btn btn-primary view">Lihat Rekam Medis</button></a>
-                </div>
-
-
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="ModalTambahPengobatan" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="ModalTambahPengobatan">Tambah Pengobatan</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="penduduk_proses.php">
-                        <div class="mb-3">
-                            <label for="desc" class="col-form-label">Deskripsi:</label>
-                            <input type="text" class="form-control" id="desc">
-                        </div>
-                        <div class="mb-3">
-                            <label for="jenis_obat" class="col-form-label">Jenis:</label>
-                            <input type="text" class="form-control" id="jenis_obat">
-                        </div>
-                        <div class="mb-3">
-                            <label for="nama_obat" class="col-form-label">Nama Obat:</label>
-                            <input type="text" class="form-control" id="nama_obat">
-                        </div>
-                        <div class="mb-3">
-                            <label for="dosis" class="col-form-label">Dosis:</label>
-                            <input type="text" class="form-control" id="dosis">
-                        </div>
-                        <div class="mb-3">
-                            <label for="tanggal_obat" class="col-form-label">Tanggal:</label>
-                            <input type="date" class="form-control" id="tanggal_obat">
-                        </div>
-
-                        <div class="mb-3">
-                            <input type="checkbox" id="sudahBayarModal" autocomplete="off">
-                            <label for="sudahBayarModal">Sudah Bayar</label>
-                        </div>
-
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="modal_simpan">Simpan Pengobatan</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
 
@@ -393,6 +323,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
                 reader.readAsDataURL(file);
             }
+        });
+
+
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('tab-active'));
+                tab.classList.add('tab-active');
+
+                contents.forEach(content => content.classList.remove('tab-content-active'));
+                document.getElementById(tab.dataset.target).classList.add('tab-content-active');
+            });
         });
 
     </script>

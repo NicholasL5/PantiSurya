@@ -45,37 +45,39 @@ if(isset($_POST['search'])) {
             <?php include 'nav.php'?>
             
             <div class="main">
-                <h1>KEUANGAN OBAT</h1>
-        
-                <div class="search-bar">
-                    <form method="POST" class="d-flex">
-                        <input type="text" name="search" placeholder="Search by name" class="form-control me-2">
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </form>
-                </div>
+                <div class="pad">
+                    <h1>KEUANGAN OBAT</h1>
+            
+                    <div class="search-bar">
+                        <form method="POST" class="d-flex">
+                            <input type="text" name="search" placeholder="Search by name" class="form-control me-2">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
 
-                <div class="residents-table">
-                    <h3>All Residents</h3>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Keuangan obat</th>
-                                <th>View Laporan Keuangan</th>
-                               
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($residents as $resident): ?>
-                            <tr>
-                                <td><?php echo $resident['nama']; ?></td>
-                                <td><?php echo $db->formatRupiah($resident['keuangan_obat']); ?></td>
-                                <td><button onclick="window.location.href='laporanobat.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
-                                <!-- <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td> -->
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                    <div class="residents-table">
+                        <h3>All Residents</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Keuangan obat</th>
+                                    <th>View Laporan Keuangan</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($residents as $resident): ?>
+                                <tr>
+                                    <td><?php echo $resident['nama']; ?></td>
+                                    <td><?php echo $db->formatRupiah($resident['keuangan_obat']); ?></td>
+                                    <td><button onclick="window.location.href='laporanobat.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
+                                    <!-- <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td> -->
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

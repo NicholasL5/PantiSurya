@@ -26,6 +26,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
             <?php include 'nav.php'?>
             
             <div class="main">
+                <div class="pad">
                 <h1>KEUANGAN TABUNGAN</h1>
                 
                 <div class="search-bar">
@@ -52,6 +53,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
                 </div>
 
                 <?php include 'footer.php'?>
+                </div>
             </div>
         </div>
     </div>
