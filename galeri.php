@@ -1,3 +1,22 @@
+<?php
+include 'utils.php';
+
+$db = new myDB();
+$images = $db->getGambar();
+// echo $images;
+$path_pictures = [];
+
+// Loop through the result and extract the path_picture values
+foreach ($images as $item) {
+    $path_pictures[] = [
+        'path_picture' => $item['path_picture'],
+        'id' => $item['id']
+    ];
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +36,18 @@
             background-position: center;
             background-size: cover;
         }
+        .gallery-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; 
+            margin-top: 20px;
+        }
+        .foto {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            object-fit: cover; 
+        }
     </style>
 </head>
 
@@ -24,6 +55,8 @@
 <div class="app">
         <div class="dashboard">
             <?php include 'nav.php'?>
+            <div class="main">
+            <div>
                 <form action="api/addGaleri.php" method="post" enctype="multipart/form-data">
                     <!-- untuk sekarang image uploadnya gini -->
                     <div class="mb-3">
@@ -40,7 +73,19 @@
                     <div class="d-grid gap-2 col-12 mx-auto">
                         <button type="submit" class="btn btn-primary btn-checkout" id="submit">Submit</button>
                         </div>
-                    </form>
+                </form>
+                </div>
+                <div class="gallery-row">
+                <?php foreach ($path_pictures as $image): ?>
+                        <!-- <img class="foto" src="<?= $image ?>" alt="Image" /> -->
+                        <div class="image-container" style="display: flex; flex-direction:column">
+                    <img class="foto" src="<?= $image['path_picture']  ?>" alt="Image" />
+                    <button type="button" class="btn btn-danger btn-checkout delete-button" data-id="<?= $image['id'] ?>">Hapus Foto</button>
+                </div>
+                        <?php
+                      endforeach; ?>
+                </div>
+            </div>
         </div>
         </div>
 </body>
@@ -55,5 +100,28 @@
     });
     reader.readAsDataURL(this.files[0]);
   });
+
+  document.addEventListener("DOMContentLoaded", function() {
+        const deleteButtons = document.querySelectorAll(".delete-button");
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", function() {
+                const imageId = this.getAttribute("data-id");
+                if (confirm("Are you sure you want to delete this photo?")) {
+                    fetch(`delete_image.php?id=${imageId}`, {
+                        method: "GET",
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data === "success") {
+                            this.parentElement.remove();
+                            window.location.reload();
+                        } else {
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
+        });
+    });
     </script>
 </html>

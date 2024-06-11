@@ -362,7 +362,7 @@ class myDB
     
     function getGambar()
     {
-        $query = "SELECT path_picture FROM images";
+        $query = "SELECT * FROM images";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -380,6 +380,12 @@ class myDB
         $stmt = $this->db->prepare($query);
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteGambar($id) {
+        $query = "DELETE FROM images WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute([$id]);
     }
 
     function getPathPondokkan($id)
