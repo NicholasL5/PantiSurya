@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2024 at 10:04 AM
+-- Generation Time: Jun 11, 2024 at 10:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -115,7 +115,8 @@ INSERT INTO `news` (`id`, `title`, `description`, `date`, `image_path`) VALUES
 (2, 'Ibadah Natal 2023', 'Kegiatan Ibadah Natal yang dilaksanakan tanggal 25 Desember 2023 yang lalu dihadiri oleh semua penghuni Panti Surya. Ibadah berlangsung dengan baik dari awal hingga akhirnya. Semua berkumpul bersama menikmati hari raya Natal.', '2023-12-25', '../Front-PantiSurya/images/berita/6668040a618f1.jpg'),
 (3, 'aaaa', 'aaaa', '2024-06-11', '../Front-PantiSurya/images/berita/6668039e8e8d7.jpg'),
 (4, 'safa', 'safa', '2024-06-11', '../Front-PantiSurya/images/berita/666804885cad9.jpg'),
-(7, 'bb', 'bb', '2024-06-11', '../Front-PantiSurya/images/berita/666804b8aef05.jpg');
+(7, 'bb', 'bb', '2024-06-11', '../Front-PantiSurya/images/berita/666804b8aef05.jpg'),
+(8, 'aswew', 'aesdaw', '2024-06-11', '../Front-PantiSurya/images/berita/6668084383743.jpg');
 
 -- --------------------------------------------------------
 
@@ -138,40 +139,41 @@ CREATE TABLE `penduduk` (
   `KTP` longblob NOT NULL,
   `KK` longblob NOT NULL,
   `BPJS` longblob NOT NULL,
-  `keuangan_deposit` int(11) NOT NULL
+  `keuangan_deposit` int(11) NOT NULL,
+  `deposit` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `penduduk`
 --
 
-INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `tanggal_masuk`, `email`, `notelp`, `keuangan_pondokkan`, `keuangan_tabungan`, `keuangan_obat`, `keuangan_total`, `profile_picture`, `KTP`, `KK`, `BPJS`, `keuangan_deposit`) VALUES
-(4, 'Emily Williams', '111 Pine Street', '2024-03-14', 'emily.williams@example.com', '7894561230', 150000, 1109000, 0, 0, '', 0x696d616765732f426173655f436f6c6f725f426c61636b5f43502e706e67, '', '', 0),
-(5, 'Christopher Brown', '234 Maple Street', '2024-02-25', 'christopher.brown@example.com', '9870123456', 25000, 2000000, 5, 0, '', '', '', '', 0),
-(7, 'David Garcia', '890 Cedar Street', '2024-02-29', 'david.garcia@example.com', '3218904567', 10000, 0, 12000, 0, '', 0x696d616765732f6d617872657364656661756c742e6a7067, 0x696d616765732f53637265656e73686f7420323032342d30352d3133203231353935332e706e67, 0x696d616765732f53637265656e73686f7420323032342d30352d3032203133343633382e706e67, 0),
-(9, 'James Rodriguez', '222 Walnut Street', '2024-03-06', 'james.rodriguez@example.com', '4567890123', 0, 10000, 0, 0, '', '', '', '', 0),
-(10, 'Sarah Lee', '333 Pineapple Street', '2024-03-22', 'sarah.lee@example.com', '6543210987', 0, 0, 10000, 0, '', '', '', '', 0),
-(11, 'Daniel Lopez', '444 Grape Street', '2024-03-08', 'daniel.lopez@example.com', '3210987654', 0, 0, 0, 0, '', '', '', '', 0),
-(12, 'Megan Harris', '555 Orange Street', '2024-03-08', 'megan.harris@example.com', '8901234567', 0, 0, 0, 0, '', '', '', '', 0),
-(13, 'Ryan Clark', '666 Lemon Street', '2024-03-22', 'ryan.clark@example.com', '4567890123', 0, 0, 0, 0, '', '', '', '', 0),
-(14, 'Jennifer Young', '777 Lime Street', '2024-02-29', 'jennifer.young@example.com', '1230987654', 0, 0, 0, 0, '', '', '', '', 0),
-(15, 'Joshua Turner', '888 Strawberry Street', '2024-02-28', 'joshua.turner@example.com', '3216540987', 0, 0, 0, 0, '', '', '', '', 0),
-(16, 'Nicole Moore', '999 Raspberry Street', '2024-02-29', 'nicole.moore@example.com', '7890123456', 0, 0, 0, 0, '', '', '', '', 0),
-(17, 'Jason Hill', '1010 Blueberry Street', '2024-03-08', 'jason.hill@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0),
-(18, 'Michelle Scott', '1111 Blackberry Street', '2024-03-12', 'michelle.scott@example.com', '7890123456', 0, 0, 0, 0, '', '', '', '', 0),
-(19, 'Justin Green', '1212 Cranberry Street', '2024-03-12', 'justin.green@example.com', '5678901234', 0, 0, 0, 0, '', '', '', '', 0),
-(20, 'Rachel Carter', '1313 Raspberry Street', '2024-02-25', 'rachel.carter@example.com', '8901234567', 0, 0, 0, 0, '', '', '', '', 0),
-(21, 'Brandon King', '1414 Strawberry Street', '2024-03-12', 'brandon.king@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0),
-(22, 'Melissa White', '1515 Blueberry Street', '2024-03-14', 'melissa.white@example.com', '5678901234', 0, 0, 0, 0, '', '', '', '', 0),
-(23, 'Kevin Hall', '1616 Blackberry Street', '2024-03-08', 'kevin.hall@example.com', '7890123456', 0, 0, 0, 0, '', '', '', '', 0),
-(24, 'Stephanie Adams', '1717 Cranberry Street', '2024-03-04', 'stephanie.adams@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0),
-(25, 'Matthew Stewart', '1818 Raspberry Street', '2024-02-29', 'matthew.stewart@example.com', '8901234567', 0, 0, 0, 0, '', '', '', '', 0),
-(26, 'Ashley Parker', '1919 Strawberry Street', '2024-03-23', 'ashley.parker@example.com', '5678901234', 0, 0, 0, 0, '', '', '', '', 0),
-(27, 'Erica Evans', '2020 Blueberry Street', '2024-02-27', 'erica.evans@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0),
-(28, 'Brian Cook', '2121 Blackberry Street', '2024-03-18', 'brian.cook@example.com', '7890123456', 0, 0, 0, 0, '', '', '', '', 0),
-(29, 'Rebecca Murphy', '2222 Cranberry Street', '2024-03-11', 'rebecca.murphy@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0),
-(43, 'nathan', 'wiyung', '2024-05-16', 'nathangg@gmail.com', '081369369', 0, 0, 0, 0, 'asset/pp/66460f957679b.jpg', '', '', '', 0),
-(44, 'Tes', 'tes', NULL, 'tes@gmail.com', '081888', 0, 0, 0, 0, 'asset/pp/6664371319940.jpg', '', '', '', 0);
+INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `tanggal_masuk`, `email`, `notelp`, `keuangan_pondokkan`, `keuangan_tabungan`, `keuangan_obat`, `keuangan_total`, `profile_picture`, `KTP`, `KK`, `BPJS`, `keuangan_deposit`, `deposit`) VALUES
+(4, 'Emily Williams', '111 Pine Street', '2024-03-14', 'emily.williams@example.com', '7894561230', 150000, 1109000, 0, 0, '', 0x696d616765732f426173655f436f6c6f725f426c61636b5f43502e706e67, '', '', 0, 5000000),
+(5, 'Christopher Brown', '234 Maple Street', '2024-02-25', 'christopher.brown@example.com', '9870123456', 25000, 2000000, 5, 0, '', '', '', '', 0, 5000000),
+(7, 'David Garcia', '890 Cedar Street', '2024-02-29', 'david.garcia@example.com', '3218904567', 10000, 0, 12000, 0, '', 0x696d616765732f6d617872657364656661756c742e6a7067, 0x696d616765732f53637265656e73686f7420323032342d30352d3133203231353935332e706e67, 0x696d616765732f53637265656e73686f7420323032342d30352d3032203133343633382e706e67, 0, 5000000),
+(9, 'James Rodriguez', '222 Walnut Street', '2024-03-06', 'james.rodriguez@example.com', '4567890123', 0, 10000, 0, 0, '', '', '', '', 0, 5000000),
+(10, 'Sarah Lee', '333 Pineapple Street', '2024-03-22', 'sarah.lee@example.com', '6543210987', 0, 0, 10000, 0, '', '', '', '', 0, 5000000),
+(11, 'Daniel Lopez', '444 Grape Street', '2024-03-08', 'daniel.lopez@example.com', '3210987654', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(12, 'Megan Harris', '555 Orange Street', '2024-03-08', 'megan.harris@example.com', '8901234567', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(13, 'Ryan Clark', '666 Lemon Street', '2024-03-22', 'ryan.clark@example.com', '4567890123', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(14, 'Jennifer Young', '777 Lime Street', '2024-02-29', 'jennifer.young@example.com', '1230987654', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(15, 'Joshua Turner', '888 Strawberry Street', '2024-02-28', 'joshua.turner@example.com', '3216540987', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(16, 'Nicole Moore', '999 Raspberry Street', '2024-02-29', 'nicole.moore@example.com', '7890123456', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(17, 'Jason Hill', '1010 Blueberry Street', '2024-03-08', 'jason.hill@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(18, 'Michelle Scott', '1111 Blackberry Street', '2024-03-12', 'michelle.scott@example.com', '7890123456', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(19, 'Justin Green', '1212 Cranberry Street', '2024-03-12', 'justin.green@example.com', '5678901234', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(20, 'Rachel Carter', '1313 Raspberry Street', '2024-02-25', 'rachel.carter@example.com', '8901234567', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(21, 'Brandon King', '1414 Strawberry Street', '2024-03-12', 'brandon.king@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(22, 'Melissa White', '1515 Blueberry Street', '2024-03-14', 'melissa.white@example.com', '5678901234', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(23, 'Kevin Hall', '1616 Blackberry Street', '2024-03-08', 'kevin.hall@example.com', '7890123456', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(24, 'Stephanie Adams', '1717 Cranberry Street', '2024-03-04', 'stephanie.adams@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(25, 'Matthew Stewart', '1818 Raspberry Street', '2024-02-29', 'matthew.stewart@example.com', '8901234567', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(26, 'Ashley Parker', '1919 Strawberry Street', '2024-03-23', 'ashley.parker@example.com', '5678901234', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(27, 'Erica Evans', '2020 Blueberry Street', '2024-02-27', 'erica.evans@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(28, 'Brian Cook', '2121 Blackberry Street', '2024-03-18', 'brian.cook@example.com', '7890123456', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(29, 'Rebecca Murphy', '2222 Cranberry Street', '2024-03-11', 'rebecca.murphy@example.com', '6789012345', 0, 0, 0, 0, '', '', '', '', 0, 5000000),
+(43, 'nathan', 'wiyung', '2024-05-16', 'nathangg@gmail.com', '081369369', 0, 0, 0, 0, 'asset/pp/66460f957679b.jpg', '', '', '', 0, 5000000),
+(44, 'Tes', 'tes', NULL, 'tes@gmail.com', '081888', 0, 0, 0, 0, 'asset/pp/6664371319940.jpg', '', '', '', 0, 5000000);
 
 -- --------------------------------------------------------
 
@@ -332,7 +334,7 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `penduduk`
