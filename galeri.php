@@ -24,7 +24,7 @@
 <div class="app">
         <div class="dashboard">
             <?php include 'nav.php'?>
-                <form action="api/addPicture.php" method="post" enctype="multipart/form-data">
+                <form action="api/addGaleri.php" method="post" enctype="multipart/form-data">
                     <!-- untuk sekarang image uploadnya gini -->
                     <div class="mb-3">
                         <h1>Galeri</h1>
