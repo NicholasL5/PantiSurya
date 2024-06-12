@@ -91,10 +91,6 @@ if(isset($_POST['search'])) {
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php'?>
-            
-            
-
-            
             <div class="main">
                 <div class="pad">
 
@@ -106,14 +102,7 @@ if(isset($_POST['search'])) {
                         <div class="col">
                             <div class="card text-bg-primary">
                                 <div class="row g-0">
-                                    <!-- <div class="col-sm-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-                                    class="feather feather-user">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle></svg>
-
-                                    </div> -->
+                                    
                                     <div class="col">
                                         <div class="card-body">
                                             <h5 class="card-title">Jumlah penduduk</h5>
@@ -127,9 +116,7 @@ if(isset($_POST['search'])) {
                         <div class="col">
                             <div class="card text-bg-danger">
                                 <div class="row g-0">
-                                    <!-- <div class="col-sm-4">
-                                        <img src="images/person.jpg" class="img-fluid rounded-start" alt="...">
-                                    </div> -->
+                                    
                                     <div class="col">
                                         <div class="card-body">
                                             <h5 class="card-title">Pondokkan belum bayar</h5>
@@ -143,9 +130,7 @@ if(isset($_POST['search'])) {
                         <div class="col">
                             <div class="card text-bg-success">
                                 <div class="row g-0">
-                                    <!-- <div class="col-sm-4">
-                                        <img src="images/person.jpg" class="img-fluid rounded-start" alt="...">
-                                    </div> -->
+                                
                                     <div class="col">
                                         <div class="card-body">
                                             <h5 class="card-title">Pondokkan sudah bayar</h5>

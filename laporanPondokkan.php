@@ -44,6 +44,7 @@
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
+                <div class="pad">
                 <h1>Laporan Pondokkan - <?php echo $resident['nama']; ?></h1>
                 
                 <div class="btn-flex-left">
@@ -97,7 +98,7 @@
                     </table>
                 </div>
             </div>
-
+            </div>
 
         </div>
     </div>

@@ -17,14 +17,16 @@ if (isset($_GET["id"])) {
     $res = $db->getPenduduk($id);
     $fetch_data = $res->fetch(PDO::FETCH_OBJ);
 
+    $res2 = $db->getWali($id);
+    $fetch_wali = $res2->fetchAll(PDO::FETCH_ASSOC);
+
     $image = $db->getGambarById($id);
-    // var_dump($image);
+    
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['edit'])) {
         $alamat = $_POST['alamat'];
-        $email = $_POST['email'];
         $noTelpon = $_POST['noTelpon'];
 
         if (isset($_FILES['KTP'])) {
@@ -205,6 +207,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="tab-container">
                                 <div class="tab tab-active" data-target="personal">Data diri</div>
                                 <div class="tab" data-target="kartu">Kartu</div>
+                                <div class="tab" data-target="wali1"> Wali 1</div>
+                                <div class="tab" data-target="wali2"> Wali 2</div>
+                                
                                 
                             </div>
 
@@ -223,39 +228,126 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="email" class="col-form-label">Email Wali:</label>
+                                    <label for="email" class="col-form-label">Agama:</label>
                                     <input type="text" class="form-control" id="email" name="email"
-                                        value="<?php echo $fetch_data->email; ?>">
+                                        value="<?php echo $fetch_data->agama; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email" class="col-form-label">Tempat Lahir:</label>
+                                    <input type="text" class="form-control" id="email" name="email"
+                                        value="<?php echo $fetch_data->tempat_lahir; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email" class="col-form-label">Tanggal Lahir:</label>
+                                    <input type="date" class="form-control" id="email" name="email"
+                                        value="<?php echo $fetch_data->tanggal_lahir; ?>">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="noTelpon" class="col-form-label">No telp wali:</label>
                                     <input type="text" class="form-control" id="noTelpon" name="noTelpon"
-                                        value="<?php echo $fetch_data->notelp; ?>">
+                                        value="<?php echo $fetch_wali[0]['no_telp']; ?>">
                                 </div>
 
                             </div>
                             
+
                             <div class="tab-content" id="kartu">
                                 <div class="mb-3">
                                     <label for="ktp">KTP:</label>
                                     <input type="file" class="form-control" id="ktp" name="KTP">
-                                    <img id="ktp-preview" alt="KTP Preview" class="prev-pic">
+                                    <img id="ktp-preview" alt="KTP Preview" class="prev-pic" src="">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="kk">KK:</label>
                                     <input type="file" class="form-control" id="kk" name="KK">
-                                    <img id="kk-preview" alt="KK Preview" class="prev-pic">
+                                    <img id="kk-preview" alt="KK Preview" class="prev-pic" src="">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="bpjs">BPJS:</label>
                                     <input type="file" class="form-control" id="bpjs" name="BPJS">
-                                    <img id="bpjs-preview" alt="BPJS Preview" class="prev-pic">
+                                    <img id="bpjs-preview" alt="BPJS Preview" class="prev-pic" src="">
+                                </div>
+                            </div>
+
+                            <div class="tab-content" id="wali1">
+                                <div class="mb-3">
+                                    <label for="namawali1" class="col-form-label">Nama Wali:</label>
+                                    <input type="text" class="form-control" id="namawali1" name="namawali1"
+                                        value="<?php echo $fetch_wali[0]["nama"]; ?>">
                                 </div>
 
-                                
+                                <div class="mb-3">
+                                    <label for="alamatwali1" class="col-form-label">Alamat:</label>
+                                    <input type="text" class="form-control" id="alamatwali1" name="alamatwali1"
+                                        value="<?php echo $fetch_wali[0]["alamat"]; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="agamawali1" class="col-form-label">Agama:</label>
+                                    <input type="text" class="form-control" id="agamawali1" name="agamawali1"
+                                        value="<?php echo $fetch_wali[0]["agama"]; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="notelpwali1" class="col-form-label">No telp wali 1:</label>
+                                    <input type="text" class="form-control" id="notelpwali1" name="notelpwali1"
+                                        value="<?php echo $fetch_wali[0]["no_telp"]; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="pekerjaanwali1" class="col-form-label">Pekerjaan wali 1:</label>
+                                    <input type="text" class="form-control" id="pekerjaanwali1" name="pekerjaanwali1"
+                                        value="<?php echo $fetch_wali[0]["pekerjaan"]; ?>">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="hubunganwali1" class="col-form-label">Hubungan wali 1:</label>
+                                    <input type="text" class="form-control" id="hubunganwali1" name="hubunganwali1"
+                                        value="<?php echo $fetch_wali[0]["hubungan"]; ?>">
+                                </div>
+
+                            </div>
+
+                            <div class="tab-content" id="wali2">
+                                <div class="mb-3">
+                                    <label for="namawali1" class="col-form-label">Nama Wali:</label>
+                                    <input type="text" class="form-control" id="namawali1" name="namawali2"
+                                        value="<?php echo $fetch_wali[1]["nama"]; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="alamatwali1" class="col-form-label">Alamat:</label>
+                                    <input type="text" class="form-control" id="alamatwali1" name="alamatwali2"
+                                        value="<?php echo $fetch_wali[1]["alamat"]; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="agamawali1" class="col-form-label">Agama:</label>
+                                    <input type="text" class="form-control" id="agamawali1" name="agamawali2"
+                                        value="<?php echo $fetch_wali[1]["agama"]; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="notelpwali1" class="col-form-label">No telp wali 1:</label>
+                                    <input type="text" class="form-control" id="notelpwali1" name="notelpwali2"
+                                        value="<?php echo $fetch_wali[1]["no_telp"]; ?>">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="pekerjaanwali1" class="col-form-label">Pekerjaan wali 1:</label>
+                                    <input type="text" class="form-control" id="pekerjaanwali1" name="pekerjaanwali2"
+                                        value="<?php echo $fetch_wali[1]["pekerjaan"]; ?>">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="hubunganwali1" class="col-form-label">Hubungan wali 1:</label>
+                                    <input type="text" class="form-control" id="hubunganwali1" name="hubunganwali2"
+                                        value="<?php echo $fetch_wali[1]["hubungan"]; ?>">
+                                </div>
+
                             </div>
 
                             <div class="view d-grid gap-2 d-md-flex justify-content-md-end">
@@ -284,7 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             img.style.display = 'none';
             img.nextElementSibling.style.display = 'block';
         }
-        feather.replace()
+        feather.replace();
 
         document.getElementById('ktp').addEventListener('change', function (event) {
             const file = event.target.files[0];

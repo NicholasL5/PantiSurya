@@ -14,3 +14,13 @@ input{
     padding-bottom: 4rem;
     overflow-y: auto;
 }
+
+.mb3-flex-col{
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
+.pad-l-12{
+    padding-right: 12rem;
+}

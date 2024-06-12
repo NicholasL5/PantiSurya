@@ -15,6 +15,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include "layout/stylejquerynbs5.php" ?>
     <link rel="stylesheet" href="layout/indexstyle.css">
+    <link rel="stylesheet" href="layout/styledatasiswa.css">
     <title>Keuangan Tabungan</title>
 </head>
 <body>
@@ -38,18 +39,20 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
 
                 <div class="residents-table">
                     <h3 style="padding: 1rem; padding-left: 0;">Daftar Penduduk</h3>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Keuangan Tabungan</th>
-                                <th>View Laporan Keuangan</th>
-                            </tr>
-                        </thead>
-                        <tbody id="list_tabungan">
-                            
-                        </tbody>
-                    </table>
+                    <div class="content">                    
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Keuangan Tabungan</th>
+                                    <th>View Laporan Keuangan</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider" id="list_tabungan">
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <?php include 'footer.php'?>

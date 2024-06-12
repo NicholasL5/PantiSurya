@@ -37,12 +37,6 @@
 
             // $db->insertGambarPondokkan($tagihanId, $profilePictureDirectory);   
             $db->insertNews($title, $description, $date, $profilePictureDirectory);
-            // echo "tes";
-            // echo $title;
-            // echo $description;
-            // echo $date;
-            // $stmt = $db->prepare("INSERT INTO news (title, description, date) VALUES (?, ?, ?)");
-            // $stmt->execute([$title, $description, $date]);
             echo "<script>alert('Data behasil disimpan')</script>";
             header("Location: databerita.php");
         }

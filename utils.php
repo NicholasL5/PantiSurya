@@ -37,7 +37,7 @@ class myDB
      */
     function getAllPenduduk()
     {
-        $query = "SELECT * FROM penduduk";
+        $query = "SELECT * FROM penduduk WHERE status=0";
         $res = $this->db->prepare($query);
         $res->execute();
         return $res;
@@ -126,6 +126,13 @@ class myDB
     function getPenduduk($id)
     {
         $query = "SELECT * FROM `penduduk` WHERE id = ? ";
+        $res = $this->db->prepare($query);
+        $res->execute([$id]);
+        return $res;
+    }
+
+    function getWali($id){
+        $query = "SELECT * FROM `wali` WHERE penduduk_id=?";
         $res = $this->db->prepare($query);
         $res->execute([$id]);
         return $res;
@@ -242,9 +249,9 @@ class myDB
 
     function delbyId($id)
     {
-        $query = "DELETE FROM penduduk WHERE id=?";
+        $query = "UPDATE penduduk SET `status`=1 WHERE id=?";
         $res = $this->db->prepare($query);
-        $res->execute([$_POST['delid']]);
+        $res->execute([$id]);
     }
 
     function delbyIdBerita($id)
@@ -296,6 +303,24 @@ class myDB
         $stmt = $this->db->prepare($query);
         $stmt->execute([$nama, $alamat, $tanggal_masuk, $email, $noTelpon, $profilePictureDirectory]);
     }
+
+    function addPenduduk($nama, $tempattinggal, $tempatlahir, $agama, $tanggallahir,  $deposit)
+    {
+        $query = "INSERT INTO penduduk (nama, alamat, tanggal_masuk, tempat_lahir, tanggal_lahir, agama, deposit) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$nama, $tempattinggal, date("Y-m-d"), $tempatlahir, $tanggallahir, $agama, $deposit]);  
+    }
+
+    function returnLastID(){
+        return $this->db->lastInsertId();
+    }
+
+    function addWali($pendudukid, $nama, $alamat, $agama, $notelp, $pekerjaan, $hubungan ){
+        $query = "INSERT INTO wali (penduduk_id, nama, alamat, agama, no_telp, pekerjaan, hubungan) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$pendudukid, $nama, $alamat, $agama, $notelp, $pekerjaan, $hubungan]);
+    }
+
 
     function editPenduduk($alamat, $email, $noTelpon, $id)
     {

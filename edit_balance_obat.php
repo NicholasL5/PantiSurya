@@ -28,17 +28,6 @@ if (!$resident) {
 
 $alertMessage = '';
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset($_POST['removeBalance'])) {
-//     $addBalance = isset($_POST['addBalance']) ? intval($_POST['addBalance']) : 0;
-//     $removeBalance = isset($_POST['removeBalance']) ? intval($_POST['removeBalance']) : 0;
-
-//     $newBalance = $resident['keuangan_pondokkan'] + $addBalance - $removeBalance;
-//     $stmt_update_balance = $db->prepare("UPDATE penduduk SET keuangan_pondokkan = :newBalance WHERE id = :residentId");
-//     $stmt_update_balance->execute(['newBalance' => $newBalance, 'residentId' => $residentId]);
-
-//     $alertMessage = "Changes saved successfully!";
-// }
-
 include "utils/resize_image.php";
 define('UPLOAD_DIR','keuangan/obat/');
 

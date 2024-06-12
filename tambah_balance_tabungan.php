@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="mb-3">
                         <label for="addBalance">Masukkan Jumlah:</label>
                         <input type="number" id="addBalance" name="addBalance" placeholder="Enter amount to add"
-                            class="form-control" min="0" step="1000">
+                            class="form-control" min="0" step="1">
                     </div>
 
                     <div class="mb-3">

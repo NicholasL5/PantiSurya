@@ -37,6 +37,7 @@ if(isset($_POST['search'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include "layout/stylejquerynbs5.php" ?>
     <link rel="stylesheet" href="layout/indexstyle.css">
+    <link rel="stylesheet" href="layout/styledatasiswa.css">
     <title>Keuangan Obat</title>
 </head>
 <body>
@@ -57,26 +58,28 @@ if(isset($_POST['search'])) {
 
                     <div class="residents-table">
                         <h3>All Residents</h3>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Keuangan obat</th>
-                                    <th>View Laporan Keuangan</th>
-                                
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach($residents as $resident): ?>
-                                <tr>
-                                    <td><?php echo $resident['nama']; ?></td>
-                                    <td><?php echo $db->formatRupiah($resident['keuangan_obat']); ?></td>
-                                    <td><button onclick="window.location.href='laporanobat.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
-                                    <!-- <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td> -->
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                        <div class="content">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Keuangan obat</th>
+                                        <th>View Laporan Keuangan</th>
+                                    
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <?php foreach($residents as $resident): ?>
+                                    <tr>
+                                        <td><?php echo $resident['nama']; ?></td>
+                                        <td><?php echo $db->formatRupiah($resident['keuangan_obat']); ?></td>
+                                        <td><button onclick="window.location.href='laporanobat.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
+                                        <!-- <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td> -->
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

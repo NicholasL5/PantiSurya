@@ -6,7 +6,7 @@
     $db = new myDB();
     $res = $db->search($_POST['search']);
 
-    $counter = 0;
+    $counter = 1;
     if($res->rowCount() > 0){
         while($row = $res->fetch(PDO::FETCH_ASSOC)){
             echo 
@@ -15,9 +15,6 @@
             <th scope="row">'.$counter.'</th>
             <td>'.$row["nama"].'</td>
             <td>'.$row["alamat"].'</td>
-            
-            
-            <td>'.$row["notelp"].'</td>
             <td>'. $db->formatRupiah($row["deposit"]).'</td>
             <td>'.$row["tanggal_masuk"].'</td>
             <td><a href="pendudukLihat.php?id='.$row["id"].'&username='.$row["nama"].'"><button type="button" class="btn btn-outline-primary" id="edituser">Edit</button></a></td> 

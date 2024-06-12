@@ -15,6 +15,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include "layout/stylejquerynbs5.php" ?>
     <link rel="stylesheet" href="layout/indexstyle.css">
+    <link rel="stylesheet" href="layout/styledatasiswa.css">
     <title>Keuangan Pondokkan</title>
 </head>
 <body>
@@ -38,19 +39,22 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
 
                     <div class="residents-table">
                         <h3 style="padding-top: 1rem;">Daftar Penduduk</h3>
-                        <table class="table table-striped" id="tabelPondokan">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Tagihan Keuangan Pondokkan</th>
-                                    <th>Lihat Laporan Keuangan</th>
+                        <div class="content">
+                            <table class="table table-hover" id="tabelPondokan">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Tagihan Keuangan Pondokkan</th>
+                                        <th>Lihat Laporan Keuangan</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider" id="tabelPondokanBody">
                                     
-                                </tr>
-                            </thead>
-                            <tbody id="tabelPondokanBody">
-                                
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        
                     </div>
 
                     <?php include 'footer.php'?>

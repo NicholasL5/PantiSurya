@@ -1,9 +1,9 @@
 <?php
     session_start();
 
-    require "utils.php";
+    include "utils.php";
 
     $db = new myDB();
-    $db->delbyId([$_POST['delid']]);
+    $db->delbyId($_POST['delid']);
     echo "success";
 ?>

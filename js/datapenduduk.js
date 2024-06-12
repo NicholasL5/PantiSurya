@@ -27,8 +27,9 @@ $(document).ready(function(){
         $(".del").on('click', function(){
             var conf = confirm("yakin delete?");
             var delbutton = $(this);
+            
             if(!conf) return;
-
+            
             $.ajax({
                 url:"pendudukdata_delete.php",
                 type:"POST",
