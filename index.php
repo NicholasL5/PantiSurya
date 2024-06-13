@@ -11,10 +11,8 @@ $db = new myDB();
 $total_residents = 0;
 $total_residents = $db->getCountPenduduk();
 
+$total_unpaid = $db->getCountUnpaidPondokan();
 
-$stmt_unpaid = $db->prepare("SELECT COUNT(*) AS total_unpaid FROM rekam_medis WHERE sudah_bayar = 0");
-$stmt_unpaid->execute();
-$total_unpaid = $stmt_unpaid->fetch(PDO::FETCH_ASSOC)['total_unpaid'];
 $stmt_all_residents = $db->prepare("SELECT * FROM penduduk");
 $stmt_all_residents->execute();
 $residents = $stmt_all_residents->fetchAll(PDO::FETCH_ASSOC);
@@ -134,7 +132,7 @@ if(isset($_POST['search'])) {
                                     <div class="col">
                                         <div class="card-body">
                                             <h5 class="card-title">Pondokkan sudah bayar</h5>
-                                            <p class="card-text">24</p>
+                                            <p class="card-text"><?php echo (int)$total_residents-$total_unpaid ?></p>
                                         </div>
                                     </div>
                                 </div>

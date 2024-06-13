@@ -60,7 +60,7 @@ class myDB
      * @return $total_residents untuk hasil query count as total_residents (int)
      */
     function getCountPenduduk(){
-        $query = "SELECT COUNT(*) AS total_residents FROM penduduk";
+        $query = "SELECT COUNT(*) AS total_residents FROM penduduk WHERE status=0";
         $res = $this->db->prepare($query);
         $res->execute();
         $total_residents = $res->fetch(PDO::FETCH_ASSOC)['total_residents'];
@@ -544,6 +544,13 @@ class myDB
         $stmt = $this->db->prepare($query);
         $stmt->execute([$id]);
         return $stmt;
+    }
+
+    function getCountUnpaidPondokan(){
+        $query = "SELECT penduduk_id, SUM(tagihan) AS unpaid FROM data_pondokkan WHERE status=0 GROUP BY penduduk_id";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return count($stmt->fetchAll(PDO::FETCH_ASSOC));    
     }
 
 

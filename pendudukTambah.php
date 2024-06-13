@@ -144,13 +144,13 @@
 
                             <div class="mb-3 mb3-flex-col">
                                 <div style="flex: 1;">
-                                <label for="recipient-name" class="col-form-label">Nama Penghuni:</label>
-                                <input type="text" class="form-control" name="namapenghuni">
+                                <label for="recipient-name" class="col-form-label" >Nama Penghuni:</label>
+                                <input type="text" class="form-control" name="namapenghuni" required>
                                 </div>
                                 
                                 <div style="flex: 1;">   
                                 <label for="recipient-name" class="col-form-label">Tempat Lahir:</label>
-                                <input type="text" class="form-control" name="tempatlahir">
+                                <input type="text" class="form-control" name="tempatlahir" required>
                                 </div>
                                 
                             </div>
@@ -161,19 +161,19 @@
                                     <div class="mb3-flex-col">
                                         <div>
                                             <div class="form-check">
-                                                <input class="form-check-input" value="Kristen" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                <input class="form-check-input" value="Kristen" type="radio" name="flexRadioDefault" id="flexRadioDefault1" required>
                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                     Kristen
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" value="Katolik" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                <input class="form-check-input" value="Katolik" type="radio" name="flexRadioDefault" id="flexRadioDefault2" required>
                                                 <label class="form-check-label" for="flexRadioDefault2">
                                                     Katolik
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" value="Islam" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                                <input class="form-check-input" value="Islam" type="radio" name="flexRadioDefault" id="flexRadioDefault3" required>
                                                 <label class="form-check-label" for="flexRadioDefault3">
                                                     Islam
                                                 </label>
@@ -182,33 +182,24 @@
 
                                         <div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="Buddha" name="flexRadioDefault" id="flexRadioDefault4">
+                                                <input class="form-check-input" type="radio" value="Buddha" name="flexRadioDefault" id="flexRadioDefault4" required>
                                                 <label class="form-check-label" for="flexRadioDefault4">
                                                     Buddha
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="Hindu" name="flexRadioDefault" id="flexRadioDefault5">
+                                                <input class="form-check-input" type="radio" value="Hindu" name="flexRadioDefault" id="flexRadioDefault5" required>
                                                 <label class="form-check-label" for="flexRadioDefault5">
                                                     Hindu
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="Kong Hu Chu" name="flexRadioDefault" id="flexRadioDefault6" >
+                                                <input class="form-check-input" type="radio" value="Kong Hu Chu" name="flexRadioDefault" id="flexRadioDefault6" required >
                                                 <label class="form-check-label" for="flexRadioDefault6">
                                                     Kong Hu Cu
                                                 </label>
                                             </div>
                                             
-                                        </div>
-
-                                        <div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" value="Lainnya" type="radio" name="flexRadioDefault" id="flexRadioDefault6" >
-                                                <label class="form-check-label" for="flexRadioDefault6">
-                                                    Lainnya
-                                                </label>
-                                            </div>
                                         </div>
                                         
                                     </div>
@@ -219,12 +210,12 @@
 
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Tanggal Lahir:</label>
-                                        <input type="date" class="form-control" id="tanggallahir" name="tanggallahir">
+                                        <input type="date" class="form-control" id="tanggallahir" name="tanggallahir" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Alamat Saat ini:</label>
-                                        <input type="text" class="form-control" name="tempattinggal" id="recipient-name">
+                                        <input type="text" class="form-control" name="tempattinggal" id="recipient-name" required>
                                     </div>
                                 </div>
                                 
@@ -237,7 +228,7 @@
                                 <div class="mb-3" style="flex:1;">
                                     <label for="deposit">Deposit:</label>
                                     <input type="number" id="deposit" name="deposit" placeholder="Masukkan Nilai Deposit"
-                                        class="form-control" min="0" step="1">
+                                        class="form-control" min="0" step="1" required>
                                 </div>
                                 
                             </div>
@@ -273,13 +264,13 @@
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" value="Katolik" type="radio" name="radiowali1" id="radiowali12">
+                                            <input class="form-check-input" value="Katolik" type="radio" name="radiowali1" id="radiowali12" >
                                             <label class="form-check-label" for="radiowali12">
                                                 Katolik
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" value="Islam" type="radio" name="radiowali1" id="radiowali13">
+                                            <input class="form-check-input" value="Islam" type="radio" name="radiowali1" id="radiowali13" >
                                             <label class="form-check-label" for="radiowali13">
                                                 Islam
                                             </label>
@@ -300,21 +291,12 @@
                                             </label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input" value="Kong Hu Chu" type="radio" name="radiowali1" id="radiowali16" >
+                                            <input class="form-check-input" value="Kong Hu Chu" type="radio" name="radiowali1" id="radiowali16">
                                             <label class="form-check-label" for="radiowali16">
                                                 Kong Hu Cu
                                             </label>
                                         </div>
                                         
-                                    </div>
-
-                                    <div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" value="lainnya" type="radio" name="radiowali1" id="radiowali17" >
-                                            <label class="form-check-label" for="radiowali17">
-                                                Lainnya
-                                            </label>
-                                        </div>
                                     </div>
                                     
                                 </div>

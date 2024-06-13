@@ -19,6 +19,7 @@ if (isset($_GET["id"])) {
 
     $res2 = $db->getWali($id);
     $fetch_wali = $res2->fetchAll(PDO::FETCH_ASSOC);
+    echo empty($fetch_wali[0]);
 
     $image = $db->getGambarById($id);
     
@@ -175,6 +176,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             height: 200px;
             padding: 10px;
         }
+
+        .mb-3 input:disabled{
+            background-color: white;
+
+        }
     </style>
 </head>
 
@@ -207,8 +213,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="tab-container">
                                 <div class="tab tab-active" data-target="personal">Data diri</div>
                                 <div class="tab" data-target="kartu">Kartu</div>
-                                <div class="tab" data-target="wali1"> Wali 1</div>
-                                <div class="tab" data-target="wali2"> Wali 2</div>
+
+                                <?php if (!empty($fetch_wali[0])){ ?>
+                                    <div class="tab" data-target="wali1"> Wali 1</div>
+                                <?php }; ?>
+
+                                <?php if (!empty($fetch_wali[1])): ?>
+                                    <div class="tab" data-target="wali2"> Wali 2</div>
+                                <?php endif; ?>
+                                
                                 
                                 
                             </div>
@@ -228,27 +241,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="email" class="col-form-label">Agama:</label>
-                                    <input type="text" class="form-control" id="email" name="email"
+                                    <label for="agama" class="col-form-label">Agama:</label>
+                                    <input type="text" class="form-control" id="agama" name="agama"
                                         value="<?php echo $fetch_data->agama; ?>">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="email" class="col-form-label">Tempat Lahir:</label>
-                                    <input type="text" class="form-control" id="email" name="email"
+                                    <label for="tempatlahir" class="col-form-label">Tempat Lahir:</label>
+                                    <input type="text" class="form-control" id="tempatlahir" name="tempatlahir"
                                         value="<?php echo $fetch_data->tempat_lahir; ?>">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="email" class="col-form-label">Tanggal Lahir:</label>
-                                    <input type="date" class="form-control" id="email" name="email"
+                                    <label for="tanggallahir" class="col-form-label">Tanggal Lahir:</label>
+                                    <input type="date" class="form-control" id="tanggallahir" name="tanggallahir"
                                         value="<?php echo $fetch_data->tanggal_lahir; ?>">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="noTelpon" class="col-form-label">No telp wali:</label>
-                                    <input type="text" class="form-control" id="noTelpon" name="noTelpon"
-                                        value="<?php echo $fetch_wali[0]['no_telp']; ?>">
+                                    <label for="noTelpon" class="row-form-label">No telp wali:</label>
+                                    <input type="text" class="form-control" id="tanggallahir" name="tanggallahir"
+                                        value="<?php echo !empty($fetch_wali[0]['no_telp'])?$fetch_wali[0]['no_telp']:"-"; ?>" disabled>
+                                    
                                 </div>
 
                             </div>
@@ -274,6 +288,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                             </div>
 
+                            <?php if (!empty($fetch_wali[0])){ ?>
+                                
                             <div class="tab-content" id="wali1">
                                 <div class="mb-3">
                                     <label for="namawali1" class="col-form-label">Nama Wali:</label>
@@ -309,46 +325,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <input type="text" class="form-control" id="hubunganwali1" name="hubunganwali1"
                                         value="<?php echo $fetch_wali[0]["hubungan"]; ?>">
                                 </div>
-
                             </div>
+                               
+                            <?php }; ?>
+                            
+                            
 
-                            <div class="tab-content" id="wali2">
-                                <div class="mb-3">
-                                    <label for="namawali1" class="col-form-label">Nama Wali:</label>
-                                    <input type="text" class="form-control" id="namawali1" name="namawali2"
-                                        value="<?php echo $fetch_wali[1]["nama"]; ?>">
+                            
+                            <?php if (!empty($fetch_wali[1])){ ?>
+
+                                <div class="tab-content" id="wali2">
+                                    <div class="mb-3">
+                                        <label for="namawali1" class="col-form-label">Nama Wali:</label>
+                                        <input type="text" class="form-control" id="namawali1" name="namawali2"
+                                            value="<?php echo $fetch_wali[1]["nama"]; ?>">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="alamatwali1" class="col-form-label">Alamat:</label>
+                                        <input type="text" class="form-control" id="alamatwali2" name="alamatwali2"
+                                            value="<?php echo $fetch_wali[1]["alamat"]; ?>">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="agamawali1" class="col-form-label">Agama:</label>
+                                        <input type="text" class="form-control" id="agamawali2" name="agamawali2"
+                                            value="<?php echo $fetch_wali[1]["agama"]; ?>">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="notelpwali1" class="col-form-label">No telp wali 2:</label>
+                                        <input type="text" class="form-control" id="notelpwali2" name="notelpwali2"
+                                            value="<?php echo $fetch_wali[1]["no_telp"]; ?>">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="pekerjaanwali1" class="col-form-label">Pekerjaan wali 2:</label>
+                                        <input type="text" class="form-control" id="pekerjaanwali2" name="pekerjaanwali2"
+                                            value="<?php echo $fetch_wali[1]["pekerjaan"]; ?>">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="hubunganwali1" class="col-form-label">Hubungan wali 2:</label>
+                                        <input type="text" class="form-control" id="hubunganwali2" name="hubunganwali2"
+                                            value="<?php echo $fetch_wali[1]["hubungan"]; ?>">
+                                    </div>
+
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="alamatwali1" class="col-form-label">Alamat:</label>
-                                    <input type="text" class="form-control" id="alamatwali1" name="alamatwali2"
-                                        value="<?php echo $fetch_wali[1]["alamat"]; ?>">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="agamawali1" class="col-form-label">Agama:</label>
-                                    <input type="text" class="form-control" id="agamawali1" name="agamawali2"
-                                        value="<?php echo $fetch_wali[1]["agama"]; ?>">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="notelpwali1" class="col-form-label">No telp wali 1:</label>
-                                    <input type="text" class="form-control" id="notelpwali1" name="notelpwali2"
-                                        value="<?php echo $fetch_wali[1]["no_telp"]; ?>">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="pekerjaanwali1" class="col-form-label">Pekerjaan wali 1:</label>
-                                    <input type="text" class="form-control" id="pekerjaanwali1" name="pekerjaanwali2"
-                                        value="<?php echo $fetch_wali[1]["pekerjaan"]; ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="hubunganwali1" class="col-form-label">Hubungan wali 1:</label>
-                                    <input type="text" class="form-control" id="hubunganwali1" name="hubunganwali2"
-                                        value="<?php echo $fetch_wali[1]["hubungan"]; ?>">
-                                </div>
-
-                            </div>
+                            <?php }; ?>
+                            
 
                             <div class="view d-grid gap-2 d-md-flex justify-content-md-end">
                                 <a href="penduduk.php" class="btn btn-danger" type="button" id="back">Cancel</a>
