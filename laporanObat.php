@@ -56,18 +56,28 @@
                             </button>
                         </a> -->
                     </div>
-                    <div class="content">
+                    <div class="content" style="align-items: flex-start; margin-bottom: 4rem;">
+                        <div class="dropdown" style="align-items: left; display: flex;">
+                            <button style="border: 1px solid gray;margin-left: 0.4rem;" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Lihat Semua Transaksi
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Semua</a></li>
+                                <li><a class="dropdown-item" href="#">Bulan ini</a></li>
+                                <li><a class="dropdown-item" href="#">Tahun ini</a></li>
+                            </ul>
+                        </div>
                         <h3>Tagihan Obat belum dibayar</h3>
                         <table class="table wfull table-hover">
                             <thead>         
                                 <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Deskripsi</th>
-                                <th scope="col">Jenis</th>
-                                <th scope="col">Obat</th>
-                                <th scope="col">Jumlah Tagihan</th>
+                                <th scope="col" width="5%">No.</th>
                                 <th scope="col">Tanggal Berobat</th>
-                                <th scope="col">Upload Bukti Pembayaran</th>
+                                <th scope="col" width="45%">Deskripsi</th>
+                                
+                                <th scope="col">Jumlah Tagihan</th>
+                                
+                                <th scope="col" width="15%">Upload Bukti Pembayaran</th>
                                 <!-- <th scope="col">Tanggal</th>
                                 <th scope="col" colspan="2">Action</th> -->
                                 
@@ -79,19 +89,27 @@
                         </table>
                     </div>
 
-                    <div class="content" style="margin-top:20px">
+                    <div class="content" style="align-items: flex-start; margin-top:20px">
+                        <div class="dropdown" style="align-items: left; display: flex;">
+                            <button style="border: 1px solid gray;margin-left: 0.4rem;" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Lihat Semua Transaksi
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Semua</a></li>
+                                <li><a class="dropdown-item" href="#">Bulan ini</a></li>
+                                <li><a class="dropdown-item" href="#">Tahun ini</a></li>
+                            </ul>
+                        </div>
                         <h3>Tagihan Obat sudah dibayar</h3>
                         <table class="table wfull table-hover">
                             <thead>         
                                 <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Deskripsi</th>
-                                <th scope="col">Jenis</th>
-                                <th scope="col">Obat</th>
-                                <th scope="col">Jumlah Tagihan</th>
-                                <th scope="col">Tanggal berobat</th>
-                                <th scope="col">Tanggal Input Kwitansi</th>
-                                <th scope="col">Download File</th>
+                                <th scope="col" width="5%">No.</th>
+                                <th scope="col" width="10%">Tanggal berobat</th>
+                                <th scope="col" >Deskripsi</th>
+                                <th scope="col" width="15%">Jumlah Tagihan</th>
+                                <th scope="col" width="10%">Tanggal Input Kwitansi</th>
+                                <th scope="col" width="15%">Download File</th>
                                 
                                 </tr>
                             </thead>

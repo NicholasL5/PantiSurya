@@ -12,12 +12,10 @@ if($res->rowCount() > 0){
         echo '
         <tr>
         <th scope="row">'.$counter.'</th>
-        <td style="width: 15%;">'.$row["deskripsi"].'</td>
-        <td style="width: 15%;">'.$row["jenis"].'</td>
-        <td style="width: 15%;">'.$row["obat"].'</td>  
-        <td style="width: 15%;">'.$row["tagihan"].'</td>  
-        <td style="width: 15%;">'.$row["tanggal_berobat"].'</td>  
-        <td style="width: 15%;">'.$row["input_date"].'</td>  
+        <td>'.$row["tanggal_berobat"].'</td>  
+        <td>'.$row["deskripsi"].'</td>
+        <td>'.$row["tagihan"].'</td>  
+        <td>'.$row["input_date"].'</td>  
         ';
         if($_SESSION['role'] == 0){
             $filePath = $row["image_path"];
@@ -32,7 +30,7 @@ if($res->rowCount() > 0){
         $counter += 1;
     }
 } else {
-    echo '<tr><td colspan="8">No data found</td></tr>';
+    echo '<tr><td colspan="10">No data found</td></tr>';
 }
 ?>
 

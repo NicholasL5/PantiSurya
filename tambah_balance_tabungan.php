@@ -38,8 +38,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
     }
 
     $jumlah = intval($_POST['addBalance']) * $mul;
-    $db->addDataTabungan($jumlah, $type, $residentId);
-    $db->updateTabunganPenduduk($residentId);
+    $deskripsi = $_POST["addDesc"];
+    try{
+        $db->addDataTabungan($jumlah, $type, $residentId, $deskripsi);
+        $db->updateTabunganPenduduk($residentId);
+        echo
+        "
+        <script>
+            Swal.fire({
+                title: 'Berhasil!',
+                text: 'Data tabungan sudah berhasil disimpan.',
+                icon: 'success'
+            });
+        </script>
+        ";
+    }catch(Exception $e){
+        echo
+        "
+        <script>
+        Swal.fire({
+            title: 'Gagal!',
+            text: 'Ada kesalahan dalam menyimpan data.',
+            icon: 'error'
+        });
+        </script>
+        ";
+    }
+    
     header("location: keuangan_tabungan.php");
 }
 

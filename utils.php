@@ -304,11 +304,11 @@ class myDB
         $stmt->execute([$nama, $alamat, $tanggal_masuk, $email, $noTelpon, $profilePictureDirectory]);
     }
 
-    function addPenduduk($nama, $tempattinggal, $tempatlahir, $agama, $tanggallahir,  $deposit)
+    function addPenduduk($noinduk, $nama, $tempattinggal, $tempatlahir, $agama, $tanggallahir,  $deposit)
     {
-        $query = "INSERT INTO penduduk (nama, alamat, tanggal_masuk, tempat_lahir, tanggal_lahir, agama, deposit) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO penduduk (nomor_induk, nama, alamat, tanggal_masuk, tempat_lahir, tanggal_lahir, agama, deposit) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$nama, $tempattinggal, date("Y-m-d"), $tempatlahir, $tanggallahir, $agama, $deposit]);  
+        $stmt->execute([$noinduk, $nama, $tempattinggal, date("Y-m-d"), $tempatlahir, $tanggallahir, $agama, $deposit]);  
     }
 
     function returnLastID(){
@@ -369,10 +369,10 @@ class myDB
         $stmt->execute([$tagihan, $penduduk_id]);
     }
 
-    function tambahObat($penduduk_id,  $deskripsi_obat, $jenis_obat, $obat, $dosis, $tagihan, $tanggal_berobat){
-        $query = "INSERT INTO rekam_medis (penduduk_id, deskripsi, jenis, obat, dosis, tagihan, tanggal_berobat, sudah_bayar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    function tambahObat($nomor, $penduduk_id,  $deskripsi_obat, $tagihan, $tanggal_berobat){
+        $query = "INSERT INTO rekam_medis (nomor, penduduk_id, deskripsi, tagihan, tanggal_berobat, sudah_bayar) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$penduduk_id,  $deskripsi_obat, $jenis_obat, $obat, $dosis, $tagihan, $tanggal_berobat, 0]);
+        $stmt->execute([$nomor, $penduduk_id,  $deskripsi_obat, $tagihan, $tanggal_berobat, 0]);
     }
 
     function updateObat($tagihan, $penduduk_id){
@@ -506,14 +506,14 @@ class myDB
 
     
 
-    function addDataTabungan($jumlah, $tipe, $id_penduduk){
+    function addDataTabungan($jumlah, $tipe, $id_penduduk, $deskripsi){
         $uangNow = $this->getJumlahTabungan($id_penduduk)['keuangan_tabungan'];
         $uangNow += $jumlah;
 
 
-        $query = "INSERT INTO tabungan (id_penduduk, tipe_transaksi, jumlah, tanggal_transaksi, saldo) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO tabungan (id_penduduk, tipe_transaksi, jumlah, tanggal_transaksi, saldo, deskripsi) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$id_penduduk, $tipe, $jumlah, date("Y-m-d"), $uangNow]);
+        $stmt->execute([$id_penduduk, $tipe, $jumlah, date("Y-m-d"), $uangNow, $deskripsi]);
     }
 
 

@@ -5,3 +5,11 @@
     padding-left: 0;
 }
 
+.dropdownleft{
+    align-items: flex-start;
+}
+
+h3{
+    align-self: center;
+}
+

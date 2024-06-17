@@ -39,32 +39,7 @@ $(document).ready(function(){
         })
     }
 
-    // $("#adduser").on("click", function(){
-    //     alert("add");
-    // })
 
-    // function delete_user(){
-    //     $(".del").on('click', function(){
-    //         var conf = confirm("yakin delete?");
-    //         var delbutton = $(this);
-    //         if(!conf) return;
-
-    //         $.ajax({
-    //             url:"databerita_delete.php",
-    //             type:"POST",
-    //             data:{
-    //                 delid: delbutton.data("rowid")
-    //             },
-    //             success:function(result){
-    //                 if(result == "success") {
-    //                     delbutton.closest('tr').remove();
-    //                 }else{
-    //                     alert("fail");  
-    //                 }
-    //             }
-    //         })
-    //     })
-    // }
 
     
 

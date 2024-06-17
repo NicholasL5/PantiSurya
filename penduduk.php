@@ -86,17 +86,18 @@
                         </form>
 
                         <div class="button-group">
-                            <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser">Add User</button>
+                            
                             <a href="pendudukTambah.php" class="btn btn-outline-primary" type="button" id="tambahpenduduk">Tambah Penduduk</a>
                         </div>
                         
                     </div>
 
                     <div class="content">
-                        <table class="table wfull table-hover">
+                        <table class="table wfull table-hover table-striped" id="pendudukTable">
                             <thead>
                                 <tr>
                                 <th scope="col">No.</th>
+                                <th scope="col">Nomor Induk</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Alamat</th>
                                 <!-- <th scope="col">No Telp Wali</th> -->

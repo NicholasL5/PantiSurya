@@ -30,6 +30,7 @@ include "utils/resize_image.php";
 define('UPLOAD_DIR', 'keuangan/pondokkan/');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nomor = $_POST['nomor'];
     $deskripsi_obat = $_POST["deskripsi-obat"];
     $jenis_obat = $_POST["jenis-obat"];
     $obat = $_POST["obat"];
@@ -37,8 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tagihan = $_POST["tagihan"];
     $tanggal_berobat = $_POST["tanggal-berobat"];
 
+    //  $jenis_obat, $obat, $dosis, 
     $db->updateObat($tagihan, $residentId);
-    $db->tambahObat($residentId, $deskripsi_obat, $jenis_obat, $obat, $dosis, $tagihan, $tanggal_berobat);
+    $db->tambahObat($nomor, $residentId, $deskripsi_obat, $tagihan, $tanggal_berobat);
 
     header("location: keuangan_obat.php");
 }
@@ -66,33 +68,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="column" style="margin-left:20px">
                 <h1>Buat Tagihan - <?php echo $resident['nama']; ?></h1>
                 <form method="POST">
+
+                    <div class="mb-3">
+                        <label for="nomor" class="form-label">No.</label>
+                        <input type="text" class="form-control" placeholder="" id="nomor" name="nomor">
+                    </div>  
+
                     <div class="mb-3">
                         <label for="deskripsi-obat" class="form-label">Deskripsi</label>
                         <input type="text" class="form-control" placeholder="Masukkan deskripsi" id="deskripsi-obat" name="deskripsi-obat">
                     </div>
-
-                    <div class="mb-3">
-                        <label for="jenis-obat" class="form-label">Jenis</label>
-                        <input type="text" class="form-control" placeholder="Masukkan jenis" id="jenis-obat" name="jenis-obat">
-                    </div>
-
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="obat" class="form-label">Obat</label>
                         <input type="text" class="form-control" placeholder="Masukkan obat" id="obat" name="obat">
                     </div>
                     <div class="mb-3">
                         <label for="dosis">Dosis:</label>
                         <input type="number" id="dosis" name="dosis" placeholder="Masukkan dosis obatnya" class="form-control" min="0" step="1">
-                    </div>
+                    </div> -->
 
                     <div class="mb-3">
-                        <label for="tagihan">Tagihan:</label>
+                        <label for="tagihan">Jumlah Tagihan:</label>
                         <input type="number" id="tagihan" name="tagihan" placeholder="Masukkan jumlah tagihan"
                             class="form-control" min="0" step="1">
                     </div>
 
                     <div class="mb-3">
-                        <label for="tanggal-berobat" class="col-form-label">Tanggal berobat:</label>
+                        <label for="tanggal-berobat" class="col-form-label">Tanggal:</label>
                         <input type="date" class="form-control" id="tanggal-berobat" name="tanggal-berobat">
                     </div>
 

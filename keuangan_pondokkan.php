@@ -6,6 +6,23 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
     exit();
 }
 
+require 'utils.php';
+
+$db = new myDB();
+$stmt_all_residents = $db->getAllPenduduk();
+$residents = $stmt_all_residents->fetchAll(PDO::FETCH_ASSOC);
+
+// Search
+$search_results = null;
+if(isset($_POST['search'])) {
+    $search_name = $_POST['search'];
+
+    $stmt_search = $db->search($search_name);
+    $residents = $stmt_search->fetchAll(PDO::FETCH_ASSOC);
+
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -38,9 +55,9 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
                     </div>
 
                     <div class="residents-table">
-                        <h3 style="padding-top: 1rem;">Daftar Penduduk</h3>
+                        <h3 style="padding: 1rem; padding-left: 0;">Daftar Penduduk</h3>
                         <div class="content">
-                            <table class="table table-hover" id="tabelPondokan">
+                            <table class="table table-hover table-striped" id="tabelPondokan">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -50,7 +67,17 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
                                     </tr>
                                 </thead>
                                 <tbody class="table-group-divider" id="tabelPondokanBody">
-                                    
+                                    <?php if (empty($residents)){?>
+                                    <tr><td colspan="3">No data found</td></tr>
+                                    <?php };?>
+                                    <?php foreach($residents as $resident): ?>
+                                    <tr>
+                                        <td><?php echo $resident['nama']; ?></td>
+                                        <td><?php echo $db->formatRupiah($resident['keuangan_pondokkan']); ?></td>
+                                        <td><button onclick="window.location.href='laporanPondokkan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Tabungan</button></td>
+                                        <!-- <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td> -->
+                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>

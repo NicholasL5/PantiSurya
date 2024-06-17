@@ -16,14 +16,15 @@ $total_residents = $stmt_residents->fetch(PDO::FETCH_ASSOC)['total_residents'];
 $stmt_unpaid = $db->prepare("SELECT COUNT(*) AS total_unpaid FROM rekam_medis WHERE sudah_bayar = 0");
 $stmt_unpaid->execute();
 $total_unpaid = $stmt_unpaid->fetch(PDO::FETCH_ASSOC)['total_unpaid'];
-$stmt_all_residents = $db->prepare("SELECT * FROM penduduk");
-$stmt_all_residents->execute();
+
+$stmt_all_residents = $db->getAllPenduduk();
 $residents = $stmt_all_residents->fetchAll(PDO::FETCH_ASSOC);
 
 // Search
 $search_results = null;
 if(isset($_POST['search'])) {
     $search_name = $_POST['search'];
+
     $stmt_search = $db->prepare("SELECT * FROM penduduk WHERE nama LIKE :name");
     $stmt_search->execute(['name' => '%' . $search_name . '%']);
     $residents = $stmt_search->fetchAll(PDO::FETCH_ASSOC);
@@ -57,7 +58,7 @@ if(isset($_POST['search'])) {
                     </div>
 
                     <div class="residents-table">
-                        <h3>All Residents</h3>
+                        <h3 style="padding: 1rem; padding-left: 0;">Daftar Penduduk</h3>
                         <div class="content">
                             <table class="table table-striped">
                                 <thead>

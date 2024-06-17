@@ -6,6 +6,24 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
     exit();
 }
 
+require 'utils.php';
+
+$db = new myDB();
+$stmt_all_residents = $db->getAllPenduduk();
+$residents = $stmt_all_residents->fetchAll(PDO::FETCH_ASSOC);
+
+// Search
+$search_results = null;
+if(isset($_POST['search'])) {
+    $search_name = $_POST['search'];
+
+    $stmt_search = $db->search($search_name);
+    $residents = $stmt_search->fetchAll(PDO::FETCH_ASSOC);
+
+
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +37,8 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
     <title>Keuangan Tabungan</title>
 </head>
 <body>
-    <script src="js/dataTabungan.js"></script>
+
+    <!-- <script src="js/dataTabungan.js"></script> -->
 
 
     <div class="app">
@@ -49,7 +68,17 @@ if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider" id="list_tabungan">
-                                
+                                <?php if (empty($residents)){?>
+                                <tr><td colspan="3">No data found</td></tr>
+                                <?php };?>
+                                <?php foreach($residents as $resident): ?>
+                                <tr>
+                                    <td><?php echo $resident['nama']; ?></td>
+                                    <td><?php echo $db->formatRupiah($resident['keuangan_tabungan']); ?></td>
+                                    <td><button onclick="window.location.href='laporanTabungan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Tabungan</button></td>
+                                    <!-- <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td> -->
+                                </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

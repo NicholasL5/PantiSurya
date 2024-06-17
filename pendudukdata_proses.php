@@ -13,6 +13,7 @@
             '
             <tr>
             <th scope="row">'.$counter.'</th>
+            <td>'.$row["nomor_induk"].'</td>
             <td>'.$row["nama"].'</td>
             <td>'.$row["alamat"].'</td>
             <td>'. $db->formatRupiah($row["deposit"]).'</td>

@@ -12,11 +12,10 @@ if($res->rowCount() > 0){
         echo '
         <tr>
         <th scope="row">'.$counter.'</th>
-        <td style="width: 10%;">'.$row["deskripsi"].'</td>
-        <td style="width: 10%;">'.$row["jenis"].'</td>
-        <td style="width: 10%;">'.$row["obat"].'</td>  
-        <td style="width: 20%;">'.$row["tagihan"].'</td> 
-        <td style="width: 20%;">'.$row["tanggal_berobat"].'</td>  
+        <td>'.$row["tanggal_berobat"].'</td>  
+        <td >'.$row["deskripsi"].'</td>
+        <td>'.$row["tagihan"].'</td> 
+        
         ';
         if($_SESSION['role'] == 0){
             echo '<td><button type="button" class="btn btn-outline-primary upload-btn" data-id="'.$row['pengobatan_id'].'" data-tagihan-id="'.$row['tagihan_id'].'">Upload</button></td>';

@@ -19,7 +19,6 @@ if (isset($_GET["id"])) {
 
     $res2 = $db->getWali($id);
     $fetch_wali = $res2->fetchAll(PDO::FETCH_ASSOC);
-    echo empty($fetch_wali[0]);
 
     $image = $db->getGambarById($id);
     
@@ -27,8 +26,7 @@ if (isset($_GET["id"])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['edit'])) {
-        $alamat = $_POST['alamat'];
-        $noTelpon = $_POST['noTelpon'];
+
 
         if (isset($_FILES['KTP'])) {
             $uploadFileKTP = $uploadDirKTP . basename($_FILES['KTP']['name']);
@@ -215,13 +213,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="tab" data-target="kartu">Kartu</div>
                                 <div class="tab" data-target="wali1"> Wali 1</div>
                                 <div class="tab" data-target="wali2"> Wali 2</div>
-                                
-                                
-                                
+                                <div class="tab" data-target="wali3"> Wali 3</div>
+                                <div class="tab" data-target="wali4"> Wali 4</div>
+                                <div class="tab" data-target="wali5"> Wali 5</div>
+
                             </div>
 
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class="tab-content tab-content-active" id="personal">
+                                <div class="mb-3">
+                                    <label for="nama" class="col-form-label">Nomor Induk:</label>
+                                    <input type="text" class="form-control" id="noinduk" name="noinduk"
+                                        value="<?php echo $fetch_data->nomor_induk; ?>">
+                                </div>
                                 <div class="mb-3">
                                     <label for="nama" class="col-form-label">Nama:</label>
                                     <input type="text" class="form-control" id="nama" name="nama"
@@ -281,83 +285,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <img id="bpjs-preview" alt="BPJS Preview" class="prev-pic" src="">
                                 </div>
                             </div>
-                                
-
-                            <div class="tab-content" id="wali1">
-                                <div class="mb-3">
-                                    <label for="namawali1" class="col-form-label">Nama Wali:</label>
-                                    <input type="text" class="form-control" id="namawali1" name="namawali1"
-                                        value="<?php echo !empty($fetch_wali[0]["nama"]) ? $fetch_wali[0]["nama"] : ""; ?>">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="alamatwali1" class="col-form-label">Alamat:</label>
-                                    <input type="text" class="form-control" id="alamatwali1" name="alamatwali1"
-                                        value="<?php echo !empty($fetch_wali[0]["alamat"]) ? $fetch_wali[0]["alamat"] : ""; ?>">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="agamawali1" class="col-form-label">Agama:</label>
-                                    <input type="text" class="form-control" id="agamawali1" name="agamawali1"
-                                        value="<?php echo !empty($fetch_wali[0]["agama"]) ? $fetch_wali[0]["agama"] : ""; ?>">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="notelpwali1" class="col-form-label">No telp wali 1:</label>
-                                    <input type="text" class="form-control" id="notelpwali1" name="notelpwali1"
-                                        value="<?php echo !empty($fetch_wali[0]["no_telp"]) ? $fetch_wali[0]["no_telp"] : ""; ?>">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="pekerjaanwali1" class="col-form-label">Pekerjaan wali 1:</label>
-                                    <input type="text" class="form-control" id="pekerjaanwali1" name="pekerjaanwali1"
-                                        value="<?php echo !empty($fetch_wali[0]["pekerjaan"]) ? $fetch_wali[0]["pekerjaan"] : ""; ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="hubunganwali1" class="col-form-label">Hubungan wali 1:</label>
-                                    <input type="text" class="form-control" id="hubunganwali1" name="hubunganwali1"
-                                        value="<?php echo !empty($fetch_wali[0]["hubungan"]) ? $fetch_wali[0]["hubungan"] : ""; ?>">
-                                </div>
-                            </div>
                             
-                                <div class="tab-content" id="wali2">
-                                    <div class="mb-3">
-                                        <label for="namawali1" class="col-form-label">Nama Wali:</label>
-                                        <input type="text" class="form-control" id="namawali1" name="namawali2"
-                                            value="<?php echo !empty($fetch_wali[1]["nama"]) ? $fetch_wali[1]["nama"] : ""; ?>">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="alamatwali1" class="col-form-label">Alamat:</label>
-                                        <input type="text" class="form-control" id="alamatwali2" name="alamatwali2"
-                                            value="<?php echo !empty($fetch_wali[1]["alamat"]) ? $fetch_wali[1]["alamat"] : ""; ?>">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="agamawali1" class="col-form-label">Agama:</label>
-                                        <input type="text" class="form-control" id="agamawali2" name="agamawali2"
-                                            value="<?php echo !empty($fetch_wali[1]["agama"]) ? $fetch_wali[1]["agama"] : ""; ?>">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="notelpwali1" class="col-form-label">No telp wali 2:</label>
-                                        <input type="text" class="form-control" id="notelpwali2" name="notelpwali2"
-                                            value="<?php echo !empty($fetch_wali[1]["no_telp"]) ? $fetch_wali[1]["no_telp"] : ""; ?>">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="pekerjaanwali1" class="col-form-label">Pekerjaan wali 2:</label>
-                                        <input type="text" class="form-control" id="pekerjaanwali2" name="pekerjaanwali2"
-                                            value="<?php echo !empty($fetch_wali[1]["pekerjaan"]) ? $fetch_wali[1]["pekerjaan"] : ""; ?>">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="hubunganwali1" class="col-form-label">Hubungan wali 2:</label>
-                                        <input type="text" class="form-control" id="hubunganwali2" name="hubunganwali2"
-                                            value="<?php echo !empty($fetch_wali[1]["hubungan"]) ? $fetch_wali[1]["hubungan"] : ""; ?>">
-                                    </div>
-
-                                </div>
                             
+                            <?php
+                            $waliFields = [
+                                "nama" => "Nama Wali",
+                                "alamat" => "Alamat",
+                                "agama" => "Agama",
+                                "no_telp" => "No telp wali",
+                                "pekerjaan" => "Pekerjaan wali",
+                                "hubungan" => "Hubungan wali"
+                            ];
+
+                            for ($index = 1; $index <= 5; $index++) {
+                                $wali = isset($fetch_wali[$index - 1]) ? $fetch_wali[$index - 1] : [];
+                                echo "<div class='tab-content' id='wali{$index}'>";
+                                foreach ($waliFields as $field => $label) {
+                                    $value = !empty($wali[$field]) ? $wali[$field] : "";
+                                    echo "<div class='mb-3'>";
+                                    echo "<label for='{$field}wali{$index}' class='col-form-label'>{$label}:</label>";
+                                    echo "<input type='text' class='form-control' id='{$field}wali{$index}' name='{$field}wali{$index}' value='{$value}'>";
+                                    echo "</div>";
+                                }
+                                echo "</div>";
+                            }
+                            ?>
 
                             <div class="view d-grid gap-2 d-md-flex justify-content-md-end">
                                 <a href="penduduk.php" class="btn btn-danger" type="button" id="back">Cancel</a>

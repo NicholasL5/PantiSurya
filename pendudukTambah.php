@@ -9,8 +9,7 @@ if (!isset($_COOKIE['user_login']) && !isset($_POST['username'])) {
 
 require "utils.php";
 
-function validateFields($fields)
-{
+function validateFields($fields){
     $errors = [];
 
     foreach ($fields as $field => $value) {
@@ -22,13 +21,26 @@ function validateFields($fields)
     return $errors;
 }
 
+function processWali($waliData, $lastid, $db) {
+    $errors = validateFields($waliData);
+    if (empty($errors)) {
+        $db->addWali($lastid, $waliData["namawali"], $waliData["alamatwali"], $waliData["radiowali"], 
+                      $waliData["notelpwali"], $waliData["pekerjaanwali"], $waliData["statushubungan"]);
+        echo "<script>alert('Data wali has been saved successfully');</script>";
+    } 
+}
+
 $flag = false;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+
     if (!isset($_POST["buttonsimpan"]))
         return;
 
+
     $requiredFields = [
+        "nomorinduk" => $_POST["nomorinduk"],
         "namapenghuni" => $_POST["namapenghuni"],
         "tempatlahir" => $_POST["tempatlahir"],
         "flexRadioDefault" => $_POST["flexRadioDefault"],
@@ -41,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (empty($errors)) {
         // All required fields are set and not empty
+        $noinduk = $_POST["nomorinduk"];
         $nama = $_POST["namapenghuni"];
         $tempatlahir = $_POST["tempatlahir"];
         $agama = $_POST["flexRadioDefault"];
@@ -48,9 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tempattinggal = $_POST["tempattinggal"];
         $deposit = $_POST["deposit"];
 
-        // Process the data (e.g., save to the database)
+        // Process the data
         $db = new myDB();
-        $db->addPenduduk($nama, $tempattinggal, $tempatlahir, $agama, $tanggallahir, $deposit);
+        $db->addPenduduk($noinduk, $nama, $tempattinggal, $tempatlahir, $agama, $tanggallahir, $deposit);
         $lastid = $db->returnLastID();
 
 
@@ -60,58 +73,58 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         echo "The following fields are required and missing: " . implode(", ", $errors);
     }
 
-    $requiredFields2 = [
-        "namawali1" => $_POST["wali1"],
-        "pekerjaanwali1" => $_POST["pekerjaanwali1"],
-        "radiowali1" => $_POST["radiowali1"],
-        "statushubungan" => $_POST["statushubungan"],
-        "notelpwali1" => $_POST["notelpwali1"],
-        "alamatwali1" => $_POST["alamatwali1"]
+
+    $requiredFieldsWali1 = [
+        "namawali" => $_POST["wali1"],
+        "pekerjaanwali" => $_POST["pekerjaanwali1"],
+        "radiowali" => isset($_POST["radiowali1"])?:"",
+        "statushubungan" => $_POST["statushubunganwali1"],
+        "notelpwali" => $_POST["notelpwali1"],
+        "alamatwali" => $_POST["alamatwali1"]
     ];
 
-    $errors2 = validateFields($requiredFields2);
-
-    if (empty($errors2)) {
-        $nama = $_POST["wali1"];
-        $pekerjaanwali1 = $_POST["pekerjaanwali1"];
-        $agama = $_POST["radiowali1"];
-        $hubungan = $_POST["statushubungan"];
-        $notelp = $_POST["notelpwali1"];
-        $alamat = $_POST["alamatwali1"];
-
-        $db->addWali($lastid, $nama, $alamat, $agama, $notelp, $pekerjaanwali1, $hubungan);
-        echo "<script>alert('Data wali has been saved successfully');</script>";
-    } else {
-        echo "The following fields are required and missing: " . implode(", ", $errors2);
-    }
-
-
-    $requiredFields3 = [
-        "namawali2" => $_POST["wali2"],
-        "pekerjaanwali2" => $_POST["pekerjaanwali2"],
-        "radiowali2" => $_POST["radiowali2"],
-        "hubunganwali2" => $_POST["hubunganwali2"],
-        "notelpwali2" => $_POST["notelpwali2"],
-        "alamatwali2" => $_POST["alamatwali2"]
+    $requiredFieldsWali2 = [
+        "namawali" => $_POST["wali2"],
+        "pekerjaanwali" => $_POST["pekerjaanwali2"],
+        "radiowali" => isset($_POST["radiowali2"])?:"",
+        "statushubungan" => $_POST["statushubunganwali2"],
+        "notelpwali" => $_POST["notelpwali2"],
+        "alamatwali" => $_POST["alamatwali2"]
     ];
 
-    $errors3 = validateFields($requiredFields2);
+    $requiredFieldsWali3 = [
+        "namawali" => $_POST["wali3"],
+        "pekerjaanwali" => $_POST["pekerjaanwali3"],
+        "radiowali" => isset($_POST["radiowali3"])?:"",
+        "statushubungan" => $_POST["statushubunganwali3"],
+        "notelpwali" => $_POST["notelpwali3"],
+        "alamatwali" => $_POST["alamatwali3"]
+    ];
 
-    if (empty($errors3)) {
-        $nama = $_POST["wali2"];
-        $pekerjaanwali2 = $_POST["pekerjaanwali2"];
-        $agama = $_POST["radiowali2"];
-        $hubungan = $_POST["hubunganwali2"];
-        $notelp = $_POST["notelpwali2"];
-        $alamat = $_POST["alamatwali2"];
+    $requiredFieldsWali4 = [
+        "namawali" => $_POST["wali4"],
+        "pekerjaanwali" => $_POST["pekerjaanwali4"],
+        "radiowali" => isset($_POST["radiowali4"])?:"",
+        "statushubungan" => $_POST["statushubunganwali4"],
+        "notelpwali" => $_POST["notelpwali4"],
+        "alamatwali" => $_POST["alamatwali4"]
+    ];
 
-        $db->addWali($lastid, $nama, $alamat, $agama, $notelp, $pekerjaanwali2, $hubungan);
-        echo "<script>alert('Data wali has been saved successfully');</script>";
-    } else {
-        echo "The following fields are required and missing: " . implode(", ", $errors3);
-    }
+    $requiredFieldsWali5 = [
+        "namawali" => $_POST["wali5"],
+        "pekerjaanwali" => $_POST["pekerjaanwali5"],
+        "radiowali" => isset($_POST["radiowali5"])?:"",
+        "statushubungan" => $_POST["statushubunganwali5"],
+        "notelpwali" => $_POST["notelpwali5"],
+        "alamatwali" => $_POST["alamatwali5"]
+    ];
 
 
+    processWali($requiredFieldsWali1, $lastid, $db);
+    processWali($requiredFieldsWali2, $lastid, $db);
+    processWali($requiredFieldsWali3, $lastid, $db);
+    processWali($requiredFieldsWali4, $lastid, $db);
+    processWali($requiredFieldsWali5, $lastid, $db);
 
 
 
@@ -135,14 +148,43 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
+    <!-- <script>
+        $(document).ready(function(){
+
+            $('#submitform').on('click', function(event){
+                event.preventDefault();
+
+                Swal.fire({
+                    title: "Yakin tambah penduduk?",
+                    icon: "question",
+                    text: "Penduduk akan dimasukkan ke database",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Simpan!"
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        // If the user confirms, submit the form programmatically
+                        document.getElementById("pendudukForm").submit();
+                    }
+                });
+            });
+
+            
+        
+        });
+    </script> -->
+
+
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php' ?>
             <div class="main">
                 <div class="pad">
-                    <h2>Tambah Penduduk</h2>
+                    <h1 style="margin-bottom: 3rem;">Tambah Penduduk</h1>
 
-                    <form action="pendudukTambah.php" method="POST" enctype="multipart/form-data">
+                    <form id="pendudukForm" action="pendudukTambah.php" method="POST" enctype="multipart/form-data">
+
                         <div class="accordion" id="accordion">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
@@ -150,12 +192,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                         data-bs-target="#collapseOne" aria-expanded="true"
                                         aria-controls="collapseOne">Data Penduduk</button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample">
+
+                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <section class="pad-l-12">
                                             <h4>Data Penduduk</h4>
                                             <div class="mb-3 mb3-flex-col">
+                                                <div style="flex: 1;">
+                                                    <label for="recipient-name" class="col-form-label">Nomor
+                                                        Induk:</label>
+                                                    <input type="text" class="form-control" name="nomorinduk"
+                                                        required>
+                                                </div>
+
                                                 <div style="flex: 1;">
                                                     <label for="recipient-name" class="col-form-label">Nama
                                                         Penghuni:</label>
@@ -163,10 +212,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                         required>
                                                 </div>
 
+                                            </div>
+
+                                            <div class="mb-3 mb3-flex-col">
                                                 <div style="flex: 1;">
                                                     <label for="recipient-name" class="col-form-label">Tempat
                                                         Lahir:</label>
                                                     <input type="text" class="form-control" name="tempatlahir" required>
+                                                </div>
+
+                                                <div style="flex: 1;">
+                                                    <label for="recipient-name" class="col-form-label">Tanggal
+                                                        Lahir:</label>
+                                                    <input type="date" class="form-control" id="tanggallahir"
+                                                        name="tanggallahir" required>
                                                 </div>
 
                                             </div>
@@ -237,62 +296,53 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                 <div style="flex: 1; display:flex; flex-direction: column;">
 
                                                     <div class="mb-3">
-                                                        <label for="recipient-name" class="col-form-label">Tanggal
-                                                            Lahir:</label>
-                                                        <input type="date" class="form-control" id="tanggallahir"
-                                                            name="tanggallahir" required>
-                                                    </div>
-
-                                                    <div class="mb-3">
                                                         <label for="recipient-name" class="col-form-label">Alamat Saat
                                                             ini:</label>
                                                         <input type="text" class="form-control" name="tempattinggal"
                                                             id="recipient-name" required>
                                                     </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="deposit">Deposit:</label>
+                                                        <input type="number" id="deposit" name="deposit"
+                                                            placeholder="Masukkan Nilai Deposit" class="form-control"
+                                                            min="0" step="1" required>
+                                                    </div>
                                                 </div>
 
                                             </div>
 
-                                            <div class="mb-3 mb3-flex-col">
-                                                <div class="mb-3" style="flex:1;">
-
-                                                </div>
-                                                <div class="mb-3" style="flex:1;">
-                                                    <label for="deposit">Deposit:</label>
-                                                    <input type="number" id="deposit" name="deposit"
-                                                        placeholder="Masukkan Nilai Deposit" class="form-control"
-                                                        min="0" step="1" required>
-                                                </div>
-
-                                            </div>
+                                        
                                         </section>
                                     </div>
                                 </div>
                             </div>
+
+                            <?php for ($i = 1; $i <= 5; $i++): ?>
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseTwo" aria-expanded="false"
-                                        aria-controls="collapseTwo">Data Penanggung Jawab 1 (wali 1)</button>
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse<?php echo $i; ?>" aria-expanded="false"
+                                        aria-controls="collapse<?php echo $i; ?>">Data Penanggung Jawab <?php echo $i; ?> (wali <?php echo $i; ?>)</button>
                                 </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse"
+                                <div id="collapse<?php echo $i; ?>" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <section class="pad-l-12">
-                                            <h4>Data Penanggung Jawab 1 (wali 1)</h4>
+                                            <h4>Data Penanggung Jawab <?php echo $i; ?> (wali <?php echo $i; ?>)</h4>
 
                                             <div class="mb-3 mb3-flex-col">
                                                 <div style="flex: 1;">
                                                     <label for="recipient-name" class="col-form-label">Nama Penanggung
                                                         Jawab
-                                                        1:</label>
-                                                    <input type="text" class="form-control" name="wali1">
+                                                        <?php echo $i; ?>:</label>
+                                                    <input type="text" class="form-control" name="wali<?php echo $i; ?>">
                                                 </div>
 
                                                 <div style="flex: 1;">
                                                     <label for="recipient-name" class="col-form-label">Alamat saat
                                                         ini:</label>
-                                                    <input type="text" class="form-control" name="alamatwali1">
+                                                    <input type="text" class="form-control" name="alamatwali<?php echo $i; ?>">
                                                 </div>
 
                                             </div>
@@ -304,22 +354,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                         <div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" value="Kristen"
-                                                                    type="radio" name="radiowali1" id="radiowali11">
-                                                                <label class="form-check-label" for="radiowali11">
+                                                                    type="radio" name="radiowali<?php echo $i; ?>" id="radiowali<?php echo $i; ?>1">
+                                                                <label class="form-check-label" for="radiowali<?php echo $i; ?>1">
                                                                     Kristen
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" value="Katolik"
-                                                                    type="radio" name="radiowali1" id="radiowali12">
-                                                                <label class="form-check-label" for="radiowali12">
+                                                                    type="radio" name="radiowali<?php echo $i; ?>" id="radiowali<?php echo $i; ?>2">
+                                                                <label class="form-check-label" for="radiowali<?php echo $i; ?>2">
                                                                     Katolik
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" value="Islam"
-                                                                    type="radio" name="radiowali1" id="radiowali13">
-                                                                <label class="form-check-label" for="radiowali13">
+                                                                    type="radio" name="radiowali<?php echo $i; ?>" id="radiowali<?php echo $i; ?>3">
+                                                                <label class="form-check-label" for="radiowali<?php echo $i; ?>3">
                                                                     Islam
                                                                 </label>
                                                             </div>
@@ -328,22 +378,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                         <div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" value="Buddha"
-                                                                    type="radio" name="radiowali1" id="radiowali14">
-                                                                <label class="form-check-label" for="radiowali14">
+                                                                    type="radio" name="radiowali<?php echo $i; ?>" id="radiowali<?php echo $i; ?>4">
+                                                                <label class="form-check-label" for="radiowali<?php echo $i; ?>4">
                                                                     Buddha
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" value="Hindu"
-                                                                    type="radio" name="radiowali1" id="radiowali15">
-                                                                <label class="form-check-label" for="radiowali15">
+                                                                    type="radio" name="radiowali<?php echo $i; ?>" id="radiowali<?php echo $i; ?>5">
+                                                                <label class="form-check-label" for="radiowali<?php echo $i; ?>5">
                                                                     Hindu
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" value="Kong Hu Chu"
-                                                                    type="radio" name="radiowali1" id="radiowali16">
-                                                                <label class="form-check-label" for="radiowali16">
+                                                                    type="radio" name="radiowali<?php echo $i; ?>" id="radiowali<?php echo $i; ?>6">
+                                                                <label class="form-check-label" for="radiowali<?php echo $i; ?>6">
                                                                     Kong Hu Cu
                                                                 </label>
                                                             </div>
@@ -351,17 +401,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                         </div>
 
                                                     </div>
-
-
-
                                                 </div>
 
                                                 <div style="flex: 1; display:flex; flex-direction: column;">
                                                     <div>
                                                         <label for="recipient-name"
                                                             class="col-form-label">Pekerjaan:</label>
-                                                        <input type="text" class="form-control" id="pekerjaanwali1"
-                                                            name="pekerjaanwali1">
+                                                        <input type="text" class="form-control" id="pekerjaanwali<?php echo $i; ?>"
+                                                            name="pekerjaanwali<?php echo $i; ?>">
                                                     </div>
 
                                                     <div>
@@ -369,7 +416,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                             Hubungan
                                                             keluarga:</label>
                                                         <input type="text" class="form-control" id="recipient-name"
-                                                            name="statushubungan">
+                                                            name="statushubunganwali<?php echo $i; ?>">
                                                     </div>
                                                 </div>
 
@@ -381,8 +428,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                 </div>
                                                 <div style="flex:1;">
                                                     <label for="addBalance" class="col-form-label">No Telpon:</label>
-                                                    <input type="text" class="form-control" name="notelpwali1"
-                                                        id="notelpwali1">
+                                                    <input type="text" class="form-control" name="notelpwali<?php echo $i; ?>"
+                                                        id="notelpwali<?php echo $i; ?>">
                                                 </div>
 
                                             </div>
@@ -391,144 +438,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                                 </div>
                             </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseThree" aria-expanded="false"
-                                        aria-controls="collapseThree">Data Penanggung Jawab 1 (wali 1)</button>
-                                </h2>
-                                <div id="collapseThree" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <section class="pad-l-12">
-                                            <h4>Data Penanggung Jawab 2 (wali 2)</h4>
+                            <?php endfor; ?>
+                        </div>
 
-                                            <div class="mb-3 mb3-flex-col">
-                                                <div style="flex: 1;">
-                                                    <label for="recipient-name" class="col-form-label">Nama Penanggung
-                                                        Jawab 2:</label>
-                                                    <input type="text" class="form-control" name="wali2">
-                                                </div>
-
-                                                <div style="flex: 1;">
-                                                    <label for="recipient-name" class="col-form-label">Alamat saat
-                                                        ini:</label>
-                                                    <input type="text" class="form-control" name="alamatwali2">
-                                                </div>
-
-                                            </div>
-
-                                            <div class="mb-3 mb3-flex-col">
-                                                <div style="flex: 1;">
-                                                    <label for="recipient-name" class="col-form-label">Agama:</label>
-                                                    <div class="mb3-flex-col">
-                                                        <div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" value="Kristen"
-                                                                    type="radio" name="radiowali2" id="radiowali21">
-                                                                <label class="form-check-label" for="radiowali21">
-                                                                    Kristen
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" value="Katolik"
-                                                                    type="radio" name="radiowali2" id="radiowali22">
-                                                                <label class="form-check-label" for="radiowali22">
-                                                                    Katolik
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" value="Islam"
-                                                                    type="radio" name="radiowali2" id="radiowali23">
-                                                                <label class="form-check-label" for="radiowali23">
-                                                                    Islam
-                                                                </label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" value="Buddha"
-                                                                    type="radio" name="radiowali2" id="radiowali24">
-                                                                <label class="form-check-label" for="radiowali24">
-                                                                    Buddha
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" value="Hindu"
-                                                                    type="radio" name="radiowali2" id="radiowali25">
-                                                                <label class="form-check-label" for="radiowali25">
-                                                                    Hindu
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" value="Kong Hu Chu"
-                                                                    type="radio" name="radiowali2" id="radiowali26">
-                                                                <label class="form-check-label" for="radiowali26">
-                                                                    Kong Hu Cu
-                                                                </label>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" value="lainnya"
-                                                                    type="radio" name="radiowali2" id="radiowali27">
-                                                                <label class="form-check-label" for="radiowali27">
-                                                                    Lainnya
-                                                                </label>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-
-
-
-                                                </div>
-
-                                                <div style="flex: 1; display:flex; flex-direction: column;">
-
-                                                    <div>
-                                                        <label for="recipient-name"
-                                                            class="col-form-label">Pekerjaan:</label>
-                                                        <input type="text" class="form-control" id="pekerjaanwali2"
-                                                            name="pekerjaanwali2">
-                                                    </div>
-
-                                                    <div>
-                                                        <label for="recipient-name" class="col-form-label">Status
-                                                            Hubungan
-                                                            keluarga:</label>
-                                                        <input type="text" class="form-control" id="recipient-name"
-                                                            name="hubunganwali2">
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="mb-3 mb3-flex-col">
-                                                <div style="flex:1;">
-
-                                                </div>
-                                                <div style="flex:1;">
-                                                    <label for="addBalance" class="col-form-label">No Telpon:</label>
-                                                    <input type="text" class="form-control" id="recipient-name"
-                                                        name="notelpwali2">
-                                                </div>
-
-                                            </div>
-                                        </section>
-                                    </div>
-
-                                </div>
+                        <!-- <div style="display:flex;flex-direction: row;justify-content: space-between;"> -->
+                            <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+                                <button class="btn btn-light me-md-2" style="border: 1px solid #8a8e91;" id="tambahwali" name="tambahaccordion">Tambah Wali</button>
+                            </div> -->
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
+                                <a href="penduduk.php" class="btn btn-danger" type="button" id="back">Cancel</a>
+                                <button class="btn btn-primary me-md-2" name="buttonsimpan" id="submitform" type="submit">Simpan</button>
                             </div>
-                        </div>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-3">
-                            <a href="penduduk.php" class="btn btn-danger" type="button" id="back">Cancel</a>
-                            <button class="btn btn-primary me-md-2" name="buttonsimpan" type="submit">Simpan</button>
+                        <!-- </div> -->
 
-                        </div>
+                        
 
                     </form>
                 </div>

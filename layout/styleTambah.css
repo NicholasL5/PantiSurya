@@ -4,6 +4,7 @@
 
 section{
     padding: 3rem;
+    padding-top: 1rem;
 }
 
 input{
@@ -22,5 +23,5 @@ input{
 }
 
 .pad-l-12{
-    padding-right: 12rem;
+    padding-right: 6rem;
 }

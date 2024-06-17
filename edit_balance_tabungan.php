@@ -27,21 +27,6 @@ if (!$resident) {
 
 $alertMessage = '';
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset($_POST['transaksi'])) {
-    
-//     if ($_POST['transaksi'] == 0){
-//         $mul = 1;
-//         $type = "debit";
-//     }else{
-//         $mul = -1;
-//         $type = "kredit";
-//     }
-
-//     $jumlah = intval($_POST['addBalance']) * $mul;
-//     $db->addDataTabungan($jumlah, $type, $residentId);
-//     $db->updateTabunganPenduduk($residentId);
-//     header("location: keuangan_tabungan.php");
-// }
 
 include "utils/resize_image.php";
 define('UPLOAD_DIR','keuangan/tabungan/');
@@ -50,10 +35,7 @@ $id = $_GET["id"];
 // echo $id;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // $id = $_GET["tagihanId"];
-    // echo $id;
-    // Upload profile picture ke directory lalu get directory name
-    // Get the tmp file from server as image
+
     $image = file_get_contents($_FILES["imageChooser"]["tmp_name"]);
 
     // Make file with name uniqid().jpg
@@ -110,36 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
                 <h4>Jumlah Tabungan Sekarang: Rp.<?php echo $db->formatRupiah($uang['keuangan_tabungan']); ?></h4>
                 <form id="balanceForm" method="POST" enctype="multipart/form-data">
-                    <!-- <div class="mb-3">
-                        <label for="addBalance">Masukkan Jumlah:</label>
-                        <input type="number" id="addBalance" name="addBalance" placeholder="Enter amount to add"
-                            class="form-control" min="0" step="1000">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="col-form-label">Tipe Transaksi:</label>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="transaksi" value=0 id="RadioTransaksi1" checked>
-                            <label class="form-check-label" for="RadioTransaksi1">
-                                Debit (+)
-                            </label>
-                        </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="transaksi" value=1 id="RadioTransaksi2">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Kredit (-)
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="addDesc">Masukkan Deskripsi:</label>
-                        <textarea class="form-control" id="textareaTabungan" rows="5" name="addDesc" placeholder="Enter your text here..."></textarea>
-                        
-                    </div> -->
-
+                
                     <div class="mb-3">
                         <label for="imageInput" class="form-label">
 

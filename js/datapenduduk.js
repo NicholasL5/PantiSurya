@@ -25,26 +25,54 @@ $(document).ready(function(){
 
     function delete_user(){
         $(".del").on('click', function(){
-            var conf = confirm("yakin delete?");
             var delbutton = $(this);
-            
-            if(!conf) return;
-            
-            $.ajax({
-                url:"pendudukdata_delete.php",
-                type:"POST",
-                data:{
-                    delid: delbutton.data("rowid")
-                },
-                success:function(result){
-                    if(result == "success") {
-                        delbutton.closest('tr').remove();
-                    }else{
-                        alert("fail");  
-                    }
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url:"pendudukdata_delete.php",
+                        type:"POST",
+                        data:{
+                            delid: delbutton.data("rowid")
+                        },
+                        success:function(result){
+                            if(result == "success") {
+                                delbutton.closest('tr').remove();
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                });
+                            }else{
+                                Swal.fire({
+                                    title:"Error!",
+                                    text: "Error in deleting penduduk",
+                                    icon: "error"
+                                });
+                            }
+                        },
+                        error:function(){
+                            Swal.fire({
+                                title: "Error!",
+                                text: "There was a problem with the request.",
+                                icon: "error"
+                            });
+                        }
+
+                    });
                 }
-            })
-        })
+
+              });
+
+        });
     }
 
     

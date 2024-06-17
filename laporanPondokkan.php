@@ -59,7 +59,7 @@
                         </button>
                     </a>
                 </div>
-                <div class="content">
+                <div class="content" style="align-items: flex-start;margin-bottom: 4rem;">
                     <h3>Pondokkan belum dibayar</h3>
                     <table class="table wfull table-hover">
                         <thead>         
@@ -79,7 +79,7 @@
                     </table>
                 </div>
 
-                <div class="content" style="margin-top:20px">
+                <div class="content" style="align-items: flex-start;margin-top:20px">
                     <h3>Pondokkan sudah dibayar</h3>
                     <table class="table wfull table-hover">
                         <thead>         
