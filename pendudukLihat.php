@@ -26,10 +26,11 @@ if (isset($_GET["id"])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['edit'])) {
+        $id = $_GET["id"];
 
-
-        if (isset($_FILES['KTP'])) {
+        if (isset($_FILES['KTP']) && $_FILES['KTP']['error'] != UPLOAD_ERR_NO_FILE) {
             $uploadFileKTP = $uploadDirKTP . basename($_FILES['KTP']['name']);
+            echo $uploadFileKTP;
             $imageFileTypeKTP = strtolower(pathinfo($uploadFileKTP, PATHINFO_EXTENSION));
             $uploadOkKTP = 1;
 
@@ -62,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        if (isset($_FILES['KK'])) {
+        if (isset($_FILES['KK']) && $_FILES['KK']['error'] != UPLOAD_ERR_NO_FILE) {
             
             $uploadFileKK = $uploadDirKK . basename($_FILES['KK']['name']);
             $imageFileTypeKK = strtolower(pathinfo($uploadFileKK, PATHINFO_EXTENSION));
@@ -97,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        if (isset($_FILES['BPJS'])) {
+        if (isset($_FILES['BPJS']) && $_FILES['BPJS']['error'] != UPLOAD_ERR_NO_FILE) {
             
             $uploadFileBPJS = $uploadDirBPJS . basename($_FILES['BPJS']['name']);
             $imageFileTypeBPJS = strtolower(pathinfo($uploadFileBPJS, PATHINFO_EXTENSION));
@@ -132,9 +133,95 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        $db->editPenduduk($alamat, $email, $noTelpon, $id);
-        // $db->editPenduduk($alamat, $email, $noTelpon, $KTP, $KK, $BPJS, $id);
+        function validateFields($fields){
+            $errors = [];
+        
+            foreach ($fields as $field => $value) {
+                if (!isset($value) || empty($value)) {
+                    $errors[] = $field;
+                }
+            }
+        
+            return $errors;
+        }
+        
+        function processWali($waliData, $db, $idx) {
+            $errors = validateFields($waliData);
+            if (empty($errors)) {
+                // try{
+                    $numwali = $db->getWali($_GET['id']);
+                    $waliarr = $numwali->fetchAll(PDO::FETCH_ASSOC);
+                    if(empty($waliarr[$idx-1])){
+                        $db->addWali($_GET['id'], $waliData["namawali"], $waliData["alamatwali"], $waliData["agamawali"], 
+                                    $waliData["notelpwali"], $waliData["pekerjaanwali"], $waliData["statushubungan"]);
+                    }else{
+                        $db->editWali($waliData["namawali"], $waliData["alamatwali"], $waliData["agamawali"], 
+                                    $waliData["notelpwali"], $waliData["pekerjaanwali"], $waliData["statushubungan"], 
+                                    $_GET['id'], $waliarr[$idx-1]['wali_id']);
+
+                    }
+
+                    
+
+                    // $_SESSION['alert'] = "success";
+                    // $_SESSION["errormsg"] = "Data berhasil disimpan";          
+                // }catch(Exception $e){
+                    // $_SESSION['alert'] = "fail";
+                    // $_SESSION["errormsg"] = $e->getMessage();
+                // };
+                
+            }
+        }
+
+        $requiredFields = [
+            "nomorinduk" => $_POST["noinduk"],
+            "namapenghuni" => $_POST["nama"],
+            "tempatlahir" => $_POST["tempatlahir"],
+            "agama" => $_POST["agama"],
+            "tanggallahir" => $_POST["tanggallahir"],
+            "alamat" => $_POST["alamat"],
+            "deposit" => $_POST["deposit"]
+        ];
+    
+        $errors = validateFields($requiredFields);
+    
+        if (empty($errors)) {
+            // All required fields are set and not empty
+            $noinduk = $_POST["noinduk"];
+            $nama = $_POST["nama"];
+            $tempatlahir = $_POST["tempatlahir"];
+            $agama = $_POST["agama"];
+            $tanggallahir = $_POST["tanggallahir"];
+            $alamat = $_POST["alamat"];
+            $deposit = $_POST["deposit"];
+    
+            // Process the data
+            $db = new myDB();
+            try{
+                $db->editPenduduk($noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $id);
+
+                $_SESSION['alert'] = "success";
+                $_SESSION["errormsg"] = "Data berhasil disimpan";
+            }catch(Exception $e){
+                $_SESSION['alert'] = "fail";
+                $_SESSION["errormsg"] = $e->getMessage();
+            }
+        }    
+
+        for ($i = 1; $i <= 5; $i++) {
+            $waliData = [
+                "namawali" => $_POST["namawali$i"],
+                "pekerjaanwali" => $_POST["pekerjaanwali$i"],
+                "agamawali" => $_POST["agamawali$i"],
+                "statushubungan" => $_POST["hubunganwali$i"],
+                "notelpwali" => $_POST["no_telpwali$i"],
+                "alamatwali" => $_POST["alamatwali$i"]
+            ];
+            processWali($waliData, $db, $i);
+        }
+
         header("Location: penduduk.php");
+        exit();
     }
 }
 
@@ -184,6 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <script src="js/penduduk_lihat.js"></script>
+    
 
     <div class="app">
         <div class="dashboard">
@@ -257,8 +345,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="deposit" class="col-form-label">Deposit:</label>
+                                    <input type="number" min="0" step="1" class="form-control" id="deposit" name="deposit"
+                                        value="<?php echo $fetch_data->deposit; ?>">
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="noTelpon" class="row-form-label">No telp wali:</label>
-                                    <input type="text" class="form-control" id="tanggallahir" name="tanggallahir"
+                                    <input type="text" class="form-control" id="tanggallahir" name=""
                                         value="<?php echo !empty($fetch_wali[0]['no_telp'])?$fetch_wali[0]['no_telp']:"-"; ?>" disabled>
                                     
                                 </div>
@@ -269,20 +363,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="tab-content" id="kartu">
                                 <div class="mb-3">
                                     <label for="ktp">KTP:</label>
-                                    <input type="file" class="form-control" id="ktp" name="KTP">
-                                    <img id="ktp-preview" alt="KTP Preview" class="prev-pic" src="">
+                                    <input type="file" class="form-control" id="ktp" name="KTP" >
+                                    <img id="ktp-preview" alt="KTP Preview" class="prev-pic" src="<?php echo $fetch_data->KTP; ?>">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="kk">KK:</label>
                                     <input type="file" class="form-control" id="kk" name="KK">
-                                    <img id="kk-preview" alt="KK Preview" class="prev-pic" src="">
+                                    <img id="kk-preview" alt="KK Preview" class="prev-pic" src="<?php echo $fetch_data->KK; ?>">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="bpjs">BPJS:</label>
                                     <input type="file" class="form-control" id="bpjs" name="BPJS">
-                                    <img id="bpjs-preview" alt="BPJS Preview" class="prev-pic" src="">
+                                    <img id="bpjs-preview" alt="BPJS Preview" class="prev-pic" src="<?php echo $fetch_data->BPJS; ?>">
                                 </div>
                             </div>
                             
@@ -305,8 +399,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     echo "<div class='mb-3'>";
                                     echo "<label for='{$field}wali{$index}' class='col-form-label'>{$label}:</label>";
                                     echo "<input type='text' class='form-control' id='{$field}wali{$index}' name='{$field}wali{$index}' value='{$value}'>";
+
                                     echo "</div>";
                                 }
+
+                                echo 
+                                "
+                                <div class='mb-3' style='display:flex;justify-content:flex-end;'>
+                                <button type='button' class='btn btn-danger del' style='margin:0px;z-index: index 10;'>Delete</button>
+                                </div>";
                                 echo "</div>";
                             }
                             ?>

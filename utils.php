@@ -321,12 +321,18 @@ class myDB
         $stmt->execute([$pendudukid, $nama, $alamat, $agama, $notelp, $pekerjaan, $hubungan]);
     }
 
-
-    function editPenduduk($alamat, $email, $noTelpon, $id)
-    {
-        $query = "UPDATE penduduk SET alamat = ?, email = ?, notelp = ? WHERE id = ?";
+    function editWali($nama, $alamat, $agama, $notelp, $pekerjaan, $hubungan, $id, $waliId ){
+        $query = "UPDATE wali SET nama=?, alamat=?, agama=?, no_telp=?, pekerjaan=?, hubungan=? WHERE penduduk_id = ? AND wali_id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$alamat, $email, $noTelpon, $id]);
+        $stmt->execute([$nama, $alamat, $agama, $notelp, $pekerjaan, $hubungan, $id, $waliId]);
+    }
+
+
+    function editPenduduk($noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $id)
+    {
+        $query = "UPDATE penduduk SET nomor_induk = ?, nama = ?, alamat = ?, tempat_lahir = ?, agama = ?, tanggal_lahir = ?, deposit = ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $id]);
     }
 
     function insertGambar($profilePictureDirectory)
@@ -432,11 +438,9 @@ class myDB
     public function updateGambarById($id, $imageType, $imagePath)
     {
         try {
-            $db = new PDO('mysql:host=localhost;dbname=pantisurya', 'root', '');
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Prepare the SQL statement
-            $stmt = $db->prepare("UPDATE penduduk SET $imageType = :imagePath WHERE id = :id");
+            $stmt = $this->db->prepare("UPDATE penduduk SET $imageType = :imagePath WHERE id = :id");
 
             // Bind parameters
             $stmt->bindParam(':imagePath', $imagePath);
@@ -444,10 +448,7 @@ class myDB
 
             // Execute the query
             $stmt->execute();
-
-            // Close the connection
-            $db = null;
-
+            
             // Return true if update was successful
             return true;
         } catch (PDOException $e) {

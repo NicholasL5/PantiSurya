@@ -68,7 +68,24 @@
 </head>
 <body>
     <script src="js/datapenduduk.js"></script>
+    <script>
+        $(document).ready(function(){
+            <?php if($_SESSION['alert'] == "success"){?>
+                myalert("Berhasil!", <?php echo $_SESSION['errormsg'] ?>, "success");
+            <?php } else { ?>  
+                myalert("Error!", <?php echo $_SESSION['errormsg'] ?>, "error");
+            <?php }; unset($_SESSION['alert']); unset($_SESSION['errormsg']);?>
 
+            function myalert(titles, texts, icons){
+                Swal.fire({
+                    title: titles,
+                    text: texts,
+                    icon: icons
+                });
+            }
+        
+        });
+    </script>
 
 
 

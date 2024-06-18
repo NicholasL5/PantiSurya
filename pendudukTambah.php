@@ -24,10 +24,14 @@ function validateFields($fields){
 function processWali($waliData, $lastid, $db) {
     $errors = validateFields($waliData);
     if (empty($errors)) {
-        $db->addWali($lastid, $waliData["namawali"], $waliData["alamatwali"], $waliData["radiowali"], 
+        try{
+            $db->addWali($lastid, $waliData["namawali"], $waliData["alamatwali"], $waliData["radiowali"], 
                       $waliData["notelpwali"], $waliData["pekerjaanwali"], $waliData["statushubungan"]);
-        echo "<script>alert('Data wali has been saved successfully');</script>";
-    } 
+        }catch(Exception $e){
+            $_SESSION['alert'] = "fail";
+        };
+        // echo "<script>alert('Data wali has been saved successfully');</script>";
+    }
 }
 
 $flag = false;
@@ -63,68 +67,77 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         // Process the data
         $db = new myDB();
-        $db->addPenduduk($noinduk, $nama, $tempattinggal, $tempatlahir, $agama, $tanggallahir, $deposit);
-        $lastid = $db->returnLastID();
+        try{
+            $db->addPenduduk($noinduk, $nama, $tempattinggal, $tempatlahir, $agama, $tanggallahir, $deposit);
+            $lastid = $db->returnLastID();
+            $_SESSION['alert'] = "success";
 
+            $requiredFieldsWali1 = [
+                "namawali" => $_POST["wali1"],
+                "pekerjaanwali" => $_POST["pekerjaanwali1"],
+                "radiowali" => isset($_POST["radiowali1"])?:"",
+                "statushubungan" => $_POST["statushubunganwali1"],
+                "notelpwali" => $_POST["notelpwali1"],
+                "alamatwali" => $_POST["alamatwali1"]
+            ];
+        
+            $requiredFieldsWali2 = [
+                "namawali" => $_POST["wali2"],
+                "pekerjaanwali" => $_POST["pekerjaanwali2"],
+                "radiowali" => isset($_POST["radiowali2"])?:"",
+                "statushubungan" => $_POST["statushubunganwali2"],
+                "notelpwali" => $_POST["notelpwali2"],
+                "alamatwali" => $_POST["alamatwali2"]
+            ];
+        
+            $requiredFieldsWali3 = [
+                "namawali" => $_POST["wali3"],
+                "pekerjaanwali" => $_POST["pekerjaanwali3"],
+                "radiowali" => isset($_POST["radiowali3"])?:"",
+                "statushubungan" => $_POST["statushubunganwali3"],
+                "notelpwali" => $_POST["notelpwali3"],
+                "alamatwali" => $_POST["alamatwali3"]
+            ];
+        
+            $requiredFieldsWali4 = [
+                "namawali" => $_POST["wali4"],
+                "pekerjaanwali" => $_POST["pekerjaanwali4"],
+                "radiowali" => isset($_POST["radiowali4"])?:"",
+                "statushubungan" => $_POST["statushubunganwali4"],
+                "notelpwali" => $_POST["notelpwali4"],
+                "alamatwali" => $_POST["alamatwali4"]
+            ];
+        
+            $requiredFieldsWali5 = [
+                "namawali" => $_POST["wali5"],
+                "pekerjaanwali" => $_POST["pekerjaanwali5"],
+                "radiowali" => isset($_POST["radiowali5"])?:"",
+                "statushubungan" => $_POST["statushubunganwali5"],
+                "notelpwali" => $_POST["notelpwali5"],
+                "alamatwali" => $_POST["alamatwali5"]
+            ];
+        
+        
+            processWali($requiredFieldsWali1, $lastid, $db);
+            processWali($requiredFieldsWali2, $lastid, $db);
+            processWali($requiredFieldsWali3, $lastid, $db);
+            processWali($requiredFieldsWali4, $lastid, $db);
+            processWali($requiredFieldsWali5, $lastid, $db);
+        }catch(Exception $e){
+            $_SESSION['alert'] = "fail";
+            // header("location:pendudukTambah.php");
+        }
+        
+        
 
-        echo "<script>alert('Data has been saved successfully. LastID:'" . $lastid . "');</script>";
+        // echo "<script>alert('Data has been saved successfully. LastID:'" . $lastid . "');</script>";
     } else {
         // Handle the case where required fields are missing
         echo "The following fields are required and missing: " . implode(", ", $errors);
     }
 
 
-    $requiredFieldsWali1 = [
-        "namawali" => $_POST["wali1"],
-        "pekerjaanwali" => $_POST["pekerjaanwali1"],
-        "radiowali" => isset($_POST["radiowali1"])?:"",
-        "statushubungan" => $_POST["statushubunganwali1"],
-        "notelpwali" => $_POST["notelpwali1"],
-        "alamatwali" => $_POST["alamatwali1"]
-    ];
-
-    $requiredFieldsWali2 = [
-        "namawali" => $_POST["wali2"],
-        "pekerjaanwali" => $_POST["pekerjaanwali2"],
-        "radiowali" => isset($_POST["radiowali2"])?:"",
-        "statushubungan" => $_POST["statushubunganwali2"],
-        "notelpwali" => $_POST["notelpwali2"],
-        "alamatwali" => $_POST["alamatwali2"]
-    ];
-
-    $requiredFieldsWali3 = [
-        "namawali" => $_POST["wali3"],
-        "pekerjaanwali" => $_POST["pekerjaanwali3"],
-        "radiowali" => isset($_POST["radiowali3"])?:"",
-        "statushubungan" => $_POST["statushubunganwali3"],
-        "notelpwali" => $_POST["notelpwali3"],
-        "alamatwali" => $_POST["alamatwali3"]
-    ];
-
-    $requiredFieldsWali4 = [
-        "namawali" => $_POST["wali4"],
-        "pekerjaanwali" => $_POST["pekerjaanwali4"],
-        "radiowali" => isset($_POST["radiowali4"])?:"",
-        "statushubungan" => $_POST["statushubunganwali4"],
-        "notelpwali" => $_POST["notelpwali4"],
-        "alamatwali" => $_POST["alamatwali4"]
-    ];
-
-    $requiredFieldsWali5 = [
-        "namawali" => $_POST["wali5"],
-        "pekerjaanwali" => $_POST["pekerjaanwali5"],
-        "radiowali" => isset($_POST["radiowali5"])?:"",
-        "statushubungan" => $_POST["statushubunganwali5"],
-        "notelpwali" => $_POST["notelpwali5"],
-        "alamatwali" => $_POST["alamatwali5"]
-    ];
-
-
-    processWali($requiredFieldsWali1, $lastid, $db);
-    processWali($requiredFieldsWali2, $lastid, $db);
-    processWali($requiredFieldsWali3, $lastid, $db);
-    processWali($requiredFieldsWali4, $lastid, $db);
-    processWali($requiredFieldsWali5, $lastid, $db);
+    
 
 
 
@@ -148,33 +161,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 
 <body>
-    <!-- <script>
+    <script>
         $(document).ready(function(){
+            <?php if($_SESSION['alert'] == "success"){?>
+                myalert("Berhasil!", "Data berhasil disimpan", "success");
+            <?php } else { ?>  
+                myalert("Error!", "Error dalam input data", "error");
+            <?php }; unset($_SESSION['alert']);?>
 
-            $('#submitform').on('click', function(event){
-                event.preventDefault();
-
+            function myalert(titles, texts, icons){
                 Swal.fire({
-                    title: "Yakin tambah penduduk?",
-                    icon: "question",
-                    text: "Penduduk akan dimasukkan ke database",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Simpan!"
-                }).then((result) => {
-                    if(result.isConfirmed){
-                        // If the user confirms, submit the form programmatically
-                        document.getElementById("pendudukForm").submit();
-                    }
+                    title: titles,
+                    text: texts,
+                    icon: icons
                 });
-            });
-
-            
+            }
         
         });
-    </script> -->
+    </script>
 
+      
 
     <div class="app">
         <div class="dashboard">
