@@ -71,13 +71,12 @@
                         <table class="table wfull table-hover">
                             <thead>         
                                 <tr>
-                                <th scope="col" width="5%">No.</th>
+                                <th scope="col" >No.</th>
                                 <th scope="col">Tanggal Berobat</th>
-                                <th scope="col" width="45%">Deskripsi</th>
-                                
+                                <th scope="col" width="30%">Deskripsi</th>
                                 <th scope="col">Jumlah Tagihan</th>
-                                <th scope="col" width="15%">Upload Kwitansi</th>
-                                <th scope="col" width="15%">Upload Bukti Pembayaran</th>
+                                <th scope="col">Upload Kwitansi</th>
+                                <th scope="col">Upload Bukti Pembayaran</th>
                                 <!-- <th scope="col">Tanggal</th>
                                 <th scope="col" colspan="2">Action</th> -->
                                 
@@ -155,8 +154,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const id = getQueryParameter('id');
     console.log("ID from URL:", id); // Log the ID when the page loads
 
+    
     document.body.addEventListener("click", function(event) {
-        if (event.target.classList.contains("upload-btn")) {
+        if (event.target.classList.contains("upload-btn-kwitansi")) {
+            var tagihanId = event.target.getAttribute("data-id");
+            console.log(tagihanId)
+            // window.location.href = "edit_balance_pondokkan.php?id=" + id;
+            window.location.href = "upload_obat_kwitansi.php?id=" + id + "&tagihanId=" + tagihanId;
+        }
+    });
+
+    document.body.addEventListener("click", function(event) {
+        if (event.target.classList.contains("upload-btn-bukti")) {
             var tagihanId = event.target.getAttribute("data-id");
             console.log(tagihanId)
             // window.location.href = "edit_balance_pondokkan.php?id=" + id;

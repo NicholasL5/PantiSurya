@@ -132,7 +132,7 @@ if ($res->rowCount() > 0) {
                     <div class="mb-3">
                         <label for="imageInput" class="form-label">
 
-                            </svg> <h5>Upload Kwitansi</h5></label>
+                            </svg> <h5>Upload Bukti Transfer</h5></label>
                         <input class="form-control mb-3" type="file" id="image-input"
                             accept="image/jpeg, image/jpg, image/png" name="imageChooser">
                         <div id="display-image"></div>

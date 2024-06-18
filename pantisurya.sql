@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2024 at 08:45 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Jun 18, 2024 at 05:22 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,7 +34,7 @@ CREATE TABLE `akun` (
   `date` date NOT NULL DEFAULT current_timestamp(),
   `last_access` date DEFAULT NULL,
   `role` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `akun`
@@ -55,12 +55,13 @@ CREATE TABLE `data_pondokkan` (
   `id` int(11) NOT NULL,
   `penduduk_id` int(11) NOT NULL,
   `tagihan` int(11) NOT NULL,
+  `ruangan` varchar(30) NOT NULL,
   `status` int(11) NOT NULL,
   `image_path` varchar(100) DEFAULT NULL,
   `input_date` date DEFAULT NULL,
   `tagihan_date` date NOT NULL,
-  `kwitansi` varchar(100) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `kwitansi` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -72,7 +73,7 @@ CREATE TABLE `images` (
   `id` int(11) NOT NULL,
   `path_picture` varchar(100) NOT NULL,
   `input_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `images`
@@ -93,7 +94,7 @@ CREATE TABLE `news` (
   `description` varchar(2000) NOT NULL,
   `date` date NOT NULL,
   `image_path` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `news`
@@ -132,7 +133,7 @@ CREATE TABLE `penduduk` (
   `agama` varchar(15) NOT NULL DEFAULT ' ',
   `tanggal_lahir` date DEFAULT NULL,
   `nomor_induk` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `penduduk`
@@ -140,7 +141,9 @@ CREATE TABLE `penduduk` (
 
 INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `tanggal_masuk`, `keuangan_pondokkan`, `keuangan_tabungan`, `keuangan_obat`, `keuangan_total`, `profile_picture`, `KTP`, `KK`, `BPJS`, `deposit`, `status`, `tempat_lahir`, `agama`, `tanggal_lahir`, `nomor_induk`) VALUES
 (70, 'Sie Giok Siek', 'Taman Surya Agung A/2, Wage, Sidoarjo', '2024-06-18', 0, 0, 0, 0, '', 'images/ktp/WhatsApp Image 2024-06-17 at 18.10.01.jpeg', 'images/kk/WhatsApp Image 2024-06-17 at 18.10.01 (1).jpeg', 'images/bpjs/WhatsApp Image 2024-06-17 at 18.10.00 (1).jpeg', 5000000, 0, 'Surabaya', 'Buddha', '1940-12-15', 1),
-(71, 'Tioso Sekarwati', 'Jl. Mojoarum VI/17 i Kav 6. Surabaya', '2024-02-05', 0, 0, 0, 0, '', 'images/ktp/ktp.jpg', 'images/kk/kk.jpg', 'images/bpjs/bpjs.jpg', 5000000, 0, 'Blitar', 'Kristen', '1942-11-15', 2);
+(71, 'Tioso Sekarwati', 'Jl. Mojoarum VI/17 i Kav 6. Surabaya', '2024-02-05', 0, 0, 0, 0, '', 'images/ktp/ktp.jpg', 'images/kk/kk.jpg', 'images/bpjs/bpjs.jpg', 5000000, 0, 'Blitar', 'Kristen', '1942-11-15', 2),
+(72, 'Lilijana Lumanto', '-', '2022-07-03', 0, 0, 0, 0, '', NULL, NULL, NULL, 5000000, 0, '-', 'Kristen', '1962-03-10', 472),
+(73, 'Go Bie Tju', '-', '2022-02-04', 0, 0, 0, 0, '', NULL, NULL, NULL, 5000000, 0, '-', 'Kristen', '1952-08-09', 473);
 
 -- --------------------------------------------------------
 
@@ -160,8 +163,9 @@ CREATE TABLE `rekam_medis` (
   `sudah_bayar` tinyint(1) DEFAULT 0,
   `image_path` varchar(100) DEFAULT NULL,
   `input_date` date DEFAULT NULL,
-  `nomor` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `nomor` varchar(100) DEFAULT NULL,
+  `kwitansi` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -178,7 +182,7 @@ CREATE TABLE `tabungan` (
   `saldo` int(11) NOT NULL,
   `deskripsi` varchar(200) NOT NULL,
   `image_path` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -195,7 +199,7 @@ CREATE TABLE `wali` (
   `no_telp` varchar(15) NOT NULL,
   `pekerjaan` varchar(100) DEFAULT NULL,
   `hubungan` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `wali`
@@ -277,7 +281,7 @@ ALTER TABLE `akun`
 -- AUTO_INCREMENT for table `data_pondokkan`
 --
 ALTER TABLE `data_pondokkan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `images`
@@ -295,13 +299,13 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `penduduk`
 --
 ALTER TABLE `penduduk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `rekam_medis`
 --
 ALTER TABLE `rekam_medis`
-  MODIFY `pengobatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `pengobatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tabungan`

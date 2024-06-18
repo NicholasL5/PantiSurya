@@ -12,12 +12,13 @@ if($res->rowCount() > 0){
         echo '
         <tr>
         <th scope="row">'.$counter.'</th>
-        <td style="width: 35%;">'.$row["tagihan"].'</td>
-        <td style="width: 30%;">'.$row["tagihan_date"].'</td>
-        
+        <td>'.$db->formatRupiah($row["tagihan"]).'</td>
+        <td>'.$row["tagihan_date"].'</td>
+        <td>'.$row["ruangan"].'</td>
         ';
         if($_SESSION['role'] == 0){
-            echo '<td><button type="button" class="btn btn-outline-primary upload-btn" data-id="'.$row['id'].'" data-tagihan-id="'.$row['tagihan_id'].'">Upload</button></td>';
+            echo '<td><button type="button" class="btn btn-outline-primary upload-btn-kwitansi" data-id="'.$row['id'].'" data-kwitansi-id="'.$row['tagihan_id'].'">Upload</button></td>';
+            echo '<td><button type="button" class="btn btn-outline-primary upload-btn-bukti" data-id="'.$row['id'].'" data-tagihan-id="'.$row['tagihan_id'].'">Upload</button></td>';
             // echo '<td><button type="button" class="btn btn-outline-primary upload-btn" data-id="'.$row['id'].'">Upload</button></td>';
         } else {
             echo '</tr>';

@@ -12,7 +12,7 @@ if($res->rowCount() > 0){
         echo '
         <tr>
         <th scope="row">'.$counter.'</th>
-        <td style="width: 15%;">'.$row["tagihan"].'</td>
+        <td style="width: 15%;">'.$db->formatRupiah($row["tagihan"]).'</td>
         <td style="width: 25%;">'.$row["input_date"].'</td>
         <td style="width: 15%;">'.$row["tagihan_date"].'</td>';
         if($_SESSION['role'] == 0){

@@ -342,11 +342,25 @@ class myDB
         $stmt->execute([$profilePictureDirectory, date("Y-m-d")]);
     }
 
+    function insertKwitansiPondokkan($id, $profilePictureDirectory)
+    {
+        $query = "UPDATE data_pondokkan SET kwitansi = ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$profilePictureDirectory, $id]);
+    }
+
     function insertGambarPondokkan($id, $profilePictureDirectory)
     {
         $query = "UPDATE data_pondokkan SET status = 1, image_path = ?, input_date = ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
+    }
+
+    function insertKwitansiObat($id, $profilePictureDirectory)
+    {
+        $query = "UPDATE rekam_medis SET kwitansi = ? WHERE pengobatan_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$profilePictureDirectory, $id]);
     }
 
     function insertGambarObat($id, $profilePictureDirectory)
@@ -363,10 +377,10 @@ class myDB
         $stmt->execute([$profilePictureDirectory, $id]);
     }
     
-    function tambahPondokkan($penduduk_id, $tagihan, $tagihan_date){
-        $query = "INSERT INTO data_pondokkan (penduduk_id, tagihan, status, tagihan_date) VALUES (?, ?, ?, ?)";
+    function tambahPondokkan($penduduk_id, $tagihan, $ruangan, $tagihan_date){
+        $query = "INSERT INTO data_pondokkan (penduduk_id, tagihan, ruangan, status, tagihan_date) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$penduduk_id, $tagihan, 0, $tagihan_date]);
+        $stmt->execute([$penduduk_id, $tagihan, $ruangan, 0, $tagihan_date]);
     }
 
     function updatePondokkan($tagihan, $penduduk_id){

@@ -90,7 +90,7 @@ if ($res->rowCount() > 0) {
         // Check if there's a default tagihan ID and if the current tagihan ID matches it
         $selected = ($defaultTagihanId !== null && $row['id'] == $defaultTagihanId) ? 'selected' : '';
         // Append the option with the selected attribute if it matches the default tagihan ID
-        $options .= '<option value="' . $row['id'] . '" ' . $selected . '>' . $row['tagihan'] . '</option>';
+        $options .= '<option value="' . $row['id'] . '" ' . $selected . '>' . $db->formatRupiah($row['tagihan']) . '</option>';
         $isFirstOption = false; // Set to false after the first iteration
     }
 } else {
@@ -143,7 +143,7 @@ if ($res->rowCount() > 0) {
                     <div class="mb-3">
                         <label for="imageInput" class="form-label">
 
-                            </svg> <h5>Upload Kwitansi</h5></label>
+                            </svg> <h5>Upload Bukti Transfer</h5></label>
                         <input class="form-control mb-3" type="file" id="image-input"
                             accept="image/jpeg, image/jpg, image/png" name="imageChooser">
                         <div id="display-image"></div>

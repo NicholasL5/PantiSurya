@@ -14,7 +14,7 @@ if($res->rowCount() > 0){
         <th scope="row">'.$counter.'</th>
         <td>'.$row["tanggal_berobat"].'</td>  
         <td>'.$row["deskripsi"].'</td>
-        <td>'.$row["tagihan"].'</td>  
+        <td>'.$db->formatRupiah($row["tagihan"]).'</td>  
         <td>'.$row["input_date"].'</td>  
         ';
         if($_SESSION['role'] == 0){
