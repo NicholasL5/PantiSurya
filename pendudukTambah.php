@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $requiredFieldsWali1 = [
                 "namawali" => $_POST["wali1"],
                 "pekerjaanwali" => $_POST["pekerjaanwali1"],
-                "radiowali" => isset($_POST["radiowali1"])?:"",
+                "radiowali" => isset($_POST["radiowali1"])?$_POST["radiowali1"]:"",
                 "statushubungan" => $_POST["statushubunganwali1"],
                 "notelpwali" => $_POST["notelpwali1"],
                 "alamatwali" => $_POST["alamatwali1"]
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $requiredFieldsWali2 = [
                 "namawali" => $_POST["wali2"],
                 "pekerjaanwali" => $_POST["pekerjaanwali2"],
-                "radiowali" => isset($_POST["radiowali2"])?:"",
+                "radiowali" => isset($_POST["radiowali2"])? $_POST["radiowali2"]:"",
                 "statushubungan" => $_POST["statushubunganwali2"],
                 "notelpwali" => $_POST["notelpwali2"],
                 "alamatwali" => $_POST["alamatwali2"]
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $requiredFieldsWali3 = [
                 "namawali" => $_POST["wali3"],
                 "pekerjaanwali" => $_POST["pekerjaanwali3"],
-                "radiowali" => isset($_POST["radiowali3"])?:"",
+                "radiowali" => isset($_POST["radiowali3"])?$_POST["radiowali3"]:"",
                 "statushubungan" => $_POST["statushubunganwali3"],
                 "notelpwali" => $_POST["notelpwali3"],
                 "alamatwali" => $_POST["alamatwali3"]
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $requiredFieldsWali4 = [
                 "namawali" => $_POST["wali4"],
                 "pekerjaanwali" => $_POST["pekerjaanwali4"],
-                "radiowali" => isset($_POST["radiowali4"])?:"",
+                "radiowali" => isset($_POST["radiowali4"])?$_POST["radiowali4"]:"",
                 "statushubungan" => $_POST["statushubunganwali4"],
                 "notelpwali" => $_POST["notelpwali4"],
                 "alamatwali" => $_POST["alamatwali4"]
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $requiredFieldsWali5 = [
                 "namawali" => $_POST["wali5"],
                 "pekerjaanwali" => $_POST["pekerjaanwali5"],
-                "radiowali" => isset($_POST["radiowali5"])?:"",
+                "radiowali" => isset($_POST["radiowali5"])?$_POST["radiowali5"]:"",
                 "statushubungan" => $_POST["statushubunganwali5"],
                 "notelpwali" => $_POST["notelpwali5"],
                 "alamatwali" => $_POST["alamatwali5"]
