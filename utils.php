@@ -304,11 +304,11 @@ class myDB
         $stmt->execute([$nama, $alamat, $tanggal_masuk, $email, $noTelpon, $profilePictureDirectory]);
     }
 
-    function addPenduduk($noinduk, $nama, $tempattinggal, $tempatlahir, $agama, $tanggallahir,  $deposit)
+    function addPenduduk($noinduk, $nama, $tempattinggal, $tanggalmasuk, $tempatlahir, $agama, $tanggallahir,  $deposit)
     {
         $query = "INSERT INTO penduduk (nomor_induk, nama, alamat, tanggal_masuk, tempat_lahir, tanggal_lahir, agama, deposit) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$noinduk, $nama, $tempattinggal, date("Y-m-d"), $tempatlahir, $tanggallahir, $agama, $deposit]);  
+        $stmt->execute([$noinduk, $nama, $tempattinggal, $tanggalmasuk, $tempatlahir, $tanggallahir, $agama, $deposit]);  
     }
 
     function returnLastID(){
@@ -328,11 +328,11 @@ class myDB
     }
 
 
-    function editPenduduk($noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $id)
+    function editPenduduk($noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $tanggalmasuk, $id)
     {
-        $query = "UPDATE penduduk SET nomor_induk = ?, nama = ?, alamat = ?, tempat_lahir = ?, agama = ?, tanggal_lahir = ?, deposit = ? WHERE id = ?";
+        $query = "UPDATE penduduk SET nomor_induk = ?, nama = ?, alamat = ?, tempat_lahir = ?, agama = ?, tanggal_lahir = ?, deposit = ?, tanggal_masuk = ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $id]);
+        $stmt->execute([$noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $tanggalmasuk, $id]);
     }
 
     function insertGambar($profilePictureDirectory)

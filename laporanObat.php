@@ -76,7 +76,7 @@
                                 <th scope="col" width="45%">Deskripsi</th>
                                 
                                 <th scope="col">Jumlah Tagihan</th>
-                                
+                                <th scope="col" width="15%">Upload Kwitansi</th>
                                 <th scope="col" width="15%">Upload Bukti Pembayaran</th>
                                 <!-- <th scope="col">Tanggal</th>
                                 <th scope="col" colspan="2">Action</th> -->
@@ -109,7 +109,7 @@
                                 <th scope="col" >Deskripsi</th>
                                 <th scope="col" width="15%">Jumlah Tagihan</th>
                                 <th scope="col" width="10%">Tanggal Input Kwitansi</th>
-                                <th scope="col" width="15%">Download File</th>
+                                <th scope="col" width="15%">Download bukti pembayaran</th>
                                 
                                 </tr>
                             </thead>
@@ -163,6 +163,9 @@ document.addEventListener("DOMContentLoaded", function() {
             window.location.href = "edit_balance_obat.php?id=" + id + "&tagihanId=" + tagihanId;
         }
     });
+
+
+    
 });
 </script>
 

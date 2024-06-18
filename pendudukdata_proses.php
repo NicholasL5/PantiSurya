@@ -26,7 +26,7 @@
             $counter += 1;
         }
     }else{
-        echo '<tr><td colspan="6">No data found</td></tr>';
+        echo '<tr><td colspan="8">No data found</td></tr>';
     }
 
 ?>

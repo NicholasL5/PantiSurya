@@ -180,7 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             "agama" => $_POST["agama"],
             "tanggallahir" => $_POST["tanggallahir"],
             "alamat" => $_POST["alamat"],
-            "deposit" => $_POST["deposit"]
+            "deposit" => $_POST["deposit"],
+            "tanggalmasuk" => $_POST["tanggalmasuk"]
         ];
     
         $errors = validateFields($requiredFields);
@@ -194,11 +195,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $tanggallahir = $_POST["tanggallahir"];
             $alamat = $_POST["alamat"];
             $deposit = $_POST["deposit"];
-    
+            $tanggalmasuk = $_POST["tanggalmasuk"];
+
             // Process the data
             $db = new myDB();
             try{
-                $db->editPenduduk($noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $id);
+                $db->editPenduduk($noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $tanggalmasuk, $id);
 
                 $_SESSION['alert'] = "success";
                 $_SESSION["errormsg"] = "Data berhasil disimpan";
@@ -351,8 +353,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="tanggalmasuk" class="col-form-label">Tanggal Masuk:</label>
+                                    <input type="date" class="form-control" id="tanggalmasuk" name="tanggalmasuk"
+                                        value="<?php echo $fetch_data->tanggal_masuk; ?>">
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="noTelpon" class="row-form-label">No telp wali:</label>
-                                    <input type="text" class="form-control" id="tanggallahir" name=""
+                                    <input type="text" class="form-control" id="notelpwali" name=""
                                         value="<?php echo !empty($fetch_wali[0]['no_telp'])?$fetch_wali[0]['no_telp']:"-"; ?>" disabled>
                                     
                                 </div>

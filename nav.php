@@ -26,6 +26,7 @@
                     <span style="font-size: 14px; vertical-align: middle;">&#9660;</span>
                 </a>
                 <div class="dropdown-content" id="subMenu" style="display: none;">
+                    <a href="keuangan_deposit.php" style="padding-left: 40px;">Keuangan Deposit</a>
                     <a href="keuangan_pondokkan.php" style="padding-left: 40px;">Keuangan Pondokkan</a>
                     <a href="keuangan_tabungan.php" style="padding-left: 40px;">Keuangan Tabungan</a>
                     <a href="keuangan_obat.php" style="padding-left: 40px;">Keuangan Obat</a>

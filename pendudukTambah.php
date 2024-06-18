@@ -50,7 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         "flexRadioDefault" => $_POST["flexRadioDefault"],
         "tanggallahir" => $_POST["tanggallahir"],
         "tempattinggal" => $_POST["tempattinggal"],
-        "deposit" => $_POST["deposit"]
+        "deposit" => $_POST["deposit"],
+        "tanggalmasuk" => $_POST["tanggalmasuk"]
     ];
 
     $errors = validateFields($requiredFields);
@@ -64,11 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $tanggallahir = $_POST["tanggallahir"];
         $tempattinggal = $_POST["tempattinggal"];
         $deposit = $_POST["deposit"];
+        $tanggalmasuk = $_POST['tanggalmasuk'];
 
         // Process the data
         $db = new myDB();
         try{
-            $db->addPenduduk($noinduk, $nama, $tempattinggal, $tempatlahir, $agama, $tanggallahir, $deposit);
+            $db->addPenduduk($noinduk, $nama, $tempattinggal, $tanggalmasuk, $tempatlahir, $agama, $tanggallahir, $deposit);
             $lastid = $db->returnLastID();
             $_SESSION['alert'] = "success";
 
@@ -314,7 +316,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                             placeholder="Masukkan Nilai Deposit" class="form-control"
                                                             min="0" step="1" required>
                                                     </div>
+
+                                                    <div class="mb-3">
+                                                    <label for="tanggalmasuk" class="col-form-label">Tanggal Masuk:</label>
+                                                    <input type="date" class="form-control" id="tanggalmasuk"
+                                                        name="tanggalmasuk" required>
+                                                    </div>
                                                 </div>
+
+                                          
+
 
                                             </div>
 

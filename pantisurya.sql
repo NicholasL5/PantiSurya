@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2024 at 05:59 AM
+-- Generation Time: Jun 18, 2024 at 08:45 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -41,7 +41,7 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id`, `username`, `password`, `date`, `last_access`, `role`) VALUES
-(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-06-12', 0),
+(4, 'admin', '$2y$10$gRFDjBVTlkzltOIqR.E30u3ORljWTsVbGKNt.TfA6ENTsOi//ik1.', '2024-03-24', '2024-06-18', 0),
 (6, 'nice', '$2y$10$pcubK.aIK/YrnJKRjQlQDuJKMulGy26nbWUwOmjqKY7ATvXHzO4l6', '2024-05-08', '2024-05-14', 0),
 (7, 'asik', '$2y$10$OY62rBeR96KFJQmJuFvUj.njVk/.kTHzyO8HUZUjxnlzTrbmdYFRO', '2024-05-22', '2024-05-22', 0);
 
@@ -58,22 +58,9 @@ CREATE TABLE `data_pondokkan` (
   `status` int(11) NOT NULL,
   `image_path` varchar(100) DEFAULT NULL,
   `input_date` date DEFAULT NULL,
-  `tagihan_date` date NOT NULL
+  `tagihan_date` date NOT NULL,
+  `kwitansi` varchar(100) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `data_pondokkan`
---
-
-INSERT INTO `data_pondokkan` (`id`, `penduduk_id`, `tagihan`, `status`, `image_path`, `input_date`, `tagihan_date`) VALUES
-(28, 4, 150000, 0, NULL, NULL, '2024-06-04'),
-(29, 4, 22000, 1, 'keuangan/pondokkan/665ec54c6f2b8.jpg', '2024-06-04', '2024-06-04'),
-(30, 5, 10000, 1, 'keuangan/pondokkan/665ec562177a8.jpg', '2024-06-04', '2024-06-04'),
-(31, 5, 25000, 0, NULL, NULL, '2024-06-04'),
-(32, 7, 10000, 0, NULL, NULL, '2024-06-10'),
-(33, 7, 20000, 1, 'keuangan/pondokkan/6666c87ee1574.jpg', '2024-06-10', '2024-06-10'),
-(34, 4, 5000000, 0, NULL, NULL, '2024-06-11'),
-(35, 28, 50000, 0, NULL, NULL, '2024-06-12');
 
 -- --------------------------------------------------------
 
@@ -136,48 +123,24 @@ CREATE TABLE `penduduk` (
   `keuangan_obat` int(11) NOT NULL,
   `keuangan_total` int(11) NOT NULL,
   `profile_picture` varchar(100) NOT NULL,
-  `KTP` longblob NOT NULL,
-  `KK` longblob NOT NULL,
-  `BPJS` longblob NOT NULL,
+  `KTP` varchar(100) DEFAULT NULL,
+  `KK` varchar(100) DEFAULT NULL,
+  `BPJS` varchar(100) DEFAULT NULL,
   `deposit` int(11) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `tempat_lahir` varchar(100) NOT NULL DEFAULT '',
   `agama` varchar(15) NOT NULL DEFAULT ' ',
-  `tanggal_lahir` date DEFAULT NULL
+  `tanggal_lahir` date DEFAULT NULL,
+  `nomor_induk` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `penduduk`
 --
 
-INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `tanggal_masuk`, `keuangan_pondokkan`, `keuangan_tabungan`, `keuangan_obat`, `keuangan_total`, `profile_picture`, `KTP`, `KK`, `BPJS`, `deposit`, `status`, `tempat_lahir`, `agama`, `tanggal_lahir`) VALUES
-(4, 'Emily Williams', '111 Pine Street', '2024-03-14', 5150000, 1109000, 0, 0, '', 0x696d616765732f426173655f436f6c6f725f426c61636b5f43502e706e67, '', '', 5000000, 0, '', ' ', NULL),
-(5, 'Christopher Brown', '234 Maple Street', '2024-02-25', 25000, 2000000, 5, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(7, 'David Garcia', '890 Cedar Street', '2024-02-29', 10000, 0, 12000, 0, '', 0x696d616765732f6d617872657364656661756c742e6a7067, 0x696d616765732f53637265656e73686f7420323032342d30352d3133203231353935332e706e67, 0x696d616765732f53637265656e73686f7420323032342d30352d3032203133343633382e706e67, 5000000, 0, '', ' ', NULL),
-(9, 'James Rodriguez', '222 Walnut Street', '2024-03-06', 0, 10000, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(10, 'Sarah Lee', '333 Pineapple Street', '2024-03-22', 0, 0, 10000, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(11, 'Daniel Lopez', '444 Grape Street', '2024-03-08', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(12, 'Megan Harris', '555 Orange Street', '2024-03-08', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(13, 'Ryan Clark', '666 Lemon Street', '2024-03-22', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(14, 'Jennifer Young', '777 Lime Street', '2024-02-29', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(15, 'Joshua Turner', '888 Strawberry Street', '2024-02-28', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(16, 'Nicole Moore', '999 Raspberry Street', '2024-02-29', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(17, 'Jason Hill', '1010 Blueberry Street', '2024-03-08', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(18, 'Michelle Scott', '1111 Blackberry Street', '2024-03-12', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(19, 'Justin Green', '1212 Cranberry Street', '2024-03-12', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(20, 'Rachel Carter', '1313 Raspberry Street', '2024-02-25', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(21, 'Brandon King', '1414 Strawberry Street', '2024-03-12', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(22, 'Melissa White', '1515 Blueberry Street', '2024-03-14', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(23, 'Kevin Hall', '1616 Blackberry Street', '2024-03-08', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(24, 'Stephanie Adams', '1717 Cranberry Street', '2024-03-04', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(25, 'Matthew Stewart', '1818 Raspberry Street', '2024-02-29', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(26, 'Ashley Parker', '1919 Strawberry Street', '2024-03-23', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(27, 'Erica Evans', '2020 Blueberry Street', '2024-02-27', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(28, 'Brian Cook', '2121 Blackberry Street', '2024-03-18', 50000, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(29, 'Rebecca Murphy', '2222 Cranberry Street', '2024-03-11', 0, 0, 0, 0, '', '', '', '', 5000000, 0, '', ' ', NULL),
-(43, 'nathan', 'wiyung', '2024-05-16', 0, 0, 0, 0, 'asset/pp/66460f957679b.jpg', '', '', '', 5000000, 1, '', ' ', NULL),
-(44, 'Tes', 'tes', NULL, 0, 0, 0, 0, 'asset/pp/6664371319940.jpg', '', '', '', 5000000, 0, '', ' ', NULL),
-(54, 'kevin', 'di sini', '2024-06-12', 0, 0, 0, 0, '', '', '', '', 1000000, 0, 'surabaya', 'Kong Hu Chu', '2024-06-01');
+INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `tanggal_masuk`, `keuangan_pondokkan`, `keuangan_tabungan`, `keuangan_obat`, `keuangan_total`, `profile_picture`, `KTP`, `KK`, `BPJS`, `deposit`, `status`, `tempat_lahir`, `agama`, `tanggal_lahir`, `nomor_induk`) VALUES
+(70, 'Sie Giok Siek', 'Taman Surya Agung A/2, Wage, Sidoarjo', '2024-06-18', 0, 0, 0, 0, '', 'images/ktp/WhatsApp Image 2024-06-17 at 18.10.01.jpeg', 'images/kk/WhatsApp Image 2024-06-17 at 18.10.01 (1).jpeg', 'images/bpjs/WhatsApp Image 2024-06-17 at 18.10.00 (1).jpeg', 5000000, 0, 'Surabaya', 'Buddha', '1940-12-15', 1),
+(71, 'Tioso Sekarwati', 'Jl. Mojoarum VI/17 i Kav 6. Surabaya', '2024-02-05', 0, 0, 0, 0, '', 'images/ktp/ktp.jpg', 'images/kk/kk.jpg', 'images/bpjs/bpjs.jpg', 5000000, 0, 'Blitar', 'Kristen', '1942-11-15', 2);
 
 -- --------------------------------------------------------
 
@@ -188,7 +151,7 @@ INSERT INTO `penduduk` (`id`, `nama`, `alamat`, `tanggal_masuk`, `keuangan_pondo
 CREATE TABLE `rekam_medis` (
   `penduduk_id` int(11) NOT NULL,
   `pengobatan_id` int(11) NOT NULL,
-  `deskripsi` varchar(300) NOT NULL,
+  `deskripsi` varchar(500) DEFAULT NULL,
   `jenis` varchar(100) NOT NULL,
   `obat` varchar(100) NOT NULL,
   `dosis` int(11) NOT NULL,
@@ -196,21 +159,9 @@ CREATE TABLE `rekam_medis` (
   `tanggal_berobat` date NOT NULL,
   `sudah_bayar` tinyint(1) DEFAULT 0,
   `image_path` varchar(100) DEFAULT NULL,
-  `input_date` date DEFAULT NULL
+  `input_date` date DEFAULT NULL,
+  `nomor` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `rekam_medis`
---
-
-INSERT INTO `rekam_medis` (`penduduk_id`, `pengobatan_id`, `deskripsi`, `jenis`, `obat`, `dosis`, `tagihan`, `tanggal_berobat`, `sudah_bayar`, `image_path`, `input_date`) VALUES
-(4, 1, 'obat1', 'pengobatan', 'panadol', 1, 0, '2024-04-17', 1, '', NULL),
-(4, 2, 'obat2', 'pengobatan', 'neozep', 2, 0, '2023-09-16', 0, '', NULL),
-(4, 3, 'obat1', 'obat sakit kepala', 'panadol', 1, 10000, '2024-06-04', 1, 'keuangan/obat/665ed8fa3d2a9.jpg', '2024-06-04'),
-(7, 4, 'kunjungan', 'kunjungan rutin', 'paracetamol', 2, 15000, '2024-06-04', 1, 'keuangan/obat/665edab216c87.jpg', '2024-06-04'),
-(7, 5, 'kunjungan', 'kunjungan rutin', 'panadol', 5, 12000, '2024-06-04', 0, NULL, NULL),
-(10, 6, '1', '1', '1', 1, 10000, '2024-06-10', 0, NULL, NULL),
-(10, 7, '2', '2', '2', 2, 20000, '2024-06-10', 1, 'keuangan/obat/6666c8aedde77.jpg', '2024-06-10');
 
 -- --------------------------------------------------------
 
@@ -228,19 +179,6 @@ CREATE TABLE `tabungan` (
   `deskripsi` varchar(200) NOT NULL,
   `image_path` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tabungan`
---
-
-INSERT INTO `tabungan` (`id`, `id_penduduk`, `tipe_transaksi`, `jumlah`, `tanggal_transaksi`, `saldo`, `deskripsi`, `image_path`) VALUES
-(1, 4, 'debit', 200000, '2024-05-29', 200000, '', 'keuangan/tabungan/6666cab2903a0.jpg'),
-(2, 5, 'debit', 2000000, '2024-05-29', 2000000, '', 'keuangan/tabungan/6666cb8c798c2.jpg'),
-(3, 4, 'kredi', -11000, '2024-05-29', 189000, '', 'keuangan/tabungan/6666caf3084b5.jpg'),
-(4, 4, 'kredi', -90000, '2024-05-29', 110000, '', 'keuangan/tabungan/6666cc04d7558.jpg'),
-(5, 4, 'debit', 1000000, '2024-05-29', 1110000, '', 'keuangan/tabungan/6666cbabbd19a.jpg'),
-(6, 4, 'kredi', -1000, '2024-06-02', 1109000, '', 'keuangan/tabungan/6666cb78d8413.jpg'),
-(7, 9, 'debit', 10000, '2024-06-10', 10000, '', '');
 
 -- --------------------------------------------------------
 
@@ -264,8 +202,10 @@ CREATE TABLE `wali` (
 --
 
 INSERT INTO `wali` (`wali_id`, `penduduk_id`, `nama`, `alamat`, `agama`, `no_telp`, `pekerjaan`, `hubungan`) VALUES
-(8, 54, 'wali kevin1', 'lombok', 'Kristen', '08888888', 'nganggur', 'orang tua'),
-(9, 54, 'walikevin2', 'surabaya', 'on', '0111111', 'polisi', NULL);
+(19, 70, 'Kartika Ayu Sidharta', 'Taman Surya Agung A/2, Wage, Sidoarjo', '1', '081212126032', 'Karyawan Swasta', 'Bibi'),
+(20, 70, 'Sie May Tjie', 'Jalan Lingga no 6, Surabaya', '1', '085204987955', 'Karyawan Swasta', 'Bibi'),
+(21, 71, 'Martino Dwidjo P.M', 'Jl. Wonorejo Asri XIX / 31, Surabaya', '1', '081230860585', 'Driver Taxi online', 'anak'),
+(22, 71, 'Lusi Setyawati', 'Jl. Kalijudan III/34A, Surabaya', '1', '085895997553', 'UMKM', 'Adik Ipar');
 
 --
 -- Indexes for dumped tables
@@ -299,7 +239,8 @@ ALTER TABLE `news`
 -- Indexes for table `penduduk`
 --
 ALTER TABLE `penduduk`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nomor_induk` (`nomor_induk`);
 
 --
 -- Indexes for table `rekam_medis`
@@ -336,7 +277,7 @@ ALTER TABLE `akun`
 -- AUTO_INCREMENT for table `data_pondokkan`
 --
 ALTER TABLE `data_pondokkan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `images`
@@ -354,25 +295,25 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `penduduk`
 --
 ALTER TABLE `penduduk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `rekam_medis`
 --
 ALTER TABLE `rekam_medis`
-  MODIFY `pengobatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `pengobatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tabungan`
 --
 ALTER TABLE `tabungan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `wali`
 --
 ALTER TABLE `wali`
-  MODIFY `wali_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `wali_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
