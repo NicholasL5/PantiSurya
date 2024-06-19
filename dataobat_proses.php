@@ -18,12 +18,15 @@ if($res->rowCount() > 0){
         <td>'.$row["input_date"].'</td>  
         ';
         if($_SESSION['role'] == 0){
-            $filePath = $row["image_path"];
+            $filePath = $row["kwitansi"];
+            $filePath2 = $row["image_path"];
             $penduduk = $db->getPendudukPondokkan($row["penduduk_id"]);
             $penduduk = $penduduk->fetch(PDO::FETCH_ASSOC);
             $penduduk = $penduduk['nama'];
-            $fileName = "Laporan_Obat_" . $penduduk . "_" . $row['input_date'];
-            echo '<td><button type="button" class="btn btn-outline-primary download-btn" data-file-path="' . htmlspecialchars($filePath) . '" data-file-name="' . htmlspecialchars($fileName) . '">Download</button></td>';
+            $fileName = "Kwitansi_Obat_" . $penduduk . "_" . $row['input_date'];
+            $fileName2 = "Bukti_Transfer_Obat_" . $penduduk . "_" . $row['input_date'];
+            echo '<td><button type="button" class="btn btn-outline-primary download-btn-kwitansi" data-file-path="' . htmlspecialchars($filePath) . '" data-file-name="' . htmlspecialchars($fileName) . '">Download</button></td>';
+            echo '<td><button type="button" class="btn btn-outline-primary download-btn-bukti" data-file-path="' . htmlspecialchars($filePath2) . '" data-file-name="' . htmlspecialchars($fileName2) . '">Download</button></td>';
         } else {
             echo '</tr>';
         }

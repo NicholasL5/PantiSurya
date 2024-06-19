@@ -356,6 +356,13 @@ class myDB
         $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
     }
 
+    function deleteTagihanPondokkan($id)
+    {
+        $query = "DELETE FROM data_pondokkan WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
+    }
+
     function insertKwitansiObat($id, $profilePictureDirectory)
     {
         $query = "UPDATE rekam_medis SET kwitansi = ? WHERE pengobatan_id = ?";
@@ -368,6 +375,13 @@ class myDB
         $query = "UPDATE rekam_medis SET sudah_bayar = 1, image_path = ?, input_date = ? WHERE pengobatan_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
+    }
+
+    function deleteTagihanObat($id)
+    {
+        $query = "DELETE FROM rekam_medis WHERE pengobatan_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
     }
 
     function insertGambarTabungan($id, $profilePictureDirectory)

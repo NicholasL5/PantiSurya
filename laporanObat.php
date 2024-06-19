@@ -73,10 +73,11 @@
                                 <tr>
                                 <th scope="col" >No.</th>
                                 <th scope="col">Tanggal Berobat</th>
-                                <th scope="col" width="30%">Deskripsi</th>
+                                <th scope="col" width="15%">Deskripsi</th>
                                 <th scope="col">Jumlah Tagihan</th>
                                 <th scope="col">Upload Kwitansi</th>
                                 <th scope="col">Upload Bukti Pembayaran</th>
+                                <th scope="col">Delete Tagihan</th>
                                 <!-- <th scope="col">Tanggal</th>
                                 <th scope="col" colspan="2">Action</th> -->
                                 
@@ -103,12 +104,13 @@
                         <table class="table wfull table-hover">
                             <thead>         
                                 <tr>
-                                <th scope="col" width="5%">No.</th>
-                                <th scope="col" width="10%">Tanggal berobat</th>
+                                <th scope="col" >No.</th>
+                                <th scope="col" >Tanggal berobat</th>
                                 <th scope="col" >Deskripsi</th>
-                                <th scope="col" width="15%">Jumlah Tagihan</th>
-                                <th scope="col" width="10%">Tanggal Input Kwitansi</th>
-                                <th scope="col" width="15%">Download bukti pembayaran</th>
+                                <th scope="col" >Jumlah Tagihan</th>
+                                <th scope="col" >Tanggal Input bukti</th>
+                                <th scope="col" >Download kwitansi</th>
+                                <th scope="col" >Download bukti pembayaran</th>
                                 
                                 </tr>
                             </thead>
@@ -128,7 +130,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     document.body.addEventListener("click", function(event) {
-        if (event.target.classList.contains("download-btn")) {
+        if (event.target.classList.contains("download-btn-kwitansi")) {
             const filePath = event.target.getAttribute("data-file-path");
             const fileName = event.target.getAttribute("data-file-name");
             const a = document.createElement("a");
@@ -140,6 +142,48 @@ document.addEventListener("DOMContentLoaded", function() {
             document.body.removeChild(a);
         }
     });
+
+    document.body.addEventListener("click", function(event) {
+        if (event.target.classList.contains("download-btn-bukti")) {
+            const filePath = event.target.getAttribute("data-file-path");
+            const fileName = event.target.getAttribute("data-file-name");
+            const a = document.createElement("a");
+            a.href = filePath;
+            a.download = fileName;
+            a.style.display = "none";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    });
+
+    document.body.addEventListener("click", function(event) {
+        if (event.target.classList.contains("delete-btn")) {
+            var idObat = event.target.getAttribute("data-id");
+            console.log(idObat); 
+            var confirmDelete = confirm("Are you sure you want to delete this record?");
+            if (confirmDelete) {
+                fetch("delete_obat.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `id=${idObat}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === "success") {
+                        alert("Record deleted successfully.");
+                        location.reload(); 
+                    } else {
+                        alert("Error deleting record.");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    });
+
 });
 </script>
 <script>

@@ -70,6 +70,7 @@
                             <th scope="col">Jenis Ruangan</th>
                             <th scope="col">Upload Kwitansi</th>
                             <th scope="col">Upload Bukti Pembayaran</th>
+                            <th scope="col">Delete Tagihan</th>
                             <!-- <th scope="col">Tanggal</th>
                             <th scope="col" colspan="2">Action</th> -->
                             
@@ -90,7 +91,8 @@
                             <th scope="col">Jumlah Tagihan</th>
                             <th scope="col">Tanggal Input Kwitansi</th>
                             <th scope="col">Tagihan Bulan</th>
-                            <th scope="col">Download File</th>
+                            <th scope="col">Download Kwitansi</th>
+                            <th scope="col">Download Bukti Transfer</th>
                             
                             </tr>
                         </thead>
@@ -109,7 +111,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     document.body.addEventListener("click", function(event) {
-        if (event.target.classList.contains("download-btn")) {
+        if (event.target.classList.contains("download-btn-kwitansi")) {
             const filePath = event.target.getAttribute("data-file-path");
             const fileName = event.target.getAttribute("data-file-name");
             const a = document.createElement("a");
@@ -119,6 +121,47 @@ document.addEventListener("DOMContentLoaded", function() {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+        }
+    });
+
+    document.body.addEventListener("click", function(event) {
+        if (event.target.classList.contains("download-btn-bukti")) {
+            const filePath = event.target.getAttribute("data-file-path");
+            const fileName = event.target.getAttribute("data-file-name");
+            const a = document.createElement("a");
+            a.href = filePath;
+            a.download = fileName;
+            a.style.display = "none";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    });
+
+    document.body.addEventListener("click", function(event) {
+        if (event.target.classList.contains("delete-btn")) {
+            var idPondokkan = event.target.getAttribute("data-id");
+            console.log(idPondokkan);
+            var confirmDelete = confirm("Are you sure you want to delete this record?");
+            if (confirmDelete) {
+                fetch("delete_tagihan.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `id=${idPondokkan}`
+                })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === "success") {
+                        alert("Record deleted successfully.");
+                        location.reload(); 
+                    } else {
+                        alert("Error deleting record.");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
         }
     });
 });
