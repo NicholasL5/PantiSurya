@@ -11,6 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         try {
             $db = new myDB();
+            $obat = $db->getTagihanObat($idObat);
+            $db->updateObatHapus($obat['tagihan'], $obat['penduduk_id']);
             $db->deleteTagihanObat($idObat);
             echo "success";
         } catch (PDOException $e) {

@@ -403,6 +403,26 @@ class myDB
         $stmt->execute([$tagihan, $penduduk_id]);
     }
 
+    function updatePondokkanHapus($tagihan, $penduduk_id){
+        $query = "UPDATE penduduk SET keuangan_pondokkan = keuangan_pondokkan - ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$tagihan, $penduduk_id]);
+    }
+
+    function getTagihanPondokkan($id){
+        $query = "SELECT * FROM data_pondokkan WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function getTagihanObat($id){
+        $query = "SELECT * FROM rekam_medis WHERE pengobatan_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     function tambahObat($nomor, $penduduk_id,  $deskripsi_obat, $tagihan, $tanggal_berobat){
         $query = "INSERT INTO rekam_medis (nomor, penduduk_id, deskripsi, tagihan, tanggal_berobat, sudah_bayar) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
@@ -411,6 +431,12 @@ class myDB
 
     function updateObat($tagihan, $penduduk_id){
         $query = "UPDATE penduduk SET keuangan_obat = keuangan_obat + ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$tagihan, $penduduk_id]);
+    }
+
+    function updateObatHapus($tagihan, $penduduk_id){
+        $query = "UPDATE penduduk SET keuangan_obat = keuangan_obat - ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$tagihan, $penduduk_id]);
     }

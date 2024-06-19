@@ -5,13 +5,13 @@ require 'utils.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['id'])) {
         $idPondokkan = $_POST['id'];
-        
-        // Log the received ID to ensure it is being passed correctly
-        error_log("Received ID: " . $idPondokkan);
 
         try {
             $db = new myDB();
+            $pondokkan = $db->getTagihanPondokkan($idPondokkan);
+            $db->updatePondokkanHapus($pondokkan['tagihan'], $pondokkan['penduduk_id']);
             $db->deleteTagihanPondokkan($idPondokkan);
+
             echo "success";
         } catch (PDOException $e) {
             error_log("Error: " . $e->getMessage()); // Log the error
