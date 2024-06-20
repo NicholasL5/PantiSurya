@@ -356,6 +356,20 @@ class myDB
         $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
     }
 
+    function updatePondokkan2($id, $newTagihan)
+    {
+        $query = "UPDATE data_pondokkan SET tagihan = tagihan - ? WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$newTagihan, $id]);
+    }
+
+    function updateObat2($id, $newTagihan)
+    {
+        $query = "UPDATE rekam_medis SET tagihan = tagihan - ? WHERE pengobatan_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$newTagihan, $id]);
+    }
+
     function deleteTagihanPondokkan($id)
     {
         $query = "DELETE FROM data_pondokkan WHERE id = ?";

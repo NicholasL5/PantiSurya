@@ -17,6 +17,7 @@ $db = new myDB();
 
 $residentId = $_GET['id'];
 
+
 $stmt_resident = $db->prepare("SELECT * FROM penduduk WHERE id = :residentId");
 $stmt_resident->execute(['residentId' => $residentId]);
 $resident = $stmt_resident->fetch(PDO::FETCH_ASSOC);
@@ -63,8 +64,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $profilePictureDirectory = $file;
     
+    $idTagihan = $_GET['tagihanId'];
+    $stmt_get_pondokkan = $db->prepare("SELECT * FROM data_pondokkan WHERE id = :tagihanId");
+    $stmt_get_pondokkan->execute(['tagihanId' => $idTagihan]);
+    $dataPondokkan = $stmt_get_pondokkan->fetch(PDO::FETCH_ASSOC);
 
-    $db->insertGambarPondokkan($tagihanId, $profilePictureDirectory);
+    if ($_POST['cicil'] == $dataPondokkan['tagihan']){
+        $db->insertGambarPondokkan($tagihanId, $profilePictureDirectory);
+    } else {
+        $newTagihan = $_POST['cicil']; 
+        $newStatus = 1; 
+        $newImagePath = $profilePictureDirectory; 
+        $newInputDate = date("Y-m-d"); 
+        $newTagihanDate = $dataPondokkan['tagihan_date']; 
+        $newKwitansi = $dataPondokkan['kwitansi'];
+
+        $stmt_insert_tagihan = $db->prepare("INSERT INTO data_pondokkan (penduduk_id, tagihan, ruangan, status, image_path, input_date, tagihan_date, kwitansi) VALUES (:residentId, :tagihan, :ruangan, :status, :image_path, :input_date, :tagihan_date, :kwitansi)");
+            $stmt_insert_tagihan->execute([
+                'residentId' => $residentId,
+                'tagihan' => $newTagihan,
+                'ruangan' => $dataPondokkan['ruangan'], 
+                'status' => $newStatus,
+                'image_path' => $newImagePath,
+                'input_date' => $newInputDate,
+                'tagihan_date' => $newTagihanDate,
+                'kwitansi' => $newKwitansi
+            ]);
+
+        $db->updatePondokkan2($tagihanId, $newTagihan);    
+    }
+
      // Retrieve the sum of tagihan amounts where status is 0
      $stmt_tagihan = $db->prepare("SELECT SUM(tagihan) AS total_tagihan FROM data_pondokkan WHERE status = 0 and penduduk_id = $residentId");
      $stmt_tagihan->execute();
@@ -114,7 +143,7 @@ if ($res->rowCount() > 0) {
     <link rel="stylesheet" href="layout/indexstyle.css">
     <link rel="stylesheet" href="layout/stylelihat.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <title>Edit Balance - <?php echo $resident['nama']; ?></title>
+    <title>Edit Pondokkan - <?php echo $resident['nama']; ?></title>
 
     <style>
         #display-image {
@@ -139,6 +168,11 @@ if ($res->rowCount() > 0) {
                         <option selected>Open this select menu</option>
                         <?php echo $options; ?>
                     </select>
+
+                    <h4>Jumlah Transfer</h4>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" placeholder="Jumlah tagihan" aria-label="Jumlah Tagihan" aria-describedby="basic-addon1" name="cicil">
+                    </div>
 
                     <div class="mb-3">
                         <label for="imageInput" class="form-label">

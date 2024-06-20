@@ -53,7 +53,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $profilePictureDirectory = $file;
     
 
-    $db->insertGambarObat($tagihanId, $profilePictureDirectory);
+    $idTagihan = $_GET['tagihanId'];
+    $stmt_get_obat = $db->prepare("SELECT * FROM rekam_medis WHERE pengobatan_id = :tagihanId");
+    $stmt_get_obat->execute(['tagihanId' => $idTagihan]);
+    $dataObat = $stmt_get_obat->fetch(PDO::FETCH_ASSOC);
+
+    if ($_POST['cicil'] == $dataObat['tagihan']){
+        $db->insertGambarObat($tagihanId, $profilePictureDirectory);
+    } else {
+        $newTagihan = $_POST['cicil']; // New tagihan amount from the form
+        $newStatus = 1; // New status, hardcoded
+        $newImagePath = $profilePictureDirectory; // Placeholder for new image path
+        $newInputDate = date("Y-m-d"); // Current date and time
+        $newKwitansi = $dataObat['kwitansi'];
+
+        $stmt_insert_tagihan = $db->prepare("INSERT INTO rekam_medis (penduduk_id, deskripsi, dosis, tagihan, tanggal_berobat, sudah_bayar, image_path, input_date, kwitansi) VALUES (:residentId, :deskripsi, :dosis, :tagihan, :tanggal_berobat, :sudah_bayar, :image_path, :input_date, :kwitansi)");
+            $stmt_insert_tagihan->execute([
+                'residentId' => $residentId,
+                'deskripsi' => $dataObat['deskripsi'],
+                'dosis' => $dataObat['dosis'],
+                'tagihan' => $newTagihan,
+                'tanggal_berobat' => $dataObat['tanggal_berobat'], 
+                'sudah_bayar' => $newStatus,
+                'image_path' => $newImagePath,
+                'input_date' => $newInputDate,
+                'kwitansi' => $newKwitansi
+            ]);
+
+        $db->updateObat2($tagihanId, $newTagihan);    
+    }
+
      // Retrieve the sum of tagihan amounts where status is 0
      $stmt_tagihan = $db->prepare("SELECT SUM(tagihan) AS total_tagihan FROM rekam_medis WHERE sudah_bayar = 0 and penduduk_id = $residentId");
      $stmt_tagihan->execute();
@@ -128,6 +157,11 @@ if ($res->rowCount() > 0) {
                         <option selected>Open this select menu</option>
                         <?php echo $options; ?>
                     </select>
+
+                    <h4>Jumlah Transfer</h4>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" placeholder="Jumlah tagihan" aria-label="Jumlah Tagihan" aria-describedby="basic-addon1" name="cicil">
+                    </div>
 
                     <div class="mb-3">
                         <label for="imageInput" class="form-label">
