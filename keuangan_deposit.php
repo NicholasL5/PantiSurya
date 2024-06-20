@@ -45,8 +45,6 @@
         
         <div class="main">
             <div class="pad">
-
-            
                 <h1>KEUANGAN DEPOSIT</h1>
                 <div class="search-bar">
                     <form method="POST" class="d-flex">
@@ -63,7 +61,8 @@
                                         <th width="10%">No induk</th>
                                         <th>Name</th>
                                         <th>Jumlah Uang Deposit</th>
-                                        <th>Lihat Detail Deposit</th>
+                                        <th>Kwitansi Deposit</th>
+                                        <th>Bukti Pembayaran</th>
                                         
                                     </tr>
                                 </thead>
@@ -76,8 +75,8 @@
                                         <td><?php echo $resident['nomor_induk']; ?></td>
                                         <td><?php echo $resident['nama']; ?></td>
                                         <td><?php echo $db->formatRupiah($resident['deposit']); ?></td>
-                                        <td><button onclick="window.location.href='laporanPondokkan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Tabungan</button></td>
-                                        <!-- <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td> -->
+                                        <td><button onclick="window.location.href='laporanPondokkan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">Upload</button></td>
+                                        <td><button onclick="window.location.href='laporanPondokkan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">Upload</button></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>

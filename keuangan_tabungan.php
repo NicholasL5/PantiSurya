@@ -39,7 +39,28 @@ if(isset($_POST['search'])) {
 <body>
 
     <!-- <script src="js/dataTabungan.js"></script> -->
+    <script>
+        $(document).ready(function(){
+            <?php if ($_SESSION["tesswal"]){ ?>
+                myalert("Berhasil!", "Berhasil edit tabungan", "success");
 
+            <?php }else{ ?>
+                myalert("Error!", "Ada masalah dalam menambah tabungan", "error");
+
+            <?php }; unset($_SESSION['tesswal']); ?>    
+            
+            function myalert(titles, texts, icons){
+                Swal.fire({
+                    title: titles,
+                    text: texts,
+                    icon: icons
+                });
+            }
+
+            
+
+        });
+    </script>
 
     <div class="app">
         <div class="dashboard">
