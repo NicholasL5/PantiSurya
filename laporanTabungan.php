@@ -38,7 +38,9 @@
 
     <script>
         $(document).ready(function(){
-            showdata("<?php echo $_GET["id"] ?>")
+            showdata("<?php echo $_GET["id"] ?>");
+
+            
         })
         
     </script>
@@ -61,7 +63,7 @@
                     </a>
                     
                 </div>
-                <div class="content" style="align-items: flex-start;">
+                <div class="content" style="align-items: flex-start;margin-right: 1rem;">
                     <div class="dropdown" style="align-items: left; display: flex;">
                         <button style="border: 1px solid gray;margin-left: 0.4rem;" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Lihat Semua Transaksi
@@ -76,11 +78,14 @@
 
                         <thead>         
                             <tr>
-                            <th scope="col">No.</th>
+                            <th scope="col" width="5%">No.</th>
+                            <th scope="col" >Tanggal</th>
+                            <th scope="col" width="30%">Deskripsi</th>
                             <th scope="col">Tipe transaksi</th>
-                            <th scope="col">Jumlah</th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Upload Bukti Kwitansi</th>
+                            <th scope="col" width="15%">Jumlah</th>
+                            <th scope="col">Action</th>
+                            
+                            
                             
                             </tr>
                         </thead>

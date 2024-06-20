@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
     try{
         $db->addDataTabungan($jumlah, $type, $residentId, $deskripsi);
         $db->updateTabunganPenduduk($residentId);
+        $_SESSION['tesswal'] = true;
         echo
         "
         <script>
@@ -53,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
         </script>
         ";
     }catch(Exception $e){
+        $_SESSION['tesswal'] = false;
         echo
         "
         <script>
@@ -66,41 +68,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
     }
     
     header("location: keuangan_tabungan.php");
-}
-
-include "utils/resize_image.php";
-define('UPLOAD_DIR','keuangan/tabungan/');
-
-$id = $_GET["id"];
-// echo $id;
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // $id = $_GET["tagihanId"];
-    // echo $id;
-    // Upload profile picture ke directory lalu get directory name
-    // Get the tmp file from server as image
-    $image = file_get_contents($_FILES["imageChooser"]["tmp_name"]);
-
-    // Make file with name uniqid().jpg
-    $file_name = uniqid().'.jpg';
-    // $foto = 'poster/'.$file_name;
-    $file = UPLOAD_DIR.$file_name;
-    $success = file_put_contents($file, $image);
-    // echo var_dump($success);
-
-    //Resize and Compress Image
-    list($width, $height, $type) = getimagesize($file);
-    $img = resize_image($file, $width, $height, TRUE);
-    imagejpeg($img, $file, 90);
-    // echo "test";
-
-    $profilePictureDirectory = $file;
-    
-
-    $db->insertGambarTabungan($tagihanId, $profilePictureDirectory);
-    header("location: laporanTabungan.php?id=$id");
-
-//     // echo "Tes";
 }
 ?>
 
@@ -160,12 +127,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="mb-3">
+                        <label for="addtanggal">Tanggal:</label>
+                        <input type="date" class="form-control" id="tanggal" name="addtanggal"></input>
+                        
+                    </div>
+
+                    <div class="mb-3">
                         <label for="addDesc">Masukkan Deskripsi:</label>
                         <textarea class="form-control" id="textareaTabungan" rows="5" name="addDesc" placeholder="Enter your text here..."></textarea>
                         
                     </div>
 
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="imageInput" class="form-label">
 
                         Upload Kwitansi
@@ -174,7 +147,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             accept="image/jpeg, image/jpg, image/png" name="imageChooser">
                         <div id="display-image"></div>
                         <small id="imageHelp" class="form-text text-muted">Upload bukti transfer (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small>
-                    </div>
+                    </div> -->
+
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </form>
             </div>

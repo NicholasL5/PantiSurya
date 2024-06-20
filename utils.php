@@ -608,6 +608,19 @@ class myDB
         return count($stmt->fetchAll(PDO::FETCH_ASSOC));    
     }
 
+    function delTabunganDatabyID($idpen, $id){
+        $jumlah = $this->getSaldoTerakhir($id);
+        $jumlah = $jumlah?$jumlah['saldo']:0;
+        $query = 'UPDATE penduduk SET keuangan_tabungan=? WHERE id=?';
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$jumlah, $idpen]);
+
+        $query = "DELETE FROM tabungan WHERE id=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
+        
+    }
+
 
 
 

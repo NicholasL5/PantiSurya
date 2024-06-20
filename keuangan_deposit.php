@@ -45,8 +45,6 @@
         
         <div class="main">
             <div class="pad">
-
-            
                 <h1>KEUANGAN DEPOSIT</h1>
                 <div class="search-bar">
                     <form method="POST" class="d-flex">
@@ -55,15 +53,25 @@
                     </form>
                 </div>
                 <div class="residents-table">
-                        <h3 style="padding: 1rem; padding-left: 0;">Daftar Penduduk</h3>
+                        <div style="display:flex; justify-content:space-between">
+                            <h3 style="padding: 1rem; padding-left: 0;">Daftar Penduduk</h3>
+                            <div style="display:flex;align-items: center;padding: 1rem; ">
+                                <a href="uploadDeposit.php" class="btn btn-outline-primary" type="button" id="tambahpenduduk">Tambah Penduduk</a>
+                            </div>
+                            
+                        </div>
                         <div class="content">
                             <table class="table table-hover table-striped" id="tabelPondokan">
                                 <thead>
                                     <tr>
-                                        <th width="10%">No induk</th>
-                                        <th>Name</th>
+                                        <th width="15%">No induk</th>
+                                        <th>Nama</th>
                                         <th>Jumlah Uang Deposit</th>
-                                        <th>Lihat Detail Deposit</th>
+                                        
+                                        <th>Kwitansi Deposit</th>
+                                        <th>Bukti Pembayaran</th>
+                                        <th>Edit deposit</th>
+
                                         
                                     </tr>
                                 </thead>
@@ -76,8 +84,26 @@
                                         <td><?php echo $resident['nomor_induk']; ?></td>
                                         <td><?php echo $resident['nama']; ?></td>
                                         <td><?php echo $db->formatRupiah($resident['deposit']); ?></td>
-                                        <td><button onclick="window.location.href='laporanPondokkan.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Tabungan</button></td>
-                                        <!-- <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td> -->
+                                        
+                                        <td>
+                                            <?php if (!empty($resident['kwitansi_path'])): ?>
+                                                <a href="deposit/<?php echo $resident['nama']; ?>/<?php echo $resident['kwitansi_path']; ?>" class="btn btn-outline-success" target="_blank">Download</a>
+                                            <?php else: ?>
+                                                <button class="btn btn-outline-primary" onclick="openUploadModal('<?php echo $resident['id']; ?>', true)">Upload</button>
+                                            <?php endif; ?>
+                                        </td>
+                                        
+                                        <td>
+                                            <?php if ($resident['bukti_path']): ?>
+                                                <a href="deposit/<?php echo $resident['nama']; ?>/<?php echo $resident['bukti_path']; ?>" class="btn btn-outline-success" target="_blank">Download</a>
+                                            <?php else: ?>
+                                                <button class="btn btn-outline-primary" onclick="openUploadModal('<?php echo $resident['id']; ?>', false)">Upload</button>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <button onclick="window.location.href='laporanDeposit.php?id=<?php echo $resident['id']; ?>'" class="btn btn-outline-primary">Edit deposit</button>
+                                        </td>
+                            
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -86,13 +112,74 @@
                         
                     </div>
 
+
+
+
+                    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="upload.php" method="post" enctype="multipart/form-data">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="uploadModalLabel">Upload File</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="resident_id" id="residentId">
+                                        <input type="hidden" name="file_type" id="fileType">
+                                        <div class="mb-3">
+                                            <label for="file" class="form-label">Choose file to upload</label>
+                                            <input type="file" class="form-control" id="file" name="file" onchange="previewFile()">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Preview: </label>
+                                            <img id="filePreview" src="" alt="Image preview" style="display: none; width: 100%; max-height: 300px;">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Upload</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <?php include 'footer.php'?>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <script>
+        function previewFile() {
+        const file = document.getElementById('file').files[0];
+        const preview = document.getElementById('filePreview');
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            // convert image file to base64 string
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+    function openUploadModal(residentId, kwitansi) {
+        if(kwitansi){
+            <?php $_POST['file_type'] = "kwitansi"; ?>
+        }else{
+            <?php $_POST['file_type'] = "bukti"; ?>
+        }
+        
+        document.getElementById('residentId').value = residentId;
+        var uploadModal = new bootstrap.Modal(document.getElementById('uploadModal'));
+        uploadModal.show();
+    }
+</script>
 </body>
 </html>
 
-</body>
-</html>
