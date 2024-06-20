@@ -69,41 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
     
     header("location: keuangan_tabungan.php");
 }
-
-// include "utils/resize_image.php";
-// define('UPLOAD_DIR','keuangan/tabungan/');
-
-// $id = $_GET["id"];
-// // echo $id;
-
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     // $id = $_GET["tagihanId"];
-//     // echo $id;
-//     // Upload profile picture ke directory lalu get directory name
-//     // Get the tmp file from server as image
-//     $image = file_get_contents($_FILES["imageChooser"]["tmp_name"]);
-
-//     // Make file with name uniqid().jpg
-//     $file_name = uniqid().'.jpg';
-//     // $foto = 'poster/'.$file_name;
-//     $file = UPLOAD_DIR.$file_name;
-//     $success = file_put_contents($file, $image);
-//     // echo var_dump($success);
-
-//     //Resize and Compress Image
-//     list($width, $height, $type) = getimagesize($file);
-//     $img = resize_image($file, $width, $height, TRUE);
-//     imagejpeg($img, $file, 90);
-//     // echo "test";
-
-//     $profilePictureDirectory = $file;
-    
-
-//     $db->insertGambarTabungan($tagihanId, $profilePictureDirectory);
-//     header("location: laporanTabungan.php?id=$id");
-
-// //     // echo "Tes";
-// }
 ?>
 
 <!DOCTYPE html>
