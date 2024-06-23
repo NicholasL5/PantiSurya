@@ -9,7 +9,7 @@
     $db = new myDB();
 
     include "utils/resize_image.php";
-    define('UPLOAD_DIR','../Front-PantiSurya/images/berita/');
+    define('UPLOAD_DIR','../pantiweb/images/berita/');
     // Fetch all news data from the database
     $news = $db->getAllBerita();
 

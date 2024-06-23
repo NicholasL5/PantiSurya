@@ -1,7 +1,7 @@
 <?php
 include "../utils.php";
 include "../utils/resize_image.php";
-define('UPLOAD_DIR','../../Front-PantiSurya/images/gallery/');
+define('UPLOAD_DIR','../../pantiweb/images/gallery/');
 
 $db = new myDB();
 

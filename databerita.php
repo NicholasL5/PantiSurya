@@ -18,7 +18,7 @@
     $db = new myDB();
 
     include "utils/resize_image.php";
-    define('UPLOAD_DIR','../Front-PantiSurya/images/berita/');
+    define('UPLOAD_DIR','../pantiweb/images/berita/');
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         if (isset($_POST['simpan'])){
