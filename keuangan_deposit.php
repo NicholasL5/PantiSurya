@@ -55,10 +55,6 @@
                 <div class="residents-table">
                         <div style="display:flex; justify-content:space-between">
                             <h3 style="padding: 1rem; padding-left: 0;">Daftar Penduduk</h3>
-                            <div style="display:flex;align-items: center;padding: 1rem; ">
-                                <a href="uploadDeposit.php" class="btn btn-outline-primary" type="button" id="tambahpenduduk">Tambah Penduduk</a>
-                            </div>
-                            
                         </div>
                         <div class="content">
                             <table class="table table-hover table-striped" id="tabelPondokan">
@@ -94,7 +90,7 @@
                                         </td>
                                         
                                         <td>
-                                            <?php if ($resident['bukti_path']): ?>
+                                            <?php if (!empty($resident['bukti_path'])): ?>
                                                 <a href="deposit/<?php echo $resident['nama']; ?>/<?php echo $resident['bukti_path']; ?>" class="btn btn-outline-success" target="_blank">Download</a>
                                             <?php else: ?>
                                                 <button class="btn btn-outline-primary" onclick="openUploadModal('<?php echo $resident['id']; ?>', false)">Upload</button>
@@ -153,32 +149,61 @@
 
 
     <script>
+        document.getElementById('kwitansi').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const preview = document.getElementById('kwitansi-preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('deposit').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const preview = document.getElementById('deposit-preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+
         function previewFile() {
-        const file = document.getElementById('file').files[0];
-        const preview = document.getElementById('filePreview');
-        const reader = new FileReader();
+            const file = document.getElementById('file').files[0];
+            const preview = document.getElementById('filePreview');
+            const reader = new FileReader();
 
-        reader.addEventListener("load", function () {
-            // convert image file to base64 string
-            preview.src = reader.result;
-            preview.style.display = 'block';
-        }, false);
+            reader.addEventListener("load", function () {
+                // convert image file to base64 string
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            }, false);
 
-        if (file) {
-            reader.readAsDataURL(file);
+            if (file) {
+                reader.readAsDataURL(file);
+            }
         }
-    }
-    function openUploadModal(residentId, kwitansi) {
-        if(kwitansi){
-            <?php $_POST['file_type'] = "kwitansi"; ?>
-        }else{
-            <?php $_POST['file_type'] = "bukti"; ?>
+
+        function openUploadModal(residentId, kwitansi) {
+            console.log(kwitansi);
+            if(kwitansi){
+                document.getElementById('fileType').value = 'kwitansi';
+            }else{
+                document.getElementById('fileType').value = 'bukti';
+            }
+            
+            document.getElementById('residentId').value = residentId;
+            var uploadModal = new bootstrap.Modal(document.getElementById('uploadModal'));
+            uploadModal.show();
         }
-        
-        document.getElementById('residentId').value = residentId;
-        var uploadModal = new bootstrap.Modal(document.getElementById('uploadModal'));
-        uploadModal.show();
-    }
 </script>
 </body>
 </html>

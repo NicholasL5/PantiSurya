@@ -94,8 +94,9 @@
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
+                
                 <div class="pad">
-                    <h1>Data Penduduk</h1>
+                    <h1>Data Penghuni</h1>
                     
                     <div class="table-nav wfull">
                         <form class="d-flex" role="search" action="penduduk.php" method="POST">

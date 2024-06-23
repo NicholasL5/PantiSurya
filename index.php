@@ -86,10 +86,14 @@ if(isset($_POST['search'])) {
     </style>
 </head>
 <body>
+
+
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php'?>
             <div class="main">
+                <?php include 'nav2.php' ?>
+
                 <div class="pad">
 
                     <h1>Overview</h1>
@@ -194,6 +198,14 @@ if(isset($_POST['search'])) {
         </div>
         
     </div>
+
+
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 
     <script>
         feather.replace()
