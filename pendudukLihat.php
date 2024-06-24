@@ -241,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="layout/stylelihat.css">
     <link rel="stylesheet" href="layout/styleEdit.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <title>Panti Surya | Lihat Penduduk</title>
+    <title>Panti Surya | Lihat Penghuni</title>
     <style>
         .profile-picture {
             border-radius: 50%;

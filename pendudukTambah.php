@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
     <link rel="stylesheet" href="layout/styleTambah.css">
-    <title>Panti Surya | Tambah Penduduk</title>
+    <title>Panti Surya | Tambah Penghuni</title>
 </head>
 
 <body>
