@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
     try{
         $db->addDataTabungan($jumlah, $type, $residentId, $deskripsi);
         $db->updateTabunganPenduduk($residentId);
-        $_SESSION['tesswal'] = true;
+        $_SESSION['tesswal'] = 'berhasil';
         echo
         "
         <script>
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
         </script>
         ";
     }catch(Exception $e){
-        $_SESSION['tesswal'] = false;
+        $_SESSION['tesswal'] = 'gagal';
         echo
         "
         <script>

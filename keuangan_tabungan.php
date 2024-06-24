@@ -41,10 +41,10 @@ if(isset($_POST['search'])) {
     <!-- <script src="js/dataTabungan.js"></script> -->
     <script>
         $(document).ready(function(){
-            <?php if ($_SESSION["tesswal"]){ ?>
+            <?php if ($_SESSION["tesswal"] == 'berhasil'){ ?>
                 myalert("Berhasil!", "Berhasil edit tabungan", "success");
 
-            <?php }elseif (!$_SESSION["tesswal"]){ ?>
+            <?php }elseif ($_SESSION["tesswal"] == 'gagal'){ ?>
                 myalert("Error!", "Ada masalah dalam menambah tabungan", "error");
 
             <?php }; unset($_SESSION['tesswal']); ?>    
