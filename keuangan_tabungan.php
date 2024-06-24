@@ -44,7 +44,7 @@ if(isset($_POST['search'])) {
             <?php if ($_SESSION["tesswal"]){ ?>
                 myalert("Berhasil!", "Berhasil edit tabungan", "success");
 
-            <?php }else{ ?>
+            <?php }elseif (!$_SESSION["tesswal"]){ ?>
                 myalert("Error!", "Ada masalah dalam menambah tabungan", "error");
 
             <?php }; unset($_SESSION['tesswal']); ?>    

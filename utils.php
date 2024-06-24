@@ -37,7 +37,7 @@ class myDB
      */
     function getAllPenduduk()
     {
-        $query = "SELECT * FROM penduduk WHERE status=0";
+        $query = "SELECT * FROM penduduk WHERE status=0 ORDER BY nomor_induk";
         $res = $this->db->prepare($query);
         $res->execute();
         return $res;
@@ -632,7 +632,19 @@ class myDB
         $query = "DELETE FROM tabungan WHERE id=?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$id]);
+    }
+
+    function updateBuktiKwitansi($id, $path){
+        $query = "UPDATE penduduk SET kwitansi_path=? WHERE id=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$path, $id]);
         
+    }
+
+    function updateBuktiDeposit($id, $path){
+        $query = "UPDATE penduduk SET bukti_path=? WHERE id=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$path, $id]);
     }
 
 

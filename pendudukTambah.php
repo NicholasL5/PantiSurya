@@ -167,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $(document).ready(function(){
             <?php if($_SESSION['alert'] == "success"){?>
                 myalert("Berhasil!", "Data berhasil disimpan", "success");
-            <?php } else { ?>  
+            <?php } else if($_SESSION['alert'] == "fail")  { ?>  
                 myalert("Error!", "Error dalam input data", "error");
             <?php }; unset($_SESSION['alert']);?>
 
