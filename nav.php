@@ -96,7 +96,7 @@ function hasAccess($accessField) {
                 </a>
             <?php endif; ?>
 
-            <?php if ($_SESSION['role'] == '1'): ?>
+            <?php if (hasAccess('admin')): ?>
                 <a type="button" href="dataadmin.php">
                     Admin
                 </a>
