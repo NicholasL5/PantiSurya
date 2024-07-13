@@ -27,6 +27,7 @@
             $_SESSION['penghuni'] = $fetch_data->access_data_penghuni;
             $_SESSION['keuangan'] = $fetch_data->access_keuangan;
             $_SESSION['galeri'] = $fetch_data->access_galeri;
+            $_SESSION['admin'] = $fetch_data->access_admin;
 
             $db->updateLastAccess($username);
 
