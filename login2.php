@@ -22,6 +22,11 @@
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $fetch_data->role;
             $_SESSION['last_access'] = $fetch_data->last_access;
+            $_SESSION['overview'] = $fetch_data->access_overview;
+            $_SESSION['berita'] = $fetch_data->access_berita;
+            $_SESSION['penghuni'] = $fetch_data->access_data_penghuni;
+            $_SESSION['keuangan'] = $fetch_data->access_keuangan;
+            $_SESSION['galeri'] = $fetch_data->access_galeri;
 
             $db->updateLastAccess($username);
 
@@ -65,11 +70,11 @@
             </form>
             
 
-            <div class="signup flex-center">
+            <!-- <div class="signup flex-center">
                 <h1>New Here?</h1>
                 <p>Enter your personal details and join with us</p>
                 <button class="btn btn-primary bg-gray"><a href="register.php" style="color: white; text-decoration: none;">Sign up</a></button>
-            </div>
+            </div> -->
         </div>
     </div>
 </body>
