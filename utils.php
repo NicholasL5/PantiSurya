@@ -31,6 +31,28 @@ class myDB
         return $this->db->prepare($query);
     }
 
+    public function toggleAccess($userId, $accessField) {
+        try {
+            // Determine current value
+            $stmt = $this->db->prepare("SELECT $accessField FROM akun WHERE id = :id");
+            $stmt->execute(['id' => $userId]);
+            $currentValue = $stmt->fetchColumn();
+
+            // Toggle value (1 to 0 or 0 to 1)
+            $newValue = $currentValue == 1 ? 0 : 1;
+
+            // Update database
+            $stmt = $this->db->prepare("UPDATE akun SET $accessField = :value WHERE id = :id");
+            $stmt->execute(['value' => $newValue, 'id' => $userId]);
+
+            return true;
+        } catch (PDOException $e) {
+            // Handle database errors
+            error_log('Database error: ' . $e->getMessage());
+            return false;
+        }
+    }
+
     /**
      * function untuk return semua penduduk
      * @return $res untuk hasil query semua penduduk
@@ -50,6 +72,14 @@ class myDB
     function getAllBerita()
     {
         $query = "SELECT * FROM news";
+        $res = $this->db->prepare($query);
+        $res->execute();
+        return $res;
+    }
+
+    function getAllAdmin()
+    {
+        $query = "SELECT * FROM akun";
         $res = $this->db->prepare($query);
         $res->execute();
         return $res;
@@ -186,6 +216,18 @@ class myDB
         }
     }
 
+    function searchAdmin($expr)
+    {
+        if ($expr == "") {
+            return $this->getAllAdmin();
+        } else {
+            $query = "SELECT * FROM akun WHERE username LIKE ?";
+            $res = $this->db->prepare($query);
+            $res->execute(["%" . $expr . "%"]);
+            return $res;
+        }
+    }
+
     /**
      * Sama seperti search. Tapi dari tabel pondokan
      * @param $expr untuk title berita
@@ -261,6 +303,13 @@ class myDB
         $res->execute([$_POST['delid']]);
     }
 
+    function delbyIdAdmin($id)
+    {
+        $query = "DELETE FROM akun WHERE id=?";
+        $res = $this->db->prepare($query);
+        $res->execute([$_POST['delid']]);
+    }
+
     function getLastLogin($username)
     {
         $query = "SELECT date FROM `akun` WHERE username = ? ";
@@ -282,6 +331,22 @@ class myDB
         $stmt = $this->db->prepare($query);
         $stmt->execute([$username, $password, $role]);
     }
+
+    // function addUser($username, $password, $role, $access_overview, $access_berita, $access_data_penghuni, $access_keuangan, $access_galeri)
+    // {
+    //     $query = "INSERT INTO akun (username, password, role, access_overview, access_berita, access_data_penghuni, access_keuangan, access_galeri) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    //     $stmt = $this->db->prepare($query);
+    //     $stmt->execute([$username, $password, $role, $access_overview, $access_berita, $access_data_penghuni, $access_keuangan, $access_galeri]);
+    // }
+
+    function getUserById($userId)
+    {
+        $query = "SELECT username, role, access_overview, access_berita, access_data_penghuni, access_keuangan, access_galeri FROM akun WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$userId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 
     function insertNews($title, $description, $date, $path)
     {
@@ -335,11 +400,18 @@ class myDB
         $stmt->execute([$noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $tanggalmasuk, $id]);
     }
 
-    function insertGambar($profilePictureDirectory)
+    // function insertGambar($profilePictureDirectory)
+    // {
+    //     $query = "INSERT INTO images (path_picture, input_date) VALUES (?, ?)";
+    //     $stmt = $this->db->prepare($query);
+    //     $stmt->execute([$profilePictureDirectory, date("Y-m-d")]);
+    // }
+
+    function insertGambar($profilePictureDirectory, $id)
     {
-        $query = "INSERT INTO images (path_picture, input_date) VALUES (?, ?)";
+        $query = "UPDATE penduduk set profile_picture = ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$profilePictureDirectory, date("Y-m-d")]);
+        $stmt->execute([$profilePictureDirectory, $id]);
     }
 
     function insertKwitansiPondokkan($id, $profilePictureDirectory)
@@ -349,11 +421,11 @@ class myDB
         $stmt->execute([$profilePictureDirectory, $id]);
     }
 
-    function insertGambarPondokkan($id, $profilePictureDirectory)
+    function insertGambarPondokkan($id, $profilePictureDirectory, $tanggal_transfer)
     {
-        $query = "UPDATE data_pondokkan SET status = 1, image_path = ?, input_date = ? WHERE id = ?";
+        $query = "UPDATE data_pondokkan SET status = 1, image_path = ?, input_date = ?, tanggal_transfer = ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
+        $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $tanggal_transfer, $id]);
     }
 
     function updatePondokkan2($id, $newTagihan)
@@ -384,11 +456,11 @@ class myDB
         $stmt->execute([$profilePictureDirectory, $id]);
     }
 
-    function insertGambarObat($id, $profilePictureDirectory)
+    function insertGambarObat($id, $profilePictureDirectory, $tanggal_transfer)
     {
-        $query = "UPDATE rekam_medis SET sudah_bayar = 1, image_path = ?, input_date = ? WHERE pengobatan_id = ?";
+        $query = "UPDATE rekam_medis SET sudah_bayar = 1, image_path = ?, input_date = ?, tanggal_transfer = ? WHERE pengobatan_id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $id]);
+        $stmt->execute([$profilePictureDirectory, date("Y-m-d"), $tanggal_transfer, $id]);
     }
 
     function deleteTagihanObat($id)
