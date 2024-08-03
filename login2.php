@@ -71,11 +71,11 @@
             </form>
             
 
-            <!-- <div class="signup flex-center">
-                <h1>New Here?</h1>
-                <p>Enter your personal details and join with us</p>
-                <button class="btn btn-primary bg-gray"><a href="register.php" style="color: white; text-decoration: none;">Sign up</a></button>
-            </div> -->
+            <!--<div class="signup flex-center">-->
+            <!--    <h1>New Here?</h1>-->
+            <!--    <p>Enter your personal details and join with us</p>-->
+            <!--    <button class="btn btn-primary bg-gray"><a href="register.php" style="color: white; text-decoration: none;">Sign up</a></button>-->
+            <!--</div>-->
         </div>
     </div>
 </body>

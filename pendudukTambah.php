@@ -28,7 +28,8 @@ function processWali($waliData, $lastid, $db) {
             $db->addWali($lastid, $waliData["namawali"], $waliData["alamatwali"], $waliData["radiowali"], 
                       $waliData["notelpwali"], $waliData["pekerjaanwali"], $waliData["statushubungan"]);
         }catch(Exception $e){
-            $_SESSION['alert'] = "fail";
+	    $_SESSION['alert'] = "fail";
+	    echo "salah input proses wali";
         };
         // echo "<script>alert('Data wali has been saved successfully');</script>";
     }
@@ -69,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         // Process the data
         $db = new myDB();
-        try{
+        //try{
             $db->addPenduduk($noinduk, $nama, $tempattinggal, $tanggalmasuk, $tempatlahir, $agama, $tanggallahir, $deposit);
             $lastid = $db->returnLastID();
             $_SESSION['alert'] = "success";
@@ -125,10 +126,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             processWali($requiredFieldsWali3, $lastid, $db);
             processWali($requiredFieldsWali4, $lastid, $db);
             processWali($requiredFieldsWali5, $lastid, $db);
-        }catch(Exception $e){
-            $_SESSION['alert'] = "fail";
+        //}catch(Exception $e){
+	    //$_SESSION['alert'] = "fail";
+	    //echo "error di input penduduk";
             // header("location:pendudukTambah.php");
-        }
+        //}
         
         
 
@@ -159,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
     <link rel="stylesheet" href="layout/styleTambah.css">
-    <title>Panti Surya | Tambah Penghuni</title>
+    <title>Panti Surya | Tambah Penduduk</title>
 </head>
 
 <body>
@@ -188,6 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <div class="dashboard">
             <?php include 'nav.php' ?>
             <div class="main">
+            <?php include 'nav2.php' ?>
                 <div class="pad">
                     <h1 style="margin-bottom: 3rem;">Tambah Penduduk</h1>
 
@@ -483,6 +486,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     <script>
         feather.replace()
+    </script>
+    <script>
+    document.getElementById('mybtn').addEventListener('click', function() {
+        var holder = document.querySelector('.holder');
+        holder.classList.toggle('open');
+    });
     </script>
 </body>
 

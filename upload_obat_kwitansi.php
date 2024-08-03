@@ -45,9 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // echo var_dump($success);
 
     //Resize and Compress Image
-    list($width, $height, $type) = getimagesize($file);
-    $img = resize_image($file, $width, $height, TRUE);
-    imagejpeg($img, $file, 90);
+    //list($width, $height, $type) = getimagesize($file);
+    //$img = resize_image($file, $width, $height, TRUE);
+    //imagejpeg($img, $file, 90);
     // echo "test";
 
     $profilePictureDirectory = $file;
@@ -103,7 +103,7 @@ if ($res->rowCount() > 0) {
     <link rel="stylesheet" href="layout/indexstyle.css">
     <link rel="stylesheet" href="layout/stylelihat.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <title>Edit Balance - <?php echo $resident['nama']; ?></title>
+    <title>Edit Obat - <?php echo $resident['nama']; ?></title>
 
     <style>
         #display-image {
@@ -120,27 +120,32 @@ if ($res->rowCount() > 0) {
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php' ?>
-            <div class="column" style="margin-left:20px">
-                <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
-                <form id="balanceForm" method="POST" enctype="multipart/form-data">
-                    <h4>Select Tagihan</h4>
-                    <select class="form-select" name="tagihan" aria-label="Default select example" style="margin-bottom:10px">
-                        <option selected>Open this select menu</option>
-                        <?php echo $options; ?>
-                    </select>
+            <div class="main">
+                <div class="pad">
+                    <div class="column">
+                    <h1>Edit Obat - <?php echo $resident['nama']; ?></h1>
+                    <form id="balanceForm" method="POST" enctype="multipart/form-data">
+                        <h4>Select Tagihan</h4>
+                        <select class="form-select" name="tagihan" aria-label="Default select example" style="margin-bottom:10px">
+                            <option selected>Open this select menu</option>
+                            <?php echo $options; ?>
+                        </select>
 
-                    <div class="mb-3">
-                        <label for="imageInput" class="form-label">
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label">
 
-                            </svg> <h5>Upload Kwitansi</h5></label>
-                        <input class="form-control mb-3" type="file" id="image-input"
-                            accept="image/jpeg, image/jpg, image/png" name="imageChooser">
-                        <div id="display-image"></div>
-                        <small id="imageHelp" class="form-text text-muted">Upload kwitansi (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </form>
+                                </svg> <h5>Upload Kwitansi</h5></label>
+                            <input class="form-control mb-3" type="file" id="image-input"
+                                accept="image/jpeg, image/jpg, image/png" name="imageChooser">
+                            <div id="display-image"></div>
+                            <small id="imageHelp" class="form-text text-muted">Upload kwitansi (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+                </div>
             </div>
+            
 
             <?php if (!empty($alertMessage)): ?>
                 <div>
@@ -153,6 +158,12 @@ if ($res->rowCount() > 0) {
 
         </div>
     </div>
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
     <script>
         const image_input = document.querySelector("#image-input");

@@ -1,5 +1,6 @@
 <?php
-session_start();
+    session_start();
+
 
 if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
     header("location:login2.php");
@@ -47,6 +48,7 @@ if(isset($_POST['search'])) {
             <?php include 'nav.php'?>
             
             <div class="main">
+            <?php include 'nav2.php' ?>
                 <div class="pad">
                     <h1>KEUANGAN OBAT</h1>
             
@@ -74,7 +76,7 @@ if(isset($_POST['search'])) {
                                     <tr>
                                         <td><?php echo $resident['nama']; ?></td>
                                         <td><?php echo $db->formatRupiah($resident['keuangan_obat']); ?></td>
-                                        <td><button onclick="window.location.href='laporanobat.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
+                                        <td><button onclick="window.location.href='laporanObat.php?id=<?php echo $resident['id']; ?>'" class="btn btn-primary">View Laporan Keuangan</button></td>
                                         <!-- <td><a href="edit_balance_obat.php?id=<?php echo $resident['id']; ?>" class="btn btn-primary">Edit</a></td> -->
                                     </tr>
                                     <?php endforeach; ?>
@@ -86,5 +88,12 @@ if(isset($_POST['search'])) {
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
 </html>

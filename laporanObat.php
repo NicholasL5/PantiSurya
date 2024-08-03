@@ -34,13 +34,14 @@
 </head>
 <body>
     <script src="js/dataLaporanObat.js"></script>
-    <script src="js/dataLaporanObatUnpaid.js"></script>
+    <!--<script src="js/dataLaporanObatUnpaid.js"></script>-->
 
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
+            <?php include 'nav2.php' ?>
                 <div class="pad">
                     <h1>Laporan Obat - <?php echo $resident['nama']; ?></h1>
                     
@@ -109,6 +110,7 @@
                                 <th scope="col" >Deskripsi</th>
                                 <th scope="col" >Jumlah Tagihan</th>
                                 <th scope="col" >Tanggal Input bukti</th>
+                                <th scope="col" >Tanggal Transfer</th>
                                 <th scope="col" >Download kwitansi</th>
                                 <th scope="col" >Download bukti pembayaran</th>
                                 
@@ -125,7 +127,12 @@
 
         </div>
     </div>
-
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
 <script>
 document.addEventListener("DOMContentLoaded", function() {

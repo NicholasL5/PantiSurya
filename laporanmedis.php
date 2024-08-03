@@ -44,6 +44,7 @@ if(isset($_GET['id'])) {
             <?php include 'nav.php'?>
             
             <div class="main">
+            <?php include 'nav2.php' ?>
                 <div class="pad">
                     <h2>Medical Records of <?php echo $penduduk['nama']; ?></h2>
                     <div class="records-table">
@@ -79,7 +80,13 @@ if(isset($_GET['id'])) {
             </div>
         </div>
     </div>
-
+    
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
     <script>
         feather.replace()
     </script>

@@ -30,7 +30,7 @@ class myDB
     {
         return $this->db->prepare($query);
     }
-
+    
     public function toggleAccess($userId, $accessField) {
         try {
             $stmt = $this->db->prepare("SELECT $accessField FROM akun WHERE id = :id");
@@ -72,7 +72,7 @@ class myDB
         $res->execute();
         return $res;
     }
-
+    
     function getAllAdmin()
     {
         $query = "SELECT * FROM akun";
@@ -211,7 +211,7 @@ class myDB
             return $res;
         }
     }
-
+    
     function searchAdmin($expr)
     {
         if ($expr == "") {
@@ -298,7 +298,7 @@ class myDB
         $res = $this->db->prepare($query);
         $res->execute([$_POST['delid']]);
     }
-
+    
     function delbyIdAdmin($id)
     {
         $query = "DELETE FROM akun WHERE id=?";
@@ -316,16 +316,13 @@ class myDB
 
     function updateLastAccess($username)
     {
-        // Set the default timezone to Asia/Jakarta
         date_default_timezone_set('Asia/Jakarta');
     
         $query = "UPDATE `akun` SET last_access = :last_access WHERE username = :username";
         $res = $this->db->prepare($query);
-    
-        // Get the current date and time in the specified timezone
+
         $currentDateTime = date("Y-m-d H:i:s");
     
-        // Bind the parameters
         $res->bindValue(':last_access', $currentDateTime, PDO::PARAM_STR);
         $res->bindValue(':username', $username, PDO::PARAM_STR);
     
@@ -339,14 +336,7 @@ class myDB
         $stmt = $this->db->prepare($query);
         $stmt->execute([$username, $password, $role]);
     }
-
-    // function addUser($username, $password, $role, $access_overview, $access_berita, $access_data_penghuni, $access_keuangan, $access_galeri)
-    // {
-    //     $query = "INSERT INTO akun (username, password, role, access_overview, access_berita, access_data_penghuni, access_keuangan, access_galeri) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    //     $stmt = $this->db->prepare($query);
-    //     $stmt->execute([$username, $password, $role, $access_overview, $access_berita, $access_data_penghuni, $access_keuangan, $access_galeri]);
-    // }
-
+    
     function getUserById($userId)
     {
         $query = "SELECT username, role, access_overview, access_berita, access_data_penghuni, access_keuangan, access_galeri FROM akun WHERE id = ?";
@@ -355,19 +345,18 @@ class myDB
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-
-    function insertNews($title, $description, $date, $path, $path2, $path3, $path4, $path5)
+    function insertNews($title, $description, $date, $path)
     {
-        $query = "INSERT INTO news (title, description, date, image_path, image_path2, image_path3, image_path4, image_path5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO news (title, description, date, image_path) VALUES (?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$title, $description, $date, $path, $path2, $path3, $path4, $path5]);
+        $stmt->execute([$title, $description, $date, $path]);
     }
 
-    function editNews($title, $description, $date, $id, $path, $path2, $path3, $path4, $path5)
+    function editNews($title, $description, $date, $id, $path)
     {
-        $query = "UPDATE news SET title = ?, description = ?, date = ?, image_path = ?, image_path2 = ?, image_path3 = ?, image_path4 = ?, image_path5 = ? WHERE id = ?";
+        $query = "UPDATE news SET title = ?, description = ?, date = ?, image_path = ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$title, $description, $date, $path, $path2, $path3, $path4, $path5, $id]);
+        $stmt->execute([$title, $description, $date, $path, $id]);
     }
 
     function insertPenduduk($nama, $alamat, $tanggal_masuk, $email, $noTelpon, $profilePictureDirectory)
@@ -407,13 +396,6 @@ class myDB
         $stmt = $this->db->prepare($query);
         $stmt->execute([$noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $tanggalmasuk, $id]);
     }
-
-    // function insertGambar($profilePictureDirectory)
-    // {
-    //     $query = "INSERT INTO images (path_picture, input_date) VALUES (?, ?)";
-    //     $stmt = $this->db->prepare($query);
-    //     $stmt->execute([$profilePictureDirectory, date("Y-m-d")]);
-    // }
 
     function insertGambar($profilePictureDirectory, $id)
     {
@@ -655,14 +637,14 @@ class myDB
 
     
 
-    function addDataTabungan($jumlah, $tipe, $id_penduduk, $deskripsi){
+    function addDataTabungan($jumlah, $tipe, $tanggal, $id_penduduk, $deskripsi){
         $uangNow = $this->getJumlahTabungan($id_penduduk)['keuangan_tabungan'];
         $uangNow += $jumlah;
 
 
         $query = "INSERT INTO tabungan (id_penduduk, tipe_transaksi, jumlah, tanggal_transaksi, saldo, deskripsi) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$id_penduduk, $tipe, $jumlah, date("Y-m-d"), $uangNow, $deskripsi]);
+        $stmt->execute([$id_penduduk, $tipe, $jumlah, $tanggal, $uangNow, $deskripsi]);
     }
 
 
@@ -674,7 +656,7 @@ class myDB
     }
 
     function getSaldoTerakhir($id){
-        $query = "SELECT saldo FROM tabungan WHERE id_penduduk = ? ORDER BY tanggal_transaksi DESC, id DESC LIMIT 1";
+        $query = "SELECT saldo FROM tabungan WHERE id_penduduk = ? ORDER BY id DESC LIMIT 1";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -703,15 +685,17 @@ class myDB
     }
 
     function delTabunganDatabyID($idpen, $id){
-        $jumlah = $this->getSaldoTerakhir($id);
+        
+        $query = "DELETE FROM tabungan WHERE id=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
+        
+        $jumlah = $this->getSaldoTerakhir($idpen);
         $jumlah = $jumlah?$jumlah['saldo']:0;
         $query = 'UPDATE penduduk SET keuangan_tabungan=? WHERE id=?';
         $stmt = $this->db->prepare($query);
         $stmt->execute([$jumlah, $idpen]);
 
-        $query = "DELETE FROM tabungan WHERE id=?";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute([$id]);
     }
 
     function updateBuktiKwitansi($id, $path){
@@ -725,6 +709,12 @@ class myDB
         $query = "UPDATE penduduk SET bukti_path=? WHERE id=?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$path, $id]);
+    }
+    
+    function deleteWali($idwali){
+        $query = "DELETE FROM wali WHERE wali_id=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$idwali]);
     }
 
 

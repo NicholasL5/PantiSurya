@@ -27,7 +27,7 @@ if (!$resident) {
 
 $alertMessage = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset($_POST['transaksi'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset($_POST['transaksi']) && isset($_POST['addtanggal'])) {
     
     if ($_POST['transaksi'] == 0){
         $mul = 1;
@@ -39,32 +39,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
 
     $jumlah = intval($_POST['addBalance']) * $mul;
     $deskripsi = $_POST["addDesc"];
+    $tanggal = $_POST["addtanggal"];
     try{
-        $db->addDataTabungan($jumlah, $type, $residentId, $deskripsi);
+        $db->addDataTabungan($jumlah, $type, $tanggal, $residentId, $deskripsi);
         $db->updateTabunganPenduduk($residentId);
         $_SESSION['tesswal'] = 'berhasil';
-        echo
-        "
-        <script>
-            Swal.fire({
-                title: 'Berhasil!',
-                text: 'Data tabungan sudah berhasil disimpan.',
-                icon: 'success'
-            });
-        </script>
-        ";
     }catch(Exception $e){
         $_SESSION['tesswal'] = 'gagal';
-        echo
-        "
-        <script>
-        Swal.fire({
-            title: 'Gagal!',
-            text: 'Ada kesalahan dalam menyimpan data.',
-            icon: 'error'
-        });
-        </script>
-        ";
+        $_SESSION['errmsg'] = $e->getMessage();
     }
     
     header("location: keuangan_tabungan.php");
@@ -98,60 +80,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php' ?>
-            <div class="column" style="margin-left:20px; padding-bottom: 2rem;">
-                <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
-                <h4>Jumlah Tabungan Sekarang: Rp.<?php echo $db->formatRupiah($uang['keuangan_tabungan']); ?></h4>
-                <form id="balanceForm" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="addBalance">Masukkan Jumlah:</label>
-                        <input type="number" id="addBalance" name="addBalance" placeholder="Enter amount to add"
-                            class="form-control" min="0" step="1">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="col-form-label">Tipe Transaksi:</label>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="transaksi" value=0 id="RadioTransaksi1" checked>
-                            <label class="form-check-label" for="RadioTransaksi1">
-                                Debit (+)
-                            </label>
+            <div class="main">
+                <?php include 'nav2.php' ?>
+                <div class="pad" style="padding-top:1rem; padding-left:0;">
+                    <div class="column" style="padding-bottom: 2rem;">
+                    <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
+                    <h4>Jumlah Tabungan Sekarang: <?php echo $db->formatRupiah($uang['keuangan_tabungan']); ?></h4>
+                    <form id="balanceForm" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="addBalance">Masukkan Jumlah:</label>
+                            <input type="number" id="addBalance" name="addBalance" placeholder="Enter amount to add"
+                                class="form-control" min="0" step="1">
                         </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="transaksi" value=1 id="RadioTransaksi2">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Kredit (-)
-                            </label>
+                        <div class="mb-3">
+                            <label for="" class="col-form-label">Tipe Transaksi:</label>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="transaksi" value=0 id="RadioTransaksi1" checked>
+                                <label class="form-check-label" for="RadioTransaksi1">
+                                    Debit (+)
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="transaksi" value=1 id="RadioTransaksi2">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Kredit (-)
+                                </label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mb-3">
-                        <label for="addtanggal">Tanggal:</label>
-                        <input type="date" class="form-control" id="tanggal" name="addtanggal"></input>
-                        
-                    </div>
+                        <div class="mb-3">
+                            <label for="addtanggal">Tanggal:</label>
+                            <input type="date" class="form-control" id="tanggal" name="addtanggal"></input>
+                            
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="addDesc">Masukkan Deskripsi:</label>
-                        <textarea class="form-control" id="textareaTabungan" rows="5" name="addDesc" placeholder="Enter your text here..."></textarea>
-                        
-                    </div>
+                        <div class="mb-3">
+                            <label for="addDesc">Masukkan Deskripsi:</label>
+                            <textarea class="form-control" id="textareaTabungan" rows="5" name="addDesc" placeholder="Enter your text here..."></textarea>
+                            
+                        </div>
 
-                    <!-- <div class="mb-3">
-                        <label for="imageInput" class="form-label">
+                        <!-- <div class="mb-3">
+                            <label for="imageInput" class="form-label">
 
-                        Upload Kwitansi
-                        </label>
-                        <input class="form-control mb-3" type="file" id="image-input"
-                            accept="image/jpeg, image/jpg, image/png" name="imageChooser">
-                        <div id="display-image"></div>
-                        <small id="imageHelp" class="form-text text-muted">Upload bukti transfer (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small>
-                    </div> -->
+                            Upload Kwitansi
+                            </label>
+                            <input class="form-control mb-3" type="file" id="image-input"
+                                accept="image/jpeg, image/jpg, image/png" name="imageChooser">
+                            <div id="display-image"></div>
+                            <small id="imageHelp" class="form-text text-muted">Upload bukti transfer (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small>
+                        </div> -->
 
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </form>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+                </div>
             </div>
+            
 
             <?php if (!empty($alertMessage)): ?>
                 <div>
@@ -164,6 +152,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addBalance']) && isset
 
         </div>
     </div>
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
     <script>
         const image_input = document.querySelector("#image-input");

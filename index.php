@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+// var_dump($_SESSION);
 if (!isset($_SESSION['user_login']) && !isset($_POST['username'])) {
     header("location:login2.php");
 }
@@ -154,7 +154,7 @@ if(isset($_POST['search'])) {
                     </div>
 
                     <div class="residents-table">
-                        <h3>All Residents</h3>
+                        <h3>Daftar Penghuni</h3>
                         <table class="resident-table">
                             <thead>
                                 <tr>
@@ -200,12 +200,12 @@ if(isset($_POST['search'])) {
     </div>
 
 
-    <script>
-        document.getElementById('mybtn').addEventListener('click', function() {
-            var holder = document.querySelector('.holder');
-            holder.classList.toggle('open');
-        });
-    </script>
+    // <script>
+    //     document.getElementById('mybtn').addEventListener('click', function() {
+    //         var holder = document.querySelector('.holder');
+    //         holder.classList.toggle('open');
+    //     });
+    // </script>
 
     <script>
         feather.replace()

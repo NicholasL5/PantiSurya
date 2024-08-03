@@ -1,5 +1,6 @@
 <?php
 include 'utils.php';
+session_start();
 
 $db = new myDB();
 $images = $db->getGambar();
@@ -56,6 +57,10 @@ foreach ($images as $item) {
         <div class="dashboard">
             <?php include 'nav.php'?>
             <div class="main">
+            <?php include 'nav2.php' ?>
+            <div class="pad" style="padding-top:0">
+
+            
             <div>
                 <form action="api/addGaleri.php" method="post" enctype="multipart/form-data">
                     <!-- untuk sekarang image uploadnya gini -->
@@ -86,8 +91,16 @@ foreach ($images as $item) {
                       endforeach; ?>
                 </div>
             </div>
+            </div>
         </div>
         </div>
+
+        <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
     <script>
           // untuk image upload yang sekarang

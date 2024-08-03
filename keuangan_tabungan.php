@@ -41,13 +41,13 @@ if(isset($_POST['search'])) {
     <!-- <script src="js/dataTabungan.js"></script> -->
     <script>
         $(document).ready(function(){
-            <?php if ($_SESSION["tesswal"] == 'berhasil'){ ?>
+            <?php if ($_SESSION["tesswal"]=='berhasil'){ ?>
                 myalert("Berhasil!", "Berhasil edit tabungan", "success");
 
-            <?php }elseif ($_SESSION["tesswal"] == 'gagal'){ ?>
-                myalert("Error!", "Ada masalah dalam menambah tabungan", "error");
+            <?php }elseif ($_SESSION["tesswal"]=='gagal'){ ?>
+                myalert("Error!", "<?php echo $_SESSION['errmsg']; ?>", "error");
 
-            <?php }; unset($_SESSION['tesswal']); ?>    
+            <?php }; unset($_SESSION['tesswal']); unset($_SESSION['errmsg']) ?>    
             
             function myalert(titles, texts, icons){
                 Swal.fire({
@@ -67,6 +67,7 @@ if(isset($_POST['search'])) {
             <?php include 'nav.php'?>
             
             <div class="main">
+            <?php include 'nav2.php' ?>
                 <div class="pad">
                 <h1>KEUANGAN TABUNGAN</h1>
                 
@@ -110,5 +111,12 @@ if(isset($_POST['search'])) {
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
 </html>

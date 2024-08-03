@@ -2,12 +2,12 @@
 session_start();
 
 if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
-    header("location:login2.php");
+    header("Location: login2.php");
     exit();
 }
 
 if (!isset($_GET['id'])) {
-    header("location:overview.php");
+    header("Location: overview.php");
     exit();
 }
 
@@ -22,19 +22,16 @@ $stmt_resident->execute(['residentId' => $residentId]);
 $resident = $stmt_resident->fetch(PDO::FETCH_ASSOC);
 
 if (!$resident) {
-    header("location:overview.php");
+    header("Location: overview.php");
     exit();
 }
 
 include "utils/resize_image.php";
-define('UPLOAD_DIR', 'keuangan/pondokkan/');
+define('UPLOAD_DIR', 'keuangan/obat/');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nomor = $_POST['nomor'];
     $deskripsi_obat = $_POST["deskripsi-obat"];
-    $jenis_obat = $_POST["jenis-obat"];
-    $obat = $_POST["obat"];
-    $dosis = $_POST["dosis"];
     $tagihan = $_POST["tagihan"];
     $tanggal_berobat = $_POST["tanggal-berobat"];
 
@@ -42,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $db->updateObat($tagihan, $residentId);
     $db->tambahObat($nomor, $residentId, $deskripsi_obat, $tagihan, $tanggal_berobat);
 
-    header("location: keuangan_obat.php");
+    header("Location: keuangan_obat.php");
 }
 
 
@@ -113,6 +110,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         </div>
     </div>
+
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
 
 </html>

@@ -15,10 +15,11 @@
             <td>'.$row['deskripsi'].'</td>
             <td>'.$row["tipe_transaksi"].'</td>
             <td>'.$db->formatRupiah($row["jumlah"]).'</td>
+            <td>'.$db->formatRupiah($row["saldo"]).'</td>
             <td><button type="button" class="btn btn-outline-danger del" data-rowid='.$row["id"].' style="margin:0px;z-index: index 10;">Delete</button></td>
             
             ';
-            if($_SESSION['role'] == 0){
+            if($_SESSION['role'] == 0 || $_SESSION['role'] == 1){
                 
             } else {
                 echo '</tr>';

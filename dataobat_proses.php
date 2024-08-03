@@ -16,8 +16,9 @@ if($res->rowCount() > 0){
         <td>'.$row["deskripsi"].'</td>
         <td>'.$db->formatRupiah($row["tagihan"]).'</td>  
         <td>'.$row["input_date"].'</td>  
+        <td>'.$row["tanggal_transfer"].'</td>  
         ';
-        if($_SESSION['role'] == 0){
+        if($_SESSION['role'] == 0 || $_SESSION['role'] == 1){
             $filePath = $row["kwitansi"];
             $filePath2 = $row["image_path"];
             $penduduk = $db->getPendudukPondokkan($row["penduduk_id"]);

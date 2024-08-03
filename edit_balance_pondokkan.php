@@ -57,9 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // echo var_dump($success);
 
     //Resize and Compress Image
-    list($width, $height, $type) = getimagesize($file);
-    $img = resize_image($file, $width, $height, TRUE);
-    imagejpeg($img, $file, 90);
+    //list($width, $height, $type) = getimagesize($file);
+    //$img = resize_image($file, $width, $height, TRUE);
+    //imagejpeg($img, $file, 90);
     // echo "test";
 
     $profilePictureDirectory = $file;
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dataPondokkan = $stmt_get_pondokkan->fetch(PDO::FETCH_ASSOC);
 
     if ($_POST['cicil'] == $dataPondokkan['tagihan']){
-        $db->insertGambarPondokkan($tagihanId, $profilePictureDirectory);
+        $db->insertGambarPondokkan($tagihanId, $profilePictureDirectory, $_POST['tanggal-transfer']);
     } else {
         $newTagihan = $_POST['cicil']; 
         $newStatus = 1; 
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $newTagihanDate = $dataPondokkan['tagihan_date']; 
         $newKwitansi = $dataPondokkan['kwitansi'];
 
-        $stmt_insert_tagihan = $db->prepare("INSERT INTO data_pondokkan (penduduk_id, tagihan, ruangan, status, image_path, input_date, tagihan_date, kwitansi) VALUES (:residentId, :tagihan, :ruangan, :status, :image_path, :input_date, :tagihan_date, :kwitansi)");
+        $stmt_insert_tagihan = $db->prepare("INSERT INTO data_pondokkan (penduduk_id, tagihan, ruangan, status, image_path, input_date, tagihan_date, kwitansi, tanggal_transfer) VALUES (:residentId, :tagihan, :ruangan, :status, :image_path, :input_date, :tagihan_date, :kwitansi, :tanggal_transfer)");
             $stmt_insert_tagihan->execute([
                 'residentId' => $residentId,
                 'tagihan' => $newTagihan,
@@ -88,7 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'image_path' => $newImagePath,
                 'input_date' => $newInputDate,
                 'tagihan_date' => $newTagihanDate,
-                'kwitansi' => $newKwitansi
+                'kwitansi' => $newKwitansi,
+                'tanggal_transfer' => $_POST['tanggal-transfer']
             ]);
 
         $db->updatePondokkan2($tagihanId, $newTagihan);    
@@ -97,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      // Retrieve the sum of tagihan amounts where status is 0
      $stmt_tagihan = $db->prepare("SELECT SUM(tagihan) AS total_tagihan FROM data_pondokkan WHERE status = 0 and penduduk_id = $residentId");
      $stmt_tagihan->execute();
-     $totalTagihan = $stmt_tagihan->fetch(PDO::FETCH_ASSOC)['total_tagihan'];
+     $totalTagihan = $stmt_tagihan->fetch(PDO::FETCH_ASSOC)['total_tagihan']?:0;
  
      // Update the balance in the database
      $stmt_update_balance = $db->prepare("UPDATE penduduk SET keuangan_pondokkan = :totalTagihan WHERE id = :residentId");
@@ -160,32 +161,43 @@ if ($res->rowCount() > 0) {
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php' ?>
-            <div class="column" style="margin-left:20px">
-                <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
-                <form id="balanceForm" method="POST" enctype="multipart/form-data">
-                    <h4>Select Tagihan</h4>
-                    <select class="form-select" name="tagihan" aria-label="Default select example" style="margin-bottom:10px">
-                        <option selected>Open this select menu</option>
-                        <?php echo $options; ?>
-                    </select>
+            <div class="main">
+                <?php include 'nav2.php' ?> 
+                <div class="pad" style="padding-left: 0;padding-top:0;">
+                    <div class="column">
+                    <h1>Edit Pondokkan - <?php echo $resident['nama']; ?></h1>
+                        <form id="balanceForm" method="POST" enctype="multipart/form-data">
+                            <h4>Select Tagihan</h4>
+                            <select class="form-select" name="tagihan" aria-label="Default select example" style="margin-bottom:10px">
+                                <option selected>Open this select menu</option>
+                                <?php echo $options; ?>
+                            </select>
 
-                    <h4>Jumlah Transfer</h4>
-                    <div class="input-group mb-3">
-                        <input type="number" class="form-control" placeholder="Jumlah tagihan" aria-label="Jumlah Tagihan" aria-describedby="basic-addon1" name="cicil">
+                            <h4>Jumlah Transfer</h4>
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control" placeholder="Jumlah tagihan" aria-label="Jumlah Tagihan" aria-describedby="basic-addon1" name="cicil">
+                            </div>
+                            
+                            <h4>Tanggal Transfer</h4>
+                            <div class="mb-3">
+                                <input type="date" class="form-control" id="tanggal-transfer" name="tanggal-transfer">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="imageInput" class="form-label">
+
+                                    </svg> <h5>Upload Bukti Transfer</h5></label>
+                                <input class="form-control mb-3" type="file" id="image-input"
+                                    accept="image/jpeg, image/jpg, image/png" name="imageChooser">
+                                <div id="display-image"></div>
+                                <small id="imageHelp" class="form-text text-muted">Upload bukti transfer (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="imageInput" class="form-label">
-
-                            </svg> <h5>Upload Bukti Transfer</h5></label>
-                        <input class="form-control mb-3" type="file" id="image-input"
-                            accept="image/jpeg, image/jpg, image/png" name="imageChooser">
-                        <div id="display-image"></div>
-                        <small id="imageHelp" class="form-text text-muted">Upload bukti transfer (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </form>
+                </div>
             </div>
+            
 
             <?php if (!empty($alertMessage)): ?>
                 <div>
@@ -198,6 +210,13 @@ if ($res->rowCount() > 0) {
 
         </div>
     </div>
+
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
     <script>
         const image_input = document.querySelector("#image-input");

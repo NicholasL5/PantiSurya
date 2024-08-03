@@ -1,126 +1,100 @@
 <?php
 session_start();
+require 'utils.php';
 
-if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
-    header("location:login2.php");
-    exit();
-}
+$db = new myDB();
 
-if (!isset($_GET['id'])) {
+$residentId = $_GET['id'] ?? null;
+if (!$residentId) {
     header("location:overview.php");
     exit();
 }
 
-require "utils.php";
-
-$db = new myDB();
-
-$residentId = $_GET['id'];
-$res = $db->getPenduduk($residentId);
-$resident = $res->fetch(PDO::FETCH_ASSOC);
-$uang = $db->getJumlahTabungan($residentId);
-
+$stmt = $db->getPenduduk($residentId);
+$resident = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$resident) {
     header("location:overview.php");
     exit();
 }
 
+$alertMessage = "";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['edit'])) {
-        $id = $_GET["id"];
-        $residentId = $_GET['id'];
-        $stmt = $db->getPenduduk($residentId);
-        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit'])) {
+    $targetDir = "deposit/" . $resident['nama'] . "/";
 
+    if (isset($_FILES['kwitansi']) && $_FILES['kwitansi']['error'] != UPLOAD_ERR_NO_FILE) {
+        $fileExtension = pathinfo(basename($_FILES['kwitansi']['name']), PATHINFO_EXTENSION);
+        $basename = "kwitansi-" . $resident['nama'] . '.' . $fileExtension;
+        $uploadFile = $targetDir . $basename;
 
-        
-        $targetDir = "deposit/" . $res['nama'] . "/";
+        $imageFileTypeKTP = strtolower($fileExtension);
+        $uploadOkKTP = 1;
 
-        if (isset($_FILES['kwitansi']) && $_FILES['kwitansi']['error'] != UPLOAD_ERR_NO_FILE) {
-            $basename = basename($_FILES['kwitansi']['name']);
-            $uploadFile = $targetDir . $basename;
-
-            $imageFileTypeKTP = strtolower(pathinfo($uploadFile, PATHINFO_EXTENSION));
-            $uploadOkKTP = 1;
-
-            // Check if image file is a actual image or fake image
-            $checkKTP = getimagesize($_FILES['kwitansi']['tmp_name']);
-            if ($checkKTP === false) {
-                echo "File is not an image.";
-                $uploadOkKTP = 0;
-            }
-
-            // Check if file already exists
-            if (file_exists($uploadFile)) {
-                echo "Sorry, file already exists.";
-                $uploadOkKTP = 0;
-            }
-
-            // Allow certain file formats
-            if ($imageFileTypeKTP != 'jpg' && $imageFileTypeKTP != 'png' && $imageFileTypeKTP != 'jpeg') {
-                echo "Sorry, only JPG, JPEG, & PNG files are allowed.";
-                $uploadOkKTP = 0;
-            }
-
-            if ($uploadOkKTP == 1) {
-                if (!is_dir($targetDir)) {
-                    mkdir($targetDir, 0777, true);
-                }
-
-                if (move_uploaded_file($_FILES['kwitansi']['tmp_name'], $uploadFile)) {
-                    // File uploaded successfully, update database
-                    $db->updateBuktiKwitansi($id, $basename);
-                } else {
-                    echo "Sorry, there was an error uploading your KTP file.";
-                }
-            }
+        $checkKTP = getimagesize($_FILES['kwitansi']['tmp_name']);
+        if ($checkKTP === false) {
+            $alertMessage = "File is not an image.";
+            $uploadOkKTP = 0;
         }
 
-        if (isset($_FILES['deposit']) && $_FILES['deposit']['error'] != UPLOAD_ERR_NO_FILE) {
-            $basename = basename($_FILES['deposit']['name']);
-            $uploadFileKK = $targetDir . $basename;
-            $imageFileTypeKK = strtolower(pathinfo($uploadFileKK, PATHINFO_EXTENSION));
-            $uploadOkKK = 1;
+        if (!in_array($imageFileTypeKTP, ['jpg', 'png', 'jpeg'])) {
+            $alertMessage = "Sorry, only JPG, JPEG, & PNG files are allowed.";
+            $uploadOkKTP = 0;
+        }
 
-            // Check if image file is a actual image or fake image
-            $checkKK = getimagesize($_FILES['deposit']['tmp_name']);
-            if ($checkKK === false) {
-                echo "File is not an image.";
-                $uploadOkKK = 0;
+        if ($uploadOkKTP == 1) {
+            if (!is_dir($targetDir)) {
+                mkdir($targetDir, 0777, true);
             }
 
-            // Check if file already exists
-            if (file_exists($uploadFileKK)) {
-                echo "Sorry, file already exists.";
-                $uploadOkKK = 0;
-            }
-
-            // Allow certain file formats
-            if ($imageFileTypeKK != 'jpg' && $imageFileTypeKK != 'png' && $imageFileTypeKK != 'jpeg') {
-                echo "Sorry, only JPG, JPEG, & PNG files are allowed.";
-                $uploadOkKK = 0;
-            }
-
-            if ($uploadOkKK == 1) {
-                if (!is_dir($targetDir)) {
-                    mkdir($targetDir, 0777, true);
-                }
-
-                if (move_uploaded_file($_FILES['deposit']['tmp_name'], $uploadFileKK)) {
-                    // File uploaded successfully, update database
-                    $db->updateBuktiDeposit($id, $basename);
-                } else {
-                    echo "Sorry, there was an error uploading your KK file.";
-                }
+            if (move_uploaded_file($_FILES['kwitansi']['tmp_name'], $uploadFile)) {
+                $db->updateBuktiKwitansi($residentId, $basename);
+                $alertMessage = "Kwitansi uploaded successfully.";
+            } else {
+                $alertMessage = "Sorry, there was an error uploading your kwitansi.";
             }
         }
     }
 
-    header("location:keuanganDeposit.php");
+    if (isset($_FILES['deposit']) && $_FILES['deposit']['error'] != UPLOAD_ERR_NO_FILE) {
+        $fileExtension = pathinfo(basename($_FILES['deposit']['name']), PATHINFO_EXTENSION);
+        $basename = "bukti-" . $resident['nama'] . '.' . $fileExtension;
+        $uploadFile = $targetDir . $basename;
+
+        $imageFileTypeKK = strtolower($fileExtension);
+        $uploadOkKK = 1;
+
+        $checkKK = getimagesize($_FILES['deposit']['tmp_name']);
+        if ($checkKK === false) {
+            $alertMessage = "File is not an image.";
+            $uploadOkKK = 0;
+        }
+
+        if (!in_array($imageFileTypeKK, ['jpg', 'png', 'jpeg'])) {
+            $alertMessage = "Sorry, only JPG, JPEG, & PNG files are allowed.";
+            $uploadOkKK = 0;
+        }
+
+        if ($uploadOkKK == 1) {
+            if (!is_dir($targetDir)) {
+                mkdir($targetDir, 0777, true);
+            }
+
+            if (move_uploaded_file($_FILES['deposit']['tmp_name'], $uploadFile)) {
+                $db->updateBuktiDeposit($residentId, $basename);
+                $alertMessage = "Deposit uploaded successfully.";
+            } else {
+                $alertMessage = "Sorry, there was an error uploading your deposit.";
+            }
+        }
+    }
+    $_SESSION['alertmsg'] = $alertMessage;
+    // if ($alertMessage) {
+    //     echo "alert($alertMessage)";
+    // } 
+    header("Location:keuangan_deposit.php");
+    
+    exit();
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -156,28 +130,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="app">
         <div class="dashboard">
             <?php include 'nav.php' ?>
-            <div class="column" style="margin-left:20px; padding-bottom: 2rem;">
-                <h1>Edit Bukti Deposit - <?php echo $resident['nama']; ?></h1>
-                <form id="laporanDeposit.php" method="POST" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="kwitansi">Kwitansi:</label>
-                        <input type="file" class="form-control" id="kwitansi" name="kwitansi" >
-                           
-                        <img id="kwitansi-preview" alt="Bukti kwitansi" class="prev-pic" src="deposit/<?php echo $resident['nama'] ?>/<?php echo $resident['kwitansi_path'] ?>">
+            <div class="main">
+            <?php include 'nav2.php' ?>
+                <div class="pad" style="padding-left: 0;padding-top:0;">
+                <div class="column" style="padding-bottom: 2rem;">
+                    <h1>Edit Bukti Deposit - <?php echo $resident['nama']; ?></h1>
+                    <form id="laporanDeposit.php" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="kwitansi">Kwitansi:</label>
+                            <input type="file" class="form-control" id="kwitansi" name="kwitansi" >
+                            
+                            <img id="kwitansi-preview" alt="Bukti kwitansi" class="prev-pic" src="deposit/<?php echo $resident['nama'] ?>/<?php echo $resident['kwitansi_path'] ?>">
 
-                    </div>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="deposit">Deposit:</label>
-                        <input type="file" class="form-control" id="deposit" name="deposit" >
-                         
-                        <img id="deposit-preview" alt="Bukti deposit" class="prev-pic" src="deposit/<?php echo $resident['nama'] ?>/<?php echo $resident['bukti_path'] ?>">
-                        
-                    </div>
+                        <div class="mb-3">
+                            <label for="deposit">Deposit:</label>
+                            <input type="file" class="form-control" id="deposit" name="deposit" >
+                            
+                            <img id="deposit-preview" alt="Bukti deposit" class="prev-pic" src="deposit/<?php echo $resident['nama'] ?>/<?php echo $resident['bukti_path'] ?>">
+                            
+                        </div>
 
-                    <button type="submit" name="edit" class="btn btn-primary">Simpan Perubahan</button>
-                </form>
+                        <button type="submit" name="edit" class="btn btn-primary">Simpan Perubahan</button>
+                        <button type="button" onclick="window.location.href='keuangan_deposit.php'" name="edit" class="btn btn-danger">Kembali</button>
+                    </form>
+                </div>
+                </div>
             </div>
+           
 
             <?php if (!empty($alertMessage)): ?>
                 <div>
@@ -190,6 +171,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         </div>
     </div>
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
     <script>
             document.getElementById('kwitansi').addEventListener('change', function (event) {
@@ -230,4 +217,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             reader.readAsDataURL(this.files[0]);
         });
     </script>
+
 </html>

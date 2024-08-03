@@ -23,27 +23,6 @@
                     <input type="text" name="username" class="form-control" id="loginuser" placeholder="Username">
                     <input type="password" name="password" class="form-control" id="loginpassword" placeholder="Password">
                     <input type="password" name="cpassword" class="form-control" id="confirmpassword" placeholder="Confirm Password">
-                    <!-- <p>Akses Role</p>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="access_overview" value="1" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">Overview</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="access_berita" value="1" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">Berita</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="access_data_penghuni" value="1" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">Data Penghuni</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="access_keuangan" value="1" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">Keuangan</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="access_galeri" value="1" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">Galeri</label>
-                    </div> -->
                     <div>
                         <div class="d-flex">
                             <button type="submit" name="register" class="btn btn-primary bg-blue">Register</button>

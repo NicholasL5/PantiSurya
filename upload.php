@@ -14,25 +14,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $targetDir = "deposit/" . $res['nama'] . "/";
 
     if (!is_dir($targetDir)) {
+        
         mkdir($targetDir, 0777, true);
+
     }
 
     $fileName = basename($_FILES["file"]["name"]);
-    $targetFilePath = $targetDir . $fileName;
+    $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+    $path = $res['nama'] . '.' . $fileExtension;
+    if ($fileType == "kwitansi"){
+        $path = "kwitansi-" . $path;
+        $targetFilePath = $targetDir . $path ;
+    }else if($fileType == "bukti"){
+        $path = "bukti-" . $path;
+        $targetFilePath = $targetDir . $path;
+    }
+    
 
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
         // Update the correct column based on the file type
-        echo "<script> alert('$fileType')</script>";
+
         if ($fileType == 'kwitansi') {
             $stmt = $db->prepare("UPDATE penduduk SET kwitansi_path = ? WHERE id = ?");
         } else {
             $stmt = $db->prepare("UPDATE penduduk SET bukti_path = ? WHERE id = ?");
         }
-        $stmt->execute([$fileName, $residentId]);
+        $stmt->execute([$path, $residentId]);
         
-        header("location:keuangan_deposit.php");
     } else {
         
     }
 }
+header("Location: keuangan_deposit.php");
 ?>

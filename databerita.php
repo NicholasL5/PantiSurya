@@ -37,9 +37,9 @@
             // echo var_dump($success);
 
             //Resize and Compress Image
-            list($width, $height, $type) = getimagesize($file);
-            $img = resize_image($file, $width, $height, TRUE);
-            imagejpeg($img, $file, 90);
+            //list($width, $height, $type) = getimagesize($file);
+            //$img = resize_image($file, $width, $height, TRUE);
+            //imagejpeg($img, $file, 90);
             // echo "test";
 
             $profilePictureDirectory = $file;
@@ -84,6 +84,7 @@
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
+                <?php include 'nav2.php' ?>
                 <div class="pad">
                     <h1>Data Berita</h1>
                     
@@ -93,7 +94,7 @@
                         </form>
 
                         <div class="button-group">
-                            <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser">Add Berita</button>
+                            <!-- <button type="button" class="btn btn-outline-primary" id="adduser" data-bs-toggle="modal" data-bs-target="#ModalAddUser">Add Berita</button> -->
                             <a href="beritaTambah.php" class="btn btn-outline-primary" type="button" id="tambahberita">Tambah Berita</a>
                         </div>
                         
@@ -191,7 +192,12 @@
         feather.replace();
     </script>
 
-
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
     <script>
         feather.replace();
     </script>

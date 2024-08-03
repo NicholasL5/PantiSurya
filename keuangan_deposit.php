@@ -1,27 +1,28 @@
 <?php
     session_start();
 
-    if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
-        header("location:login2.php");
-        exit();
-    }
-    
-    require 'utils.php';
+// var_dump($_SESSION);
+if (!isset($_COOKIE['user_login']) && !isset($_SESSION['username'])) {
+    header("location:login2.php");
+    exit();
+}
 
-    $db = new myDB();
-    $stmt_all_residents = $db->getAllPenduduk();
-    $residents = $stmt_all_residents->fetchAll(PDO::FETCH_ASSOC);
+require 'utils.php';
 
-    // Search
-    $search_results = null;
-    if(isset($_POST['search'])) {
-        $search_name = $_POST['search'];
+$db = new myDB();
+$stmt_all_residents = $db->getAllPenduduk();
+$residents = $stmt_all_residents->fetchAll(PDO::FETCH_ASSOC);
 
-        $stmt_search = $db->search($search_name);
-        $residents = $stmt_search->fetchAll(PDO::FETCH_ASSOC);
+// Search
+$search_results = null;
+if(isset($_POST['search'])) {
+    $search_name = $_POST['search'];
+
+    $stmt_search = $db->search($search_name);
+    $residents = $stmt_search->fetchAll(PDO::FETCH_ASSOC);
 
 
-    }
+}
 
 ?>
 
@@ -149,31 +150,31 @@
 
 
     <script>
-        document.getElementById('kwitansi').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const preview = document.getElementById('kwitansi-preview');
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            }
-        });
+        // document.getElementById('kwitansi').addEventListener('change', function (event) {
+        //     const file = event.target.files[0];
+        //     if (file) {
+        //         const reader = new FileReader();
+        //         reader.onload = function (e) {
+        //             const preview = document.getElementById('kwitansi-preview');
+        //             preview.src = e.target.result;
+        //             preview.style.display = 'block';
+        //         }
+        //         reader.readAsDataURL(file);
+        //     }
+        // });
 
-        document.getElementById('deposit').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const preview = document.getElementById('deposit-preview');
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            }
-        });
+        // document.getElementById('deposit').addEventListener('change', function (event) {
+        //     const file = event.target.files[0];
+        //     if (file) {
+        //         const reader = new FileReader();
+        //         reader.onload = function (e) {
+        //             const preview = document.getElementById('deposit-preview');
+        //             preview.src = e.target.result;
+        //             preview.style.display = 'block';
+        //         }
+        //         reader.readAsDataURL(file);
+        //     }
+        // });
 
 
         function previewFile() {
@@ -205,6 +206,7 @@
             uploadModal.show();
         }
 </script>
+
 </body>
 </html>
 

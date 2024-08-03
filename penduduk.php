@@ -29,8 +29,8 @@
             // echo var_dump($success);
 
             //Resize and Compress Image
-            $img = resize_image($file, 160, 160, TRUE);
-            imagejpeg($img, $file, 90);
+            //$img = resize_image($file, 160, 160, TRUE);
+            //imagejpeg($img, $file, 90);
             // echo "test";
 
             $profilePictureDirectory = $file;
@@ -70,11 +70,12 @@
     <script src="js/datapenduduk.js"></script>
     <script>
         $(document).ready(function(){
-            <?php if($_SESSION['alert'] == "success"){?>
-                myalert("Berhasil!", <?php echo $_SESSION['errormsg'] ?>, "success");
-            <?php } else { ?>  
-                myalert("Error!", <?php echo $_SESSION['errormsg'] ?>, "error");
-            <?php }; unset($_SESSION['alert']); unset($_SESSION['errormsg']);?>
+            <?php if(!empty($_SESSION['alert'])){ ?>
+            <?php if($_SESSION['alert'] == "success" && empty($_SESSION['errormsg'])){?>
+                myalert("Berhasil!", '<?php echo ", ".implode($_SESSION['successmsg']) ?>', "success");
+            <?php } elseif($_SESSION['alert'] == "fail" || !empty($_SESSION['errormsg'])) { ?>  
+                myalert("Error!", '<?php echo ", ".implode($_SESSION['errormsg']) ?>', "error");
+            <?php }; unset($_SESSION['alert']); unset($_SESSION['errormsg']); };?>
 
             function myalert(titles, texts, icons){
                 Swal.fire({
@@ -94,7 +95,7 @@
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
-                
+            <?php include 'nav2.php' ?>
                 <div class="pad">
                     <h1>Data Penghuni</h1>
                     
@@ -214,6 +215,11 @@
    
         feather.replace();
     </script>
-    
+    <script>
+    document.getElementById('mybtn').addEventListener('click', function() {
+        var holder = document.querySelector('.holder');
+        holder.classList.toggle('open');
+    });
+    </script>
 </body>
 </html>

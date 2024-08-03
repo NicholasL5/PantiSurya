@@ -16,7 +16,7 @@ if($res->rowCount() > 0){
         <td>'.$row["tagihan_date"].'</td>
         <td>'.$row["ruangan"].'</td>
         ';
-        if($_SESSION['role'] == 0){
+        if($_SESSION['role'] == 0 || $_SESSION['role'] == 1){
             echo '<td><button type="button" class="btn btn-outline-primary upload-btn-kwitansi" data-id="'.$row['id'].'" data-kwitansi-id="'.$row['tagihan_id'].'">Upload</button></td>';
             echo '<td><button type="button" class="btn btn-outline-primary upload-btn-bukti" data-id="'.$row['id'].'" data-tagihan-id="'.$row['tagihan_id'].'">Upload</button></td>';
             echo '<td><button type="button" class="btn btn-outline-danger delete-btn" data-id="'.$row['id'].'" data-tagihan-id="'.$row['tagihan_id'].'">Delete</button></td>';

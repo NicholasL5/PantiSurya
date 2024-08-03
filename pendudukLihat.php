@@ -27,29 +27,33 @@ if (isset($_GET["id"])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['edit'])) {
         $id = $_GET["id"];
-
+        $res = $db->getPenduduk($id);
+        $fetch_data = $res->fetch(PDO::FETCH_ASSOC);
+        $errmsg = [];
+        $successmsg = [];
         if (isset($_FILES['KTP']) && $_FILES['KTP']['error'] != UPLOAD_ERR_NO_FILE) {
-            $uploadFileKTP = $uploadDirKTP . basename($_FILES['KTP']['name']);
-            echo $uploadFileKTP;
+            $ext = pathinfo($_FILES['KTP']['name'], PATHINFO_EXTENSION);
+            $savepath = 'KTP-' . $fetch_data['nama'] .'.'. $ext;
+            $uploadFileKTP = $uploadDirKTP . $savepath;
             $imageFileTypeKTP = strtolower(pathinfo($uploadFileKTP, PATHINFO_EXTENSION));
             $uploadOkKTP = 1;
 
             // Check if image file is a actual image or fake image
             $checkKTP = getimagesize($_FILES['KTP']['tmp_name']);
             if ($checkKTP === false) {
-                echo "File is not an image.";
+                $errmsg[] = "KTP File bukan image.";
                 $uploadOkKTP = 0;
             }
 
-            // Check if file already exists
-            if (file_exists($uploadFileKTP)) {
-                echo "Sorry, file already exists.";
-                $uploadOkKTP = 0;
-            }
+            // // Check if file already exists
+            // if (file_exists($uploadFileKTP)) {
+            //     $errmsg[] = "KTP file sudah ada.";
+            //     $uploadOkKTP = 0;
+            // }
 
             // Allow certain file formats
             if ($imageFileTypeKTP != 'jpg' && $imageFileTypeKTP != 'png' && $imageFileTypeKTP != 'jpeg') {
-                echo "Sorry, only JPG, JPEG, & PNG files are allowed.";
+                $errmsg[] = "KTP file harus .jpg / .png / .jpeg";
                 $uploadOkKTP = 0;
             }
 
@@ -57,34 +61,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (move_uploaded_file($_FILES['KTP']['tmp_name'], $uploadFileKTP)) {
                     // File uploaded successfully, update database
                     $db->updateGambarById($id, 'KTP', $uploadFileKTP);
+                    $successmsg[] = "File KTP berhasil disimpan";
                 } else {
-                    echo "Sorry, there was an error uploading your KTP file.";
+                    $errmsg[] = "error upload KTP ke database";
                 }
             }
         }
 
         if (isset($_FILES['KK']) && $_FILES['KK']['error'] != UPLOAD_ERR_NO_FILE) {
             
-            $uploadFileKK = $uploadDirKK . basename($_FILES['KK']['name']);
+            $ext = pathinfo($_FILES['KK']['name'], PATHINFO_EXTENSION);
+            $savepath = 'KK-' . $fetch_data['nama'] .'.'. $ext;
+            $uploadFileKK = $uploadDirKK . $savepath;
             $imageFileTypeKK = strtolower(pathinfo($uploadFileKK, PATHINFO_EXTENSION));
             $uploadOkKK = 1;
 
             // Check if image file is a actual image or fake image
             $checkKK = getimagesize($_FILES['KK']['tmp_name']);
             if ($checkKK === false) {
-                echo "File is not an image.";
+                $errmsg[] = "File KK bukan image.";
                 $uploadOkKK = 0;
             }
 
-            // Check if file already exists
-            if (file_exists($uploadFileKK)) {
-                echo "Sorry, file already exists.";
-                $uploadOkKK = 0;
-            }
+            // // Check if file already exists
+            // if (file_exists($uploadFileKK)) {
+            //     $errmsg[] = "KK file sudah ada.";
+            //     $uploadOkKK = 0;
+            // }
 
             // Allow certain file formats
             if ($imageFileTypeKK != 'jpg' && $imageFileTypeKK != 'png' && $imageFileTypeKK != 'jpeg') {
-                echo "Sorry, only JPG, JPEG, & PNG files are allowed.";
+                $errmsg[] = "KK file harus .jpg / .png / .jpeg";;
                 $uploadOkKK = 0;
             }
 
@@ -92,34 +99,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (move_uploaded_file($_FILES['KK']['tmp_name'], $uploadFileKK)) {
                     // File uploaded successfully, update database
                     $db->updateGambarById($id, 'KK', $uploadFileKK);
+                    $successmsg[] = "File KK berhasil disimpan";
                 } else {
-                    echo "Sorry, there was an error uploading your KK file.";
+                    $errmsg[] = "error upload KK ke database";
                 }
             }
         }
 
         if (isset($_FILES['BPJS']) && $_FILES['BPJS']['error'] != UPLOAD_ERR_NO_FILE) {
             
-            $uploadFileBPJS = $uploadDirBPJS . basename($_FILES['BPJS']['name']);
+            $ext = pathinfo($_FILES['BPJS']['name'], PATHINFO_EXTENSION);
+            $savepath = 'BPJS-' . $fetch_data['nama'] .'.'. $ext;
+            $uploadFileBPJS = $uploadDirBPJS . $savepath;
+
             $imageFileTypeBPJS = strtolower(pathinfo($uploadFileBPJS, PATHINFO_EXTENSION));
             $uploadOkBPJS = 1;
 
             // Check if image file is a actual image or fake image
             $checkBPJS = getimagesize($_FILES['BPJS']['tmp_name']);
             if ($checkBPJS === false) {
-                echo "File is not an image.";
+                $errmsg[] = "File is not an image.";
                 $uploadOkBPJS = 0;
             }
 
-            // Check if file already exists
-            if (file_exists($uploadFileBPJS)) {
-                echo "Sorry, file already exists.";
-                $uploadOkBPJS = 0;
-            }
+            // // Check if file already exists
+            // if (file_exists($uploadFileBPJS)) {
+            //     $errmsg[] = "BPJS file sudah ada.";
+            //     $uploadOkBPJS = 0;
+            // }
 
             // Allow certain file formats
             if ($imageFileTypeBPJS != 'jpg' && $imageFileTypeBPJS != 'png' && $imageFileTypeBPJS != 'jpeg') {
-                echo "Sorry, only JPG, JPEG, & PNG files are allowed.";
+                $errmsg[] = "BPJS file harus .jpg / .png / .jpeg";;
                 $uploadOkBPJS = 0;
             }
 
@@ -127,8 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (move_uploaded_file($_FILES['BPJS']['tmp_name'], $uploadFileBPJS)) {
                     // File uploaded successfully, update database
                     $db->updateGambarById($id, 'BPJS', $uploadFileBPJS);
+                    $successmsg[] = "File BPJS berhasil disimpan";
                 } else {
-                    echo "Sorry, there was an error uploading your BPJS file.";
+                    $errmsg[] = "error upload BPJS ke database";
                 }
             }
         }
@@ -148,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         function processWali($waliData, $db, $idx) {
             $errors = validateFields($waliData);
             if (empty($errors)) {
-                // try{
+                try{
                     $numwali = $db->getWali($_GET['id']);
                     $waliarr = $numwali->fetchAll(PDO::FETCH_ASSOC);
                     if(empty($waliarr[$idx-1])){
@@ -163,12 +175,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     
 
-                    // $_SESSION['alert'] = "success";
-                    // $_SESSION["errormsg"] = "Data berhasil disimpan";          
-                // }catch(Exception $e){
-                    // $_SESSION['alert'] = "fail";
-                    // $_SESSION["errormsg"] = $e->getMessage();
-                // };
+                    $_SESSION['alert'] = "success";
+                    $successmsg[] = "Data wali berhasil disimpan";          
+                }catch(Exception $e){
+                    $_SESSION['alert'] = "fail";
+                    $errmsg[] = $e->getMessage();
+                };
                 
             }
         }
@@ -203,10 +215,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $db->editPenduduk($noinduk, $nama, $alamat, $tempatlahir, $agama, $tanggallahir, $deposit, $tanggalmasuk, $id);
 
                 $_SESSION['alert'] = "success";
-                $_SESSION["errormsg"] = "Data berhasil disimpan";
+                $successmsg[] = "Data penduduk berhasil disimpan";
             }catch(Exception $e){
                 $_SESSION['alert'] = "fail";
-                $_SESSION["errormsg"] = $e->getMessage();
+                $errmsg[] = $e->getMessage();
             }
         }    
 
@@ -221,7 +233,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ];
             processWali($waliData, $db, $i);
         }
-
+        $_SESSION["errormsg"] = $errmsg;
+        $_SESSION["successmsg"] = $successmsg;
+        
         header("Location: penduduk.php");
         exit();
     }
@@ -241,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="layout/stylelihat.css">
     <link rel="stylesheet" href="layout/styleEdit.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <title>Panti Surya | Lihat Penghuni</title>
+    <title>Panti Surya | Lihat Penduduk</title>
     <style>
         .profile-picture {
             border-radius: 50%;
@@ -272,7 +286,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-    <script src="js/penduduk_lihat.js"></script>
+
     
 
     <div class="app">
@@ -282,22 +296,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
 
             <div class="main">
-                
+            <?php include 'nav2.php' ?>
                 <div class="pad">
                     <h1>Edit Profile</h1>
 
 
-                    <div class="profile-edit" style="padding: 2rem;">
+                    <div class="profile-edit" style="padding: 2rem; padding-right: 10rem;">
                         <div class="profile">
                             <p >Foto:</p>
-                            <img src="<?= htmlspecialchars($image['profile_picture']); ?>" alt="Profile Picture"
+                            <img src="<?php echo str_replace('../', '', $image['profile_picture']); ?>" alt="Profile Picture"
                                 class="profile-picture" onerror="showFallback(this)">
                             <img src="svg/abstract-user-flat-3.svg" alt="Fallback SVG" class="fallback-picture">
-                            <button type="button" class="btn btn-primary view">Edit Foto</button>
+                            <button type="button" class="btn btn-primary view" id="editPhotoButton">Edit Foto</button>
 
                         </div>
 
-                        <div class="description lr-9">
+                        <div class="description">
                             <div class="tab-container">
                                 <div class="tab tab-active" data-target="personal">Data diri</div>
                                 <div class="tab" data-target="kartu">Kartu</div>
@@ -412,11 +426,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 }
 
                                 echo 
-                                "
-                                <div class='mb-3' style='display:flex;justify-content:flex-end;'>
-                                <button type='button' class='btn btn-danger del' style='margin:0px;z-index: index 10;'>Delete</button>
-                                </div>";
-                                echo "</div>";
+                                    "
+                                    <div class='mb-3' style='display:flex;justify-content:flex-end;'>
+                                    ";
+                                    if (!empty($wali)) {
+                                    echo 
+                                    "
+                                        <button type='button' class='btn btn-danger delwali' data-indexwali={$fetch_wali[$index - 1]['wali_id']} style='margin:0px;z-index: index 10;'>Delete</button>
+                                    
+                                    ";
+                                    }
+                                    echo "</div>
+                                    </div>";
                             }
                             ?>
 
@@ -427,15 +448,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </form>
 
                         
-                        <h5>Pengobatan</h5>
-                        <a href="laporanobat.php?id=<?php echo $id ?>"><button type="button" class="btn btn-primary view">Lihat Rekam Medis</button></a>
-                    </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
         </div>
     </div>
+    
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="api/addPicture.php" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload File</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="resident_id" id="residentId">
+                    <input type="hidden" name="file_type" id="fileType">
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Choose file to upload</label>
+                        <input type="file" class="form-control" id="file" name="file" onchange="previewFile()">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Preview: </label>
+                        <img id="filePreview" src="" alt="Image preview" style="display: none; width: 100%; max-height: 300px;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
     
 
@@ -500,8 +548,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 document.getElementById(tab.dataset.target).classList.add('tab-content-active');
             });
         });
+        
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const residentId = urlParams.get('id');
+            
+            if (residentId) {
+                document.getElementById('residentId').value = residentId;
+            }
+        
+            document.getElementById('editPhotoButton').addEventListener('click', function() {
+                document.getElementById('fileType').value = 'profile_picture'; 
+        
+                const uploadModal = new bootstrap.Modal(document.getElementById('uploadModal'));
+                uploadModal.show();
+            });
+        });
+
+        function previewFile() {
+            const file = document.getElementById('file').files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('filePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
 
     </script>
+    <script>
+    document.getElementById('mybtn').addEventListener('click', function() {
+        var holder = document.querySelector('.holder');
+        holder.classList.toggle('open');
+    });
+    </script>
+    <script src="js/penduduk_lihat.js"></script>
 </body>
 
 </html>

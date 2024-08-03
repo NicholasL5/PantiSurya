@@ -14,8 +14,9 @@ if($res->rowCount() > 0){
         <th scope="row">'.$counter.'</th>
         <td style="width: 15%;">'.$db->formatRupiah($row["tagihan"]).'</td>
         <td style="width: 25%;">'.$row["input_date"].'</td>
-        <td style="width: 15%;">'.$row["tagihan_date"].'</td>';
-        if($_SESSION['role'] == 0){
+        <td style="width: 15%;">'.$row["tagihan_date"].'</td>
+        <td style="width: 15%;">'.$row["tanggal_transfer"].'</td>';
+        if($_SESSION['role'] == 0 || $_SESSION['role'] == 1){
             $filePath = $row["kwitansi"];
             $filePath2 = $row["image_path"];
             $penduduk = $db->getPendudukPondokkan($row["penduduk_id"]);
@@ -31,7 +32,7 @@ if($res->rowCount() > 0){
         $counter += 1;
     }
 } else {
-    echo '<tr><td colspan="6">No data found</td></tr>';
+    echo '<tr><td colspan="7">No data found</td></tr>';
 }
 ?>
 

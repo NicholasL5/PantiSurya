@@ -34,7 +34,7 @@
 </head>
 <body>
     <script src="js/dataLaporanPondokkan.js"></script>
-    <script src="js/dataLaporanPondokkanUnpaid.js"></script>
+    <!--<script src="js/dataLaporanPondokkanUnpaid.js"></script>-->
 
 
 
@@ -44,6 +44,7 @@
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
+            <?php include 'nav2.php' ?>
                 <div class="pad">
                 <h1>Laporan Pondokkan - <?php echo $resident['nama']; ?></h1>
                 
@@ -91,6 +92,7 @@
                             <th scope="col">Jumlah Tagihan</th>
                             <th scope="col">Tanggal Input Kwitansi</th>
                             <th scope="col">Tagihan Bulan</th>
+                            <th scope="col">Tanggal Transfer</th>
                             <th scope="col">Download Kwitansi</th>
                             <th scope="col">Download Bukti Transfer</th>
                             
@@ -106,7 +108,12 @@
 
         </div>
     </div>
-
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
 <script>
 document.addEventListener("DOMContentLoaded", function() {

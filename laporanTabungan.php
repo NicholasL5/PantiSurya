@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="layout/stylekeuangan.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <title>Panti Surya | Daftar Penduduk</title>
+    <title>Panti Surya | Laporan Tabungan</title>
 </head>
 <body>
     <script src="js/dataLaporanTabungan.js"></script>
@@ -52,7 +52,8 @@
             <?php include 'nav.php'?>
         
             <div class="main" style="text-align: center;">
-                <h1>Edit Balance - <?php echo $resident['nama']; ?></h1>
+            <?php include 'nav2.php' ?>
+                <h1>Edit Tabungan - <?php echo $resident['nama']; ?></h1>
                 
                 <h4>Jumlah Tabungan Sekarang: <?php echo $db->formatRupiah($uang['keuangan_tabungan']); ?></h4>
                 <div class="btn-flex-left">
@@ -80,9 +81,10 @@
                             <tr>
                             <th scope="col" width="5%">No.</th>
                             <th scope="col" >Tanggal</th>
-                            <th scope="col" width="30%">Deskripsi</th>
+                            <th scope="col" width="20%">Deskripsi</th>
                             <th scope="col">Tipe transaksi</th>
                             <th scope="col" width="15%">Jumlah</th>
+                            <th scope="col" width="15%">Saldo</th>
                             <th scope="col">Action</th>
                             
                             
@@ -101,7 +103,12 @@
             
         </div>
     </div>
-
+    <script>
+        document.getElementById('mybtn').addEventListener('click', function() {
+            var holder = document.querySelector('.holder');
+            holder.classList.toggle('open');
+        });
+    </script>
 </body>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
