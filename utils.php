@@ -33,21 +33,17 @@ class myDB
 
     public function toggleAccess($userId, $accessField) {
         try {
-            // Determine current value
             $stmt = $this->db->prepare("SELECT $accessField FROM akun WHERE id = :id");
             $stmt->execute(['id' => $userId]);
             $currentValue = $stmt->fetchColumn();
 
-            // Toggle value (1 to 0 or 0 to 1)
             $newValue = $currentValue == 1 ? 0 : 1;
 
-            // Update database
             $stmt = $this->db->prepare("UPDATE akun SET $accessField = :value WHERE id = :id");
             $stmt->execute(['value' => $newValue, 'id' => $userId]);
 
             return true;
         } catch (PDOException $e) {
-            // Handle database errors
             error_log('Database error: ' . $e->getMessage());
             return false;
         }
@@ -360,18 +356,18 @@ class myDB
     }
 
 
-    function insertNews($title, $description, $date, $path)
+    function insertNews($title, $description, $date, $path, $path2, $path3, $path4, $path5)
     {
-        $query = "INSERT INTO news (title, description, date, image_path) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO news (title, description, date, image_path, image_path2, image_path3, image_path4, image_path5) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$title, $description, $date, $path]);
+        $stmt->execute([$title, $description, $date, $path, $path2, $path3, $path4, $path5]);
     }
 
-    function editNews($title, $description, $date, $id, $path)
+    function editNews($title, $description, $date, $id, $path, $path2, $path3, $path4, $path5)
     {
-        $query = "UPDATE news SET title = ?, description = ?, date = ?, image_path = ? WHERE id = ?";
+        $query = "UPDATE news SET title = ?, description = ?, date = ?, image_path = ?, image_path2 = ?, image_path3 = ?, image_path4 = ?, image_path5 = ? WHERE id = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$title, $description, $date, $path, $id]);
+        $stmt->execute([$title, $description, $date, $path, $path2, $path3, $path4, $path5, $id]);
     }
 
     function insertPenduduk($nama, $alamat, $tanggal_masuk, $email, $noTelpon, $profilePictureDirectory)

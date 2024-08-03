@@ -43,7 +43,47 @@
 
             $profilePictureDirectory = $file;
 
-            $db->editNews($title, $description, $date, $id, $profilePictureDirectory);
+            $image2 = file_get_contents($_FILES["imageChooser2"]["tmp_name"]);
+
+            // Make file with name uniqid().jpg
+            $file_name2 = uniqid().'.png';
+            // $foto = 'poster/'.$file_name;
+            $file2 = UPLOAD_DIR.$file_name2;
+            $success2 = file_put_contents($file2, $image2);
+
+            $profilePictureDirectory2 = $file2;
+
+            $image3 = file_get_contents($_FILES["imageChooser3"]["tmp_name"]);
+
+            // Make file with name uniqid().jpg
+            $file_name3 = uniqid().'.png';
+            // $foto = 'poster/'.$file_name;
+            $file3 = UPLOAD_DIR.$file_name3;
+            $success3 = file_put_contents($file3, $image3);
+
+            $profilePictureDirectory3 = $file3;
+
+            $image4 = file_get_contents($_FILES["imageChooser4"]["tmp_name"]);
+
+            // Make file with name uniqid().jpg
+            $file_name4 = uniqid().'.png';
+            // $foto = 'poster/'.$file_name;
+            $file4 = UPLOAD_DIR.$file_name4;
+            $success4 = file_put_contents($file4, $image4);
+
+            $profilePictureDirectory4 = $file4;
+
+            $image5 = file_get_contents($_FILES["imageChooser5"]["tmp_name"]);
+
+            // Make file with name uniqid().jpg
+            $file_name5 = uniqid().'.png';
+            // $foto = 'poster/'.$file_name;
+            $file5 = UPLOAD_DIR.$file_name5;
+            $success5 = file_put_contents($file5, $image5);
+
+            $profilePictureDirectory5 = $file5;
+
+            $db->editNews($title, $description, $date, $id, $profilePictureDirectory, $profilePictureDirectory2, $profilePictureDirectory3, $profilePictureDirectory4, $profilePictureDirectory5);
             // echo "tes";
             // echo $title;
             // echo $description;
@@ -82,6 +122,37 @@
             background-image: url('<?php echo htmlspecialchars($row['image_path']); ?>');
             <?php endif; ?>
         }
+        #display-image2 {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #display-image3 {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #display-image4 {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #display-image5 {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            background-position: center;
+            background-size: cover;
+        }
     </style>
 </head>
 <body>
@@ -102,12 +173,31 @@
                     </div>
 
                     <div class="description lr-9">
-                    <h5>Foto Berita</h5>
+                    <h5>Foto Berita 1</h5>
                         <p><?php
-                        // $row = $newsItem->fetch(PDO::FETCH_ASSOC);
-                        // echo $row['image_path']; 
                         echo '<img src="' . htmlspecialchars($row['image_path']) . '" alt="Foto Berita" style="width: 300px; height: 300px;">';
                     ?></p>
+
+<h5>Foto Berita 2</h5>
+                        <p><?php
+                        echo '<img src="' . htmlspecialchars($row['image_path2']) . '" alt="Foto Berita" style="width: 300px; height: 300px;">';
+                    ?></p>
+
+<h5>Foto Berita 3</h5>
+                        <p><?php
+                        echo '<img src="' . htmlspecialchars($row['image_path3']) . '" alt="Foto Berita" style="width: 300px; height: 300px;">';
+                    ?></p>
+
+<h5>Foto Berita 4</h5>
+                        <p><?php
+                        echo '<img src="' . htmlspecialchars($row['image_path4']) . '" alt="Foto Berita" style="width: 300px; height: 300px;">';
+                    ?></p>
+
+<h5>Foto Berita 5</h5>
+                        <p><?php
+                        echo '<img src="' . htmlspecialchars($row['image_path5']) . '" alt="Foto Berita" style="width: 300px; height: 300px;">';
+                    ?></p>
+
 
                         <h5>Title</h5>
                         <p><?php
@@ -134,7 +224,42 @@
                             <input class="form-control mb-3" type="file" id="image-input"
                                 accept="image/jpeg, image/jpg, image/png" name="imageChooser">
                             <div id="display-image"></div>
-                            <!-- <small id="imageHelp" class="form-text text-muted">Upload bukti transfer (Disarankan gambar 1x1 dan menerima .png/.jpg/.jpeg)</small> -->
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label">
+
+                                </svg>Tambahkan foto berita 2</label>
+                            <input class="form-control mb-3" type="file" id="image-input"
+                                accept="image/jpeg, image/jpg, image/png" name="imageChooser2">
+                            <div id="display-image2"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label">
+
+                                </svg>Tambahkan foto berita 3</label>
+                            <input class="form-control mb-3" type="file" id="image-input"
+                                accept="image/jpeg, image/jpg, image/png" name="imageChooser3">
+                            <div id="display-image3"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label">
+
+                                </svg>Tambahkan foto berita 4</label>
+                            <input class="form-control mb-3" type="file" id="image-input"
+                                accept="image/jpeg, image/jpg, image/png" name="imageChooser4">
+                            <div id="display-image4"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label">
+
+                                </svg>Tambahkan foto berita 5</label>
+                            <input class="form-control mb-3" type="file" id="image-input"
+                                accept="image/jpeg, image/jpg, image/png" name="imageChooser5">
+                            <div id="display-image5"></div>
                         </div>
 
                     <div class="mb-3">
@@ -180,7 +305,45 @@
             });
             reader.readAsDataURL(this.files[0]);
         });
+        const image_input2 = document.querySelector("#image-input2");
+        image_input2.addEventListener("change", function() {
+            const reader2 = new FileReader();
+            reader2.addEventListener("load", () => {
+                const uploaded_image2 = reader2.result;
+                document.querySelector("#display-image2").style.backgroundImage = `url(${uploaded_image2})`;
+            });
+            reader2.readAsDataURL(this.files[0]);
+        });
 
+        const image_input3 = document.querySelector("#image-input3");
+        image_input3.addEventListener("change", function() {
+            const reader3 = new FileReader();
+            reader3.addEventListener("load", () => {
+                const uploaded_image3 = reader3.result;
+                document.querySelector("#display-image3").style.backgroundImage = `url(${uploaded_image3})`;
+            });
+            reader3.readAsDataURL(this.files[0]);
+        });
+
+        const image_input4 = document.querySelector("#image-input4");
+        image_input4.addEventListener("change", function() {
+            const reader4 = new FileReader();
+            reader4.addEventListener("load", () => {
+                const uploaded_image4 = reader4.result;
+                document.querySelector("#display-image4").style.backgroundImage = `url(${uploaded_image4})`;
+            });
+            reader4.readAsDataURL(this.files[0]);
+        });
+
+        const image_input5 = document.querySelector("#image-input5");
+        image_input5.addEventListener("change", function() {
+            const reader5 = new FileReader();
+            reader5.addEventListener("load", () => {
+                const uploaded_image5 = reader5.result;
+                document.querySelector("#display-image5").style.backgroundImage = `url(${uploaded_image5})`;
+            });
+            reader5.readAsDataURL(this.files[0]);
+        });
     </script>
 </body>
 </html>
