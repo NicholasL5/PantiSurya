@@ -320,9 +320,21 @@ class myDB
 
     function updateLastAccess($username)
     {
-        $query = "UPDATE `akun` SET last_access=? WHERE username=?";
+        // Set the default timezone to Asia/Jakarta
+        date_default_timezone_set('Asia/Jakarta');
+    
+        $query = "UPDATE `akun` SET last_access = :last_access WHERE username = :username";
         $res = $this->db->prepare($query);
-        $res->execute([date("Y-m-d"), $username]);
+    
+        // Get the current date and time in the specified timezone
+        $currentDateTime = date("Y-m-d H:i:s");
+    
+        // Bind the parameters
+        $res->bindValue(':last_access', $currentDateTime, PDO::PARAM_STR);
+        $res->bindValue(':username', $username, PDO::PARAM_STR);
+    
+        // Execute the query
+        $res->execute();
     }
 
     function addUser($username, $password, $role)
